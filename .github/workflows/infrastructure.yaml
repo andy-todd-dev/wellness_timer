@@ -36,7 +36,7 @@ jobs:
       - name: Deploy to AWS CloudFormation
         uses: badsyntax/github-action-aws-cloudformation@v1.0.2
         with:
-          stack-name: Wellness-prod
+          stack-name: Wellness-production
           template: infrastructure/cloudformations/wellness.yaml
           aws-region: eu-west-2
           apply-change-set: true
