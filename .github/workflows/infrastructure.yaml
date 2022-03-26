@@ -34,7 +34,7 @@ jobs:
           aws-region: eu-west-2
 
       - name: Deploy to AWS CloudFormation
-        uses: badsyntax/aws-cloudformation-github-deploy@v1
+        uses: badsyntax/github-action-aws-cloudformation@v1.0.2
         with:
           name: Wellness-prod
           template: infrastructure/cloudformations/wellness.yaml
