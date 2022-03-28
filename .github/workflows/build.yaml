@@ -1,0 +1,21 @@
+name: App CI
+on: 
+  push:
+    branches: [main/wellness]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::916865351479:role/wellness-builder-user-Role-192IBMAAE1IH8
+          aws-region: eu-west-2
+ 
+      
