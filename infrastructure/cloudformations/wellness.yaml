@@ -4,4 +4,4 @@ Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: wellness_ui_bucket
+      BucketName: wellness-ui-bucket
