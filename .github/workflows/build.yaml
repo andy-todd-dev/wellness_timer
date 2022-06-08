@@ -1,7 +1,10 @@
 name: App CI
 on: 
   push:
-    branches: [main/wellness]
+    branches:
+    - main
+    paths:
+    - wellnesss
   workflow_dispatch:
 jobs:
   build:
