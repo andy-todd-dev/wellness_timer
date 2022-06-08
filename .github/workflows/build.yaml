@@ -4,7 +4,7 @@ on:
     branches:
     - main
     paths:
-    - wellnesss
+    - wellness
   workflow_dispatch:
 jobs:
   build:
