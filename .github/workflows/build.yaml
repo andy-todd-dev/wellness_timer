@@ -17,21 +17,25 @@ jobs:
         with:
           node-version: 12.x
       - name: Install dependencies
+        working-directory: ./wellness
         run: npm install    
       - name: Test
+        working-directory: ./wellness
         run: npm test
         env:
           CI: true
       - name: Generate build
+        working-directory: ./wellness
         run: npm run build
       # Share artifact inside workflow
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v1
         with:
           name: wellness-build-{{ github.sha }}
-          path: build
+          path: ./wellness/build
   deploy:
     runs-on: ubuntu-latest
+    needs: build
     permissions:
       id-token: write
       contents: read
