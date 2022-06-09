@@ -52,10 +52,10 @@ jobs:
       - uses: badsyntax/github-action-aws-s3@v0.0.1
         name: Sync App files to S3
         with:
-          bucket: 'wellness-ui-bucket'
-          awsRegion: 'eu-west-2'
-          action: 'sync' # sync|clean
-          srcDir: './build' # required only if action is sync
-          filesGlob: '**/*' # required only if action is sync
+          bucket: wellness-ui-bucket
+          awsRegion: eu-west-2
+          action: sync
+          srcDir: ./build
+          filesGlob: '**/*'
  
       
