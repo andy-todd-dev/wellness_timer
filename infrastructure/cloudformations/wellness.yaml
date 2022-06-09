@@ -5,3 +5,6 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: wellness-ui-bucket
+    WebsiteConfiguration:
+      ErrorDocument: 'index.html'
+      IndexDocument: 'index.html'

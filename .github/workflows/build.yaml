@@ -31,7 +31,7 @@ jobs:
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v1
         with:
-          name: wellness-build-{{ github.sha }}
+          name: wellness-build-${{ github.sha }}
           path: ./wellness/build
   deploy:
     runs-on: ubuntu-latest
