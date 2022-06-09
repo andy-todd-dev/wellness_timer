@@ -53,9 +53,9 @@ jobs:
         name: Sync App files to S3
         with:
           bucket: 'wellness-ui-bucket'
-          aws-region: 'us-west-2'
+          awsRegion: 'us-west-2'
           action: 'sync' # sync|clean
-          src-dir: './build' # required only if action is sync
-          files-glob: '**/*' # required only if action is sync
+          srcDir: './build' # required only if action is sync
+          filesGlob: '**/*' # required only if action is sync
  
       
