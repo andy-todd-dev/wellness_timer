@@ -8,16 +8,16 @@ Resources:
       WebsiteConfiguration:
         ErrorDocument: 'index.html'
         IndexDocument: 'index.html'
-    ReadPolicy:
-      Type: 'AWS::S3::BucketPolicy'
-      Properties:
-        Bucket: !Ref S3Bucket
-        PolicyDocument:
-          Statement:
-            - Action: 's3:GetObject'
-              Effect: Allow
-              Resource: !Sub 'arn:aws:s3:::${S3Bucket}/*'
-              Principal: '*'
+  ReadPolicy:
+    Type: 'AWS::S3::BucketPolicy'
+    Properties:
+      Bucket: !Ref S3Bucket
+      PolicyDocument:
+        Statement:
+          - Action: 's3:GetObject'
+            Effect: Allow
+            Resource: !Sub 'arn:aws:s3:::${S3Bucket}/*'
+            Principal: '*'
 
   # Configure Access to CloudFroun
   CloudFrontOriginAccessIdentity:
