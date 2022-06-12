@@ -19,7 +19,15 @@ Resources:
             Resource: !Sub 'arn:aws:s3:::${S3Bucket}/*'
             Principal: '*'
 
-  # Configure Access to CloudFroun
+  HostedZone:
+    Type: 'AWS::Route53::HostedZone'
+    Properties:
+      Name: 'andytodd.dev'
+    DependsOn: [
+      CloudFrontDistribution
+    ]
+
+  # Configure Access to CloudFront
   CloudFrontOriginAccessIdentity:
     Type: 'AWS::CloudFront::CloudFrontOriginAccessIdentity'
     Properties:
