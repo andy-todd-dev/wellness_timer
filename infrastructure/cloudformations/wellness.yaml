@@ -26,6 +26,24 @@ Resources:
     DependsOn: [
       CloudFrontDistribution
     ]
+  ZoneRecords: 
+    Type: 'AWS::Route53::RecordSetGroup',
+      Properties:
+        HostedZoneId:
+          Ref: HostedZone
+        RecordSets:
+          - Type: A
+            Name: 'wellness.andytodd.dev'
+            AliasTarget:
+              HostedZoneId: "Z2FDTNDATAQYW2",
+              DNSName:
+                'Fn::GetAtt': [
+                  "CloudFrontDistribution",
+                  "DomainName"
+                ]
+      DependsOn: [
+        "HostedZone"
+      ]
 
   # Configure Access to CloudFront
   CloudFrontOriginAccessIdentity:
@@ -39,6 +57,8 @@ Resources:
     Type: 'AWS::CloudFront::Distribution'
     Properties:
       DistributionConfig:
+        Aliases:
+          - 'wellness.andytodd.dev'
         CustomErrorResponses:
           - ErrorCode: 403 # not found
             ResponseCode: 404
