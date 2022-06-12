@@ -28,22 +28,22 @@ Resources:
     ]
   ZoneRecords: 
     Type: 'AWS::Route53::RecordSetGroup'
-      Properties:
-        HostedZoneId:
-          Ref: HostedZone
-        RecordSets:
-          - Type: A
-            Name: 'wellness.andytodd.dev'
-            AliasTarget:
-              HostedZoneId: "Z2FDTNDATAQYW2"
-              DNSName:
-                'Fn::GetAtt': [
-                  "CloudFrontDistribution",
-                  "DomainName"
-                ]
-      DependsOn: [
-        "HostedZone"
-      ]
+    Properties:
+      HostedZoneId:
+        Ref: HostedZone
+      RecordSets:
+        - Type: A
+          Name: 'wellness.andytodd.dev'
+          AliasTarget:
+            HostedZoneId: "Z2FDTNDATAQYW2"
+            DNSName:
+              'Fn::GetAtt': [
+                "CloudFrontDistribution",
+                "DomainName"
+              ]
+    DependsOn: [
+      "HostedZone"
+    ]
 
   # Configure Access to CloudFront
   CloudFrontOriginAccessIdentity:
