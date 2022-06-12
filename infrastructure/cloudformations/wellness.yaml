@@ -27,7 +27,7 @@ Resources:
       CloudFrontDistribution
     ]
   ZoneRecords: 
-    Type: 'AWS::Route53::RecordSetGroup',
+    Type: 'AWS::Route53::RecordSetGroup'
       Properties:
         HostedZoneId:
           Ref: HostedZone
@@ -35,7 +35,7 @@ Resources:
           - Type: A
             Name: 'wellness.andytodd.dev'
             AliasTarget:
-              HostedZoneId: "Z2FDTNDATAQYW2",
+              HostedZoneId: "Z2FDTNDATAQYW2"
               DNSName:
                 'Fn::GetAtt': [
                   "CloudFrontDistribution",
