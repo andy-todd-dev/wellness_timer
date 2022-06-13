@@ -42,7 +42,7 @@ Resources:
   ACMCertificate: 
     Type: "AWS::CertificateManager::Certificate"
     Properties: 
-      DomainName: andytodd.dev
+      DomainName: wellness.andytodd.dev
       DomainValidationOptions:
             - DomainName: wellness.andytodd.dev
               HostedZoneId:
