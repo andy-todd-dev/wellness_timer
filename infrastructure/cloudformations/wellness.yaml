@@ -45,6 +45,20 @@ Resources:
       "HostedZone"
     ]
 
+  ACMCertificate: 
+    Type: "AWS::CertificateManager::Certificate"
+    Properties: 
+      DomainName: andytodd.dev
+      DomainValidationOptions:
+            - DomainName: wellness.andytodd.dev
+              HostedZoneId:
+                Ref: HostedZone
+      ValidationMethod: DNS
+    DependsOn: [
+      "HostedZone"
+    ]
+
+
   # Configure Access to CloudFront
   CloudFrontOriginAccessIdentity:
     Type: 'AWS::CloudFront::CloudFrontOriginAccessIdentity'
@@ -55,12 +69,17 @@ Resources:
   # Configure CloudFront
   CloudFrontDistribution:
     Type: 'AWS::CloudFront::Distribution'
+    DependsOn: [
+      "ACMCertificate"
+    ]
     Properties:
       DistributionConfig:
         Aliases:
           - 'wellness.andytodd.dev'
         ViewerCertificate:
-          CloudFrontDefaultCertificate: true
+          SslSupportMethod: sni-only
+          AcmCertificateArn: 
+            Ref: ACMCertificate
         CustomErrorResponses:
           - ErrorCode: 403 # not found
             ResponseCode: 404
