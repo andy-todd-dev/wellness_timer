@@ -23,9 +23,6 @@ Resources:
     Type: 'AWS::Route53::HostedZone'
     Properties:
       Name: 'andytodd.dev'
-    DependsOn: [
-      CloudFrontDistribution
-    ]
   ZoneRecords: 
     Type: 'AWS::Route53::RecordSetGroup'
     Properties:
@@ -41,9 +38,6 @@ Resources:
                 "CloudFrontDistribution",
                 "DomainName"
               ]
-    DependsOn: [
-      "HostedZone"
-    ]
 
   ACMCertificate: 
     Type: "AWS::CertificateManager::Certificate"
@@ -54,10 +48,6 @@ Resources:
               HostedZoneId:
                 Ref: HostedZone
       ValidationMethod: DNS
-    DependsOn: [
-      "HostedZone"
-    ]
-
 
   # Configure Access to CloudFront
   CloudFrontOriginAccessIdentity:
@@ -69,9 +59,6 @@ Resources:
   # Configure CloudFront
   CloudFrontDistribution:
     Type: 'AWS::CloudFront::Distribution'
-    DependsOn: [
-      "ACMCertificate"
-    ]
     Properties:
       DistributionConfig:
         Aliases:
