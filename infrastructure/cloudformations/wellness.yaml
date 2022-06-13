@@ -59,6 +59,8 @@ Resources:
       DistributionConfig:
         Aliases:
           - 'wellness.andytodd.dev'
+        ViewerCertificate:
+          CloudFrontDefaultCertificate: true
         CustomErrorResponses:
           - ErrorCode: 403 # not found
             ResponseCode: 404
