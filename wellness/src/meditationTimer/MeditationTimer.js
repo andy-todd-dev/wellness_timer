@@ -9,7 +9,7 @@ const MeditationTimer = () => {
   const [play] = useSound(timerFinishedSfx);
 
   const { time, start, pause, reset, status } = useTimer({
-    initialTime: 10, // 20 * 60,
+    initialTime: 20 * 60,
     timerType: "DECREMENTAL",
     endTime: 0,
     onTimeOver: play,
