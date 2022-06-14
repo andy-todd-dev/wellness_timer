@@ -2,13 +2,11 @@ import React, {useState} from "react";
 import { useTimer } from "use-timer";
 import TimerDisplay from "./TimerDisplay";
 import useSound from "use-sound";
-import useNoSleep from "use-no-sleep"
 
 import timerFinishedSfx from "../sounds/singingxbowl.wav";
 
 const MeditationTimer = () => {
   
-  useNoSleep(true);
   const [play] = useSound(timerFinishedSfx);
   const [initialTime] = useState(20 * 60);
   const { time, start, pause, reset, status } = useTimer({
