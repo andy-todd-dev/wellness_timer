@@ -5,6 +5,9 @@ function App() {
   return (
     <div className="App">
       <MeditationTimer />
+      <p style={{ fontSize: 8 }}>
+        Build: {process.env.REACT_APP_BUILD || "dev"}
+      </p>
     </div>
   );
 }

@@ -1,10 +1,10 @@
 name: App CI
-on: 
+on:
   push:
     branches:
-    - main
+      - main
     paths:
-    - wellness/**
+      - wellness/**
   workflow_dispatch:
 jobs:
   build:
@@ -18,7 +18,7 @@ jobs:
           node-version: 12.x
       - name: Install dependencies
         working-directory: ./wellness
-        run: npm install    
+        run: npm install
       - name: Test
         working-directory: ./wellness
         run: npm test
@@ -27,6 +27,8 @@ jobs:
       - name: Generate build
         working-directory: ./wellness
         run: npm run build
+        env:
+          REACT_APP_BUILD: ${{ github.sha }}
       # Share artifact inside workflow
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v1
@@ -56,6 +58,5 @@ jobs:
           awsRegion: us-east-1
           action: sync
           srcDir: ./build
-          filesGlob: '**/*'
- 
-      
+          filesGlob: "**/*"
+          cacheControl: 'no-cache'
