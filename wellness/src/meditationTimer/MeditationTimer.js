@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useTimer } from "use-timer";
 import TimerDisplay from "./TimerDisplay";
 import useSound from "use-sound";
@@ -8,8 +8,10 @@ import timerFinishedSfx from "../sounds/singingxbowl.wav";
 const MeditationTimer = () => {
   const [play] = useSound(timerFinishedSfx);
 
+  const [initialTime] = useState(20 * 60);
+
   const { time, start, pause, reset, status } = useTimer({
-    initialTime: 20 * 60,
+    initialTime: initialTime,
     timerType: "DECREMENTAL",
     endTime: 0,
     onTimeOver: play,
