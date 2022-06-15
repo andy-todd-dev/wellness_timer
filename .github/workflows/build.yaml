@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+    pull_request:
     paths:
       - wellness/**
   workflow_dispatch:
@@ -36,6 +37,7 @@ jobs:
           name: wellness-build-${{ github.sha }}
           path: ./wellness/build
   deploy:
+    if: github.repository == 'andy-todd-dev/wellness_tracker' && (github.ref =='refs/heads/main')
     runs-on: ubuntu-latest
     needs: build
     permissions:
@@ -59,4 +61,4 @@ jobs:
           action: sync
           srcDir: ./build
           filesGlob: "**/*"
-          cacheControl: 'no-cache'
+          cacheControl: "no-cache"
