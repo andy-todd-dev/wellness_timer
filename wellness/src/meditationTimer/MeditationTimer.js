@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useTimer } from "use-timer";
 import TimerDisplay from "./TimerDisplay";
 import useSound from "use-sound";
-import { acquireWakeLock, releaseWakeLock } from "./wakelock";
+
 
 import timerFinishedSfx from "../sounds/singingxbowl.wav";
 
-const MeditationTimer = () => {
+const MeditationTimer = ({ onPause, onPlay, onComplete}) => {
   const [play] = useSound(timerFinishedSfx);
   const [initialTime] = useState(20 * 60);
   const { time, start, pause, reset, status } = useTimer({
@@ -15,7 +15,7 @@ const MeditationTimer = () => {
     endTime: 0,
     onTimeOver: () => {
       play();
-      releaseWakeLock();
+      onComplete && onComplete();
     },
   });
 
@@ -25,8 +25,8 @@ const MeditationTimer = () => {
       {status !== "RUNNING" && (
         <button
           onClick={() => {
-            acquireWakeLock();
             start();
+            onPlay && onPlay();
           }}
         >
           Start
@@ -35,8 +35,8 @@ const MeditationTimer = () => {
       {status === "RUNNING" && (
         <button
           onClick={() => {
-            releaseWakeLock();
             pause();
+            onPause && onPause();
           }}
         >
           Pause
