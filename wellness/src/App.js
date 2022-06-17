@@ -1,6 +1,7 @@
 import "./App.css";
 import MeditationTimer from "./meditationTimer/MeditationTimer";
 import { useWakeLock } from "react-screen-wake-lock";
+import "semantic-ui-css/semantic.min.css";
 
 function App() {
   const {
