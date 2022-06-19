@@ -23,7 +23,7 @@ function App() {
             <th>Build</th>
             <td>
               {(process.env.REACT_APP_BUILD &&
-                process.env.REACT_APP_BUILD.substring(0, 5)) ||
+                process.env.REACT_APP_BUILD.substring(0, 7)) ||
                 "dev"}
             </td>
           </tr>

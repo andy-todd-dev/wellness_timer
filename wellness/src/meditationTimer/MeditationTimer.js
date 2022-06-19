@@ -24,26 +24,26 @@ const MeditationTimer = ({ onPause, onPlay, onComplete }) => {
       <TimerDisplay duration={time} />
       {status !== "RUNNING" && (
         <Button
+          icon="play"
+          circular={true}
           onClick={() => {
             start();
             onPlay && onPlay();
           }}
-        >
-          Start
-        </Button>
+        />
       )}
       {status === "RUNNING" && (
         <Button
+          icon="pause"
+          circular={true}
           onClick={() => {
             pause();
             onPause && onPause();
           }}
-        >
-          Pause
-        </Button>
+        />
       )}
       {(status === "PAUSED" || time === 0) && (
-        <Button onClick={reset}>Reset</Button>
+        <Button onClick={reset} icon="redo" circular={true} />
       )}
     </div>
   );

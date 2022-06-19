@@ -10,3 +10,20 @@ table.devData th,
 td {
   font-size: small;
 }
+
+@media screen and (max-width: 400px) {
+  .timer-display h1 {
+    font-size: 32vw;
+  }
+  .meditation-timer .ui.button {
+    font-size: 1.5rem;
+  }
+}
+@media screen and (min-width: 401px) {
+  .timer-display h1 {
+    font-size: 20vw;
+  }
+  .meditation-timer .ui.button {
+    font-size: 1.7rem;
+  }
+}

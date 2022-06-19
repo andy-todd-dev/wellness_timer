@@ -1,17 +1,14 @@
 import React from "react";
+import useFitText from "use-fit-text";
 
 const TimerDisplay = ({ duration }) => {
-  const hours = Math.floor(duration / 3600);
-  const minutes = Math.floor((duration - hours * 3600) / 60);
-  const seconds = duration - (hours * 3600 + minutes * 60);
+  const { fontSize, ref } = useFitText();
+
+  const minutes = Math.floor(duration / 60);
+  const seconds = duration - minutes * 60;
   return (
     <div className="timer-display">
-      <h1>
-        {hours.toLocaleString(undefined, {
-          minimumIntegerDigits: 2,
-          useGrouping: false,
-        })}
-        :
+      <h1> 
         {minutes.toLocaleString(undefined, {
           minimumIntegerDigits: 2,
           useGrouping: false,
