@@ -1,8 +1,6 @@
 import React from "react";
-import useFitText from "use-fit-text";
 
 const TimerDisplay = ({ duration }) => {
-  const { fontSize, ref } = useFitText();
 
   const minutes = Math.floor(duration / 60);
   const seconds = duration - minutes * 60;
