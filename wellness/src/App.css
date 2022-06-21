@@ -1,3 +1,19 @@
+div.meditation-timer {
+  width: fit-content;
+  margin: auto;
+}
+
+div.timerButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+div.timerButtonsRunning {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .App {
   text-align: center;
 }
