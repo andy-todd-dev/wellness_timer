@@ -9,7 +9,7 @@ import timerFinishedSfx from "../sounds/singingxbowl.wav";
 const MeditationTimer = ({ onPause, onPlay, onComplete }) => {
   const [play] = useSound(timerFinishedSfx);
 
-  const [initialTime, setInitialTime] = useState(60);
+  const [initialTime, setInitialTime] = useState(1200);
 
   const { time, start, pause, reset, status } = useTimer({
     initialTime,
