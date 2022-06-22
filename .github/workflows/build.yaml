@@ -19,6 +19,8 @@ jobs:
           node-version: 12.x
       - name: Install dependencies
         working-directory: ./wellness
+        env:
+          GH_REG_TOKEN: ${{ secrets.GH_REG_TOKEN }}
         run: npm install
       - name: Test
         working-directory: ./wellness
@@ -30,7 +32,7 @@ jobs:
         run: npm run build
         env:
           REACT_APP_BUILD: ${{ github.sha }}
-          REACT_APP_MT_EDIT_BUTTONS_ENABLED: ${{ false }}
+          REACT_APP_MT_EDIT_BUTTONS_ENABLED: ${{ true }}
       # Share artifact inside workflow
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v1

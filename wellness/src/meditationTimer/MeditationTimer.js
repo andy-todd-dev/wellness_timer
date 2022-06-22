@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import TimerDisplay from "./TimerDisplay";
 import useSound from "use-sound";
 import { Button } from "semantic-ui-react";
-import { useTimer } from "use-timer";
+import { useTimer } from "@andy-todd-dev/use-timer";
 
 import timerFinishedSfx from "../sounds/singingxbowl.wav";
 
