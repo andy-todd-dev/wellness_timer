@@ -6,7 +6,12 @@ import { useTimer } from "use-timer";
 
 import timerFinishedSfx from "../sounds/singingxbowl.wav";
 
-const MeditationTimer = ({ onPause, onPlay, onComplete }) => {
+const MeditationTimer = ({
+  onPause,
+  onPlay,
+  onComplete,
+  enableEditTimerButtons,
+}) => {
   const [play] = useSound(timerFinishedSfx);
 
   const [initialTime, setInitialTime] = useState(1200);
@@ -35,10 +40,12 @@ const MeditationTimer = ({ onPause, onPlay, onComplete }) => {
 
       <div
         className={
-          isStopped && time > 0 ? "timerButtons" : "timerButtonsRunning"
+          enableEditTimerButtons && isStopped && time > 0
+            ? "timerButtons"
+            : "timerButtonsRunning"
         }
       >
-        {isStopped && time > 0 && (
+        {enableEditTimerButtons && isStopped && time > 0 && (
           <div className="backButtons">
             <Button
               icon="fast backward"
@@ -83,7 +90,7 @@ const MeditationTimer = ({ onPause, onPlay, onComplete }) => {
           )}
         </div>
 
-        {isStopped && time > 0 && (
+        {enableEditTimerButtons && isStopped && time > 0 && (
           <div className="forwardButtons">
             <Button
               icon="step forward"

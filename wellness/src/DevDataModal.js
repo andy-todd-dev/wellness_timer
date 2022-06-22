@@ -22,9 +22,6 @@ const DevDataModal = ({
             <tr>
               <th>Build</th>
               <td>{buildName}</td>
-              {/* {(process.env.REACT_APP_BUILD &&
-                  process.env.REACT_APP_BUILD.substring(0, 7)) ||
-                  "dev"} */}
             </tr>
             <tr>
               <th>Wake lock</th>

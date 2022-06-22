@@ -5,6 +5,7 @@ import { useWakeLock } from "react-screen-wake-lock";
 import "semantic-ui-css/semantic.min.css";
 import DevDataModal from "./DevDataModal";
 import { Button } from "semantic-ui-react";
+import Config from "./Config";
 
 function App() {
   const {
@@ -21,6 +22,7 @@ function App() {
         onComplete={releaseWakeLock}
         onPause={releaseWakeLock}
         onPlay={acquireWakeLock}
+        enableEditTimerButtons={Config.meditationTimer.editTimerButtonsEnabled}
       />
       <DevDataModal
         onClose={() => {
@@ -28,18 +30,10 @@ function App() {
         }}
         isOpen={isOpen}
         wakeLockIsSupported={isSupported}
-        buildName={
-          (process.env.REACT_APP_BUILD &&
-            process.env.REACT_APP_BUILD.substring(0, 7)) ||
-          "dev"
-        }
+        buildName={Config.buildName}
       >
         <div className="devDataButton">
-          <Button
-            icon="info"
-            size="tiny"
-            onClick={() => setIsOpen(true)}
-          />
+          <Button icon="info" size="tiny" onClick={() => setIsOpen(true)} />
         </div>
       </DevDataModal>
     </div>
