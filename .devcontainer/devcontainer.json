@@ -16,6 +16,15 @@
     "vscode": {
       // Add the IDs of extensions you want installed when the container is created.
       "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+    },
+    "codespaces": {
+      "repositories": {
+        "andy-todd-dev/use-timer": {
+          "permissions": {
+            "packages": "read"
+          }
+        }
+      }
     }
   },
 
