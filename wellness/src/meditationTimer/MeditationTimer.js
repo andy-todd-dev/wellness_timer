@@ -9,11 +9,12 @@ import timerFinishedSfx from "../sounds/singingxbowl.wav";
 const MeditationTimer = ({ onPause, onPlay, onComplete }) => {
   const [play] = useSound(timerFinishedSfx);
 
-  const [initialTime, setInitialTime] = useState(1200);
+  const [initialTime, setInitialTime] = useState(60);
 
   const { time, start, pause, reset, status } = useTimer({
-    initialTime: initialTime,
+    initialTime,
     timerType: "DECREMENTAL",
+    endTime: 0,
     onTimeOver: () => {
       play();
       onComplete();
@@ -77,7 +78,9 @@ const MeditationTimer = ({ onPause, onPlay, onComplete }) => {
               }}
             />
           )}
-          {isPaused && <Button onClick={reset} icon="redo" circular={true} />}
+          {(isPaused || (isStopped && time === 0)) && (
+            <Button onClick={reset} icon="redo" circular={true} />
+          )}
         </div>
 
         {isStopped && time > 0 && (
@@ -87,7 +90,6 @@ const MeditationTimer = ({ onPause, onPlay, onComplete }) => {
               circular={true}
               onClick={() => {
                 setInitialTime(initialTime + 60);
-                // restart(Date.now() / 1000 + time + 60, false);
               }}
             />
 
@@ -96,7 +98,6 @@ const MeditationTimer = ({ onPause, onPlay, onComplete }) => {
               circular={true}
               onClick={() => {
                 setInitialTime(initialTime + 600);
-                // restart(Date.now() / 1000 + time + 600, false);
               }}
             />
           </div>
