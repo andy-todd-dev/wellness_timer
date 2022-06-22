@@ -27,12 +27,14 @@ jobs:
         run: npm test
         env:
           CI: true
+          GH_REG_TOKEN: foo
       - name: Generate build
         working-directory: ./wellness
         run: npm run build
         env:
           REACT_APP_BUILD: ${{ github.sha }}
           REACT_APP_MT_EDIT_BUTTONS_ENABLED: ${{ true }}
+          GH_REG_TOKEN: foo
       # Share artifact inside workflow
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v1
