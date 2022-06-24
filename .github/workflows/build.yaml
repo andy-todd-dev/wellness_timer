@@ -20,7 +20,6 @@ jobs:
       - name: Install dependencies
         working-directory: ./wellness
         env:
-          GH_REG_TOKEN: ${{ secrets.GH_REG_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm install
       - name: Test
@@ -29,7 +28,6 @@ jobs:
         env:
           CI: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REG_TOKEN: foo
       - name: Generate build
         working-directory: ./wellness
         run: npm run build
@@ -37,7 +35,6 @@ jobs:
           REACT_APP_BUILD: ${{ github.sha }}
           REACT_APP_MT_EDIT_BUTTONS_ENABLED: ${{ true }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REG_TOKEN: foo
       # Share artifact inside workflow
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v1
