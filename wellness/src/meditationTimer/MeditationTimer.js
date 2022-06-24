@@ -53,6 +53,7 @@ const MeditationTimer = ({
               onClick={() => {
                 setInitialTime(initialTime - 600);
               }}
+              disabled={time <= 600}
             />
             <Button
               icon="step backward"
@@ -60,6 +61,7 @@ const MeditationTimer = ({
               onClick={() => {
                 setInitialTime(initialTime - 60);
               }}
+              disabled={time <= 60}
             />
           </div>
         )}
@@ -98,6 +100,7 @@ const MeditationTimer = ({
               onClick={() => {
                 setInitialTime(initialTime + 60);
               }}
+              disabled={time >= 99 * 60}
             />
 
             <Button
@@ -106,6 +109,7 @@ const MeditationTimer = ({
               onClick={() => {
                 setInitialTime(initialTime + 600);
               }}
+              disabled={time >= 90 * 60}
             />
           </div>
         )}
