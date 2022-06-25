@@ -1,13 +1,10 @@
 import React from "react";
+import { useWakeLock } from "react-screen-wake-lock";
 import { Modal } from "semantic-ui-react";
+import Config from "./Config";
 
-const DevDataModal = ({
-  children,
-  isOpen,
-  onClose,
-  wakeLockIsSupported,
-  buildName,
-}) => {
+const DevDataModal = ({ children, isOpen, onClose }) => {
+  const { isSupported: wakeLockIsSupported } = useWakeLock();
   return (
     <Modal
       basic
@@ -21,7 +18,7 @@ const DevDataModal = ({
           <tbody>
             <tr>
               <th>Build</th>
-              <td>{buildName}</td>
+              <td>{Config.buildName}</td>
             </tr>
             <tr>
               <th>Wake lock</th>

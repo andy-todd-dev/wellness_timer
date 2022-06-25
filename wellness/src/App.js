@@ -1,42 +1,49 @@
 import "./App.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import MeditationTimer from "./meditationTimer/MeditationTimer";
 import { useWakeLock } from "react-screen-wake-lock";
 import "semantic-ui-css/semantic.min.css";
-import DevDataModal from "./DevDataModal";
-import { Button } from "semantic-ui-react";
+import { Button, Icon, Ref } from "semantic-ui-react";
 import Config from "./Config";
+import UserMenu from "./menu/UserMenu";
 
 function App() {
-  const {
-    isSupported,
-    release: releaseWakeLock,
-    request: acquireWakeLock,
-  } = useWakeLock();
+  const { release: releaseWakeLock, request: acquireWakeLock } = useWakeLock();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [menuIsVisible, setMenuIsVisible] = useState(false);
+  const mainRef = useRef();
 
   return (
-    <div className="App">
-      <MeditationTimer
-        onComplete={releaseWakeLock}
-        onPause={releaseWakeLock}
-        onPlay={acquireWakeLock}
-        enableEditTimerButtons={Config.meditationTimer.editTimerButtonsEnabled}
+    <>
+      <UserMenu
+        direction={"left"}
+        animation={"overlay"}
+        visible={menuIsVisible}
+        closeOnClick={mainRef}
+        onHide={() => setMenuIsVisible(false)}
       />
-      <DevDataModal
-        onClose={() => {
-          setIsOpen(false);
-        }}
-        isOpen={isOpen}
-        wakeLockIsSupported={isSupported}
-        buildName={Config.buildName}
-      >
-        <div className="devDataButton">
-          <Button icon="info" size="tiny" onClick={() => setIsOpen(true)} />
+      <Ref innerRef={mainRef}>
+        <div className="App">
+          <Icon
+            // as={"div"}
+            className="burger"
+            name="bars"
+            size="large"
+            onClick={() => {
+              setMenuIsVisible(!menuIsVisible);
+            }}
+          />
+          <MeditationTimer
+            onComplete={releaseWakeLock}
+            onPause={releaseWakeLock}
+            onPlay={acquireWakeLock}
+            enableEditTimerButtons={
+              Config.meditationTimer.editTimerButtonsEnabled
+            }
+          />
         </div>
-      </DevDataModal>
-    </div>
+      </Ref>
+    </>
   );
 }
 

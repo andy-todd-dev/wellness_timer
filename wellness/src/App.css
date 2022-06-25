@@ -1,6 +1,24 @@
+html,
+body,
+div.root {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.burger {
+  padding-top: 2vh;
+  padding-left: 5vw;
+}
+
 div.meditation-timer {
   width: fit-content;
-  margin: auto;
+  /* margin: auto; */
 }
 
 div.timerButtons {
@@ -12,10 +30,6 @@ div.timerButtonsRunning {
   display: flex;
   flex-direction: row;
   justify-content: center;
-}
-
-.App {
-  text-align: center;
 }
 
 .devDataButton {
@@ -47,4 +61,9 @@ td {
   .meditation-timer .ui.button {
     font-size: 1.7rem;
   }
+}
+
+.meditation-timer {
+  align-self: center;
+  padding-top: 4vh;
 }
