@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import MeditationTimer from "./meditationTimer/MeditationTimer";
 import { useWakeLock } from "react-screen-wake-lock";
 import "semantic-ui-css/semantic.min.css";
-import { Button, Icon, Ref } from "semantic-ui-react";
+import { Icon, Ref } from "semantic-ui-react";
 import Config from "./Config";
 import UserMenu from "./menu/UserMenu";
 
