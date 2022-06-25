@@ -46,6 +46,14 @@ td {
   font-size: small;
 }
 
+.info {
+  text-align: center;
+}
+
+.credits {
+  padding-top: 15px;
+}
+
 @media screen and (max-width: 400px) {
   .timer-display h1 {
     font-size: 32vw;
@@ -66,4 +74,16 @@ td {
 .meditation-timer {
   align-self: center;
   padding-top: 4vh;
+}
+
+h1 img.logo {
+  height: 1em;
+  background-color: white;
+}
+
+.menu div.logo {
+  text-align: center;
+}
+.menu div.logo img {
+  background-color: white;
 }

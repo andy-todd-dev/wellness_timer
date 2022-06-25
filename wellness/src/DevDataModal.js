@@ -1,7 +1,8 @@
 import React from "react";
 import { useWakeLock } from "react-screen-wake-lock";
-import { Modal } from "semantic-ui-react";
+import { Icon, Modal } from "semantic-ui-react";
 import Config from "./Config";
+import lotus from "./images/lotus.png";
 
 const DevDataModal = ({ children, isOpen, onClose }) => {
   const { isSupported: wakeLockIsSupported } = useWakeLock();
@@ -13,7 +14,19 @@ const DevDataModal = ({ children, isOpen, onClose }) => {
       onClose={onClose}
       closeOnDocumentClick={true}
     >
-      <Modal.Content>
+      <Modal.Content className="info">
+        <h1>
+          Wellness Toolkit <img className="logo" src={lotus} alt="Logo" />
+        </h1>
+        <a
+          href="https://github.com/andy-todd-dev/wellness_tracker"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Icon name="github" />
+          https://github.com/andy-todd-dev/wellness_tracker
+        </a>
+        <h2>Debug properties</h2>
         <table className="devData">
           <tbody>
             <tr>
@@ -26,6 +39,15 @@ const DevDataModal = ({ children, isOpen, onClose }) => {
             </tr>
           </tbody>
         </table>
+        <div className="credits">
+          <h2>Credits</h2>
+          <a
+            href="https://www.flaticon.com/free-icons/lotus"
+            title="lotus icons"
+          >
+            Lotus icons created by Freepik - Flaticon
+          </a>
+        </div>
       </Modal.Content>
     </Modal>
   );

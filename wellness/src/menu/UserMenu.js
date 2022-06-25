@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Sidebar, Menu, Icon } from "semantic-ui-react";
 import DevDataModal from "../DevDataModal";
+import lotus from "../images/lotus.png";
 
 const UserMenu = ({ visible, direction, animation, closeOnClick, onHide }) => {
   const [devDataIsOpen, setDevDataIsOpen] = useState(false);
@@ -17,6 +18,9 @@ const UserMenu = ({ visible, direction, animation, closeOnClick, onHide }) => {
       target={closeOnClick}
       onHide={onHide}
     >
+      <Menu.Item className="logo">
+        <img src={lotus} alt="Logo" />
+      </Menu.Item>
       <Menu.Item as={"a"}>
         <Icon name="hourglass two" />
       </Menu.Item>
