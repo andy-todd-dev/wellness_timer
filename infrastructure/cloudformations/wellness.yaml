@@ -6,71 +6,68 @@ Resources:
     Properties:
       BucketName: wellness-ui
       WebsiteConfiguration:
-        ErrorDocument: 'index.html'
-        IndexDocument: 'index.html'
+        ErrorDocument: "index.html"
+        IndexDocument: "index.html"
   ReadPolicy:
-    Type: 'AWS::S3::BucketPolicy'
+    Type: "AWS::S3::BucketPolicy"
     Properties:
       Bucket: !Ref S3Bucket
       PolicyDocument:
         Statement:
-          - Action: 's3:GetObject'
+          - Action: "s3:GetObject"
             Effect: Allow
-            Resource: !Sub 'arn:aws:s3:::${S3Bucket}/*'
-            Principal: '*'
+            Resource: !Sub "arn:aws:s3:::${S3Bucket}/*"
+            Principal: "*"
 
   HostedZone:
-    Type: 'AWS::Route53::HostedZone'
+    Type: "AWS::Route53::HostedZone"
     Properties:
-      Name: 'andytodd.dev'
-  ZoneRecords: 
-    Type: 'AWS::Route53::RecordSetGroup'
+      Name: "andytodd.dev"
+  ZoneRecords:
+    Type: "AWS::Route53::RecordSetGroup"
     Properties:
       HostedZoneId:
         Ref: HostedZone
       RecordSets:
         - Type: A
-          Name: 'wellness.andytodd.dev'
+          Name: "wellness.andytodd.dev"
           AliasTarget:
             HostedZoneId: "Z2FDTNDATAQYW2"
             DNSName:
-              'Fn::GetAtt': [
-                "CloudFrontDistribution",
-                "DomainName"
-              ]
+              "Fn::GetAtt": ["CloudFrontDistribution", "DomainName"]
 
-  ACMCertificate: 
+  ACMCertificate:
     Type: "AWS::CertificateManager::Certificate"
-    Properties: 
+    Properties:
       DomainName: wellness.andytodd.dev
       DomainValidationOptions:
-            - DomainName: wellness.andytodd.dev
-              HostedZoneId:
-                Ref: HostedZone
+        - DomainName: wellness.andytodd.dev
+          HostedZoneId:
+            Ref: HostedZone
       ValidationMethod: DNS
 
   # Configure Access to CloudFront
   CloudFrontOriginAccessIdentity:
-    Type: 'AWS::CloudFront::CloudFrontOriginAccessIdentity'
+    Type: "AWS::CloudFront::CloudFrontOriginAccessIdentity"
     Properties:
       CloudFrontOriginAccessIdentityConfig:
         Comment: !Ref S3Bucket
 
   # Configure CloudFront
   CloudFrontDistribution:
-    Type: 'AWS::CloudFront::Distribution'
+    Type: "AWS::CloudFront::Distribution"
     Properties:
       DistributionConfig:
         Aliases:
-          - 'wellness.andytodd.dev'
+          - "wellness.andytodd.dev"
         ViewerCertificate:
           SslSupportMethod: sni-only
-          AcmCertificateArn: 
+          AcmCertificateArn:
             Ref: ACMCertificate
         CustomErrorResponses:
           - ErrorCode: 403 # not found
             ResponseCode: 404
-            ResponsePagePath: '/index.html'
+            ResponsePagePath: "/index.html"
         DefaultCacheBehavior:
           AllowedMethods:
             - GET
@@ -89,14 +86,35 @@ Resources:
           MaxTTL: 86400 # in seconds
           MinTTL: 60 # in seconds
           TargetOriginId: s3origin
-          ViewerProtocolPolicy: 'allow-all'
+          ViewerProtocolPolicy: "allow-all"
         # This DefaultRootObject configuration is not enough.
-        DefaultRootObject: '/index.html'
+        DefaultRootObject: "/index.html"
         Enabled: true
         HttpVersion: http2
         Origins:
-          - DomainName: !GetAtt 'S3Bucket.DomainName'
+          - DomainName: !GetAtt "S3Bucket.DomainName"
             Id: s3origin
             S3OriginConfig:
-              OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}'
-        PriceClass: 'PriceClass_All'
+              OriginAccessIdentity: !Sub "origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}"
+        PriceClass: "PriceClass_All"
+
+  UserPool:
+    Type: "AWS::Cognito::UserPool"
+    Properties:
+      UserPoolName: wellness-user-pool
+      Schema:
+        - Name: name
+          AttributeDataType: String
+          Mutable: true
+          Required: true
+        - Name: email
+          AttributeDataType: String
+          Mutable: false
+          Required: true
+
+  UserPoolClient:
+    Type: "AWS::Cognito::UserPoolClient"
+    Properties:
+      ClientName: wellness-client
+      GenerateSecret: false
+      UserPoolId: !Ref UserPool
