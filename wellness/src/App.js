@@ -6,6 +6,10 @@ import "semantic-ui-css/semantic.min.css";
 import { Icon, Ref } from "semantic-ui-react";
 import Config from "./Config";
 import UserMenu from "./menu/UserMenu";
+import Amplify from "aws-amplify";
+import awsConfig from "./aws-config";
+
+Amplify.configure(awsConfig);
 
 function App() {
   const { release: releaseWakeLock, request: acquireWakeLock } = useWakeLock();
@@ -25,7 +29,6 @@ function App() {
       <Ref innerRef={mainRef}>
         <div className="App">
           <Icon
-            // as={"div"}
             className="burger"
             name="bars"
             size="large"
