@@ -20,7 +20,7 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    if: github.repository == 'andy-todd-dev/wellness_tracker' && (github.ref =='refs/heads/main')
+    if: github.repository == 'andy-todd-dev/wellness_timer' && (github.ref =='refs/heads/main')
 
     permissions:
       id-token: write
