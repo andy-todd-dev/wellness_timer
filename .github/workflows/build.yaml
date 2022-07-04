@@ -42,7 +42,7 @@ jobs:
           name: wellness-build-${{ github.sha }}
           path: ./wellness/build
   deploy:
-    if: github.repository == 'andy-todd-dev/wellness_tracker' && (github.ref =='refs/heads/main')
+    if: github.repository == 'andy-todd-dev/wellness_timer' && (github.ref =='refs/heads/main')
     runs-on: ubuntu-latest
     needs: build
     permissions:
