@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import useLocalStorage from "use-local-storage";
 import TimerDisplay from "./TimerDisplay";
 import useSound from "use-sound";
 import { Button } from "semantic-ui-react";
@@ -15,7 +16,10 @@ const MeditationTimer = ({
 }) => {
   const [play] = useSound(timerFinishedSfx);
 
-  const [initialTime, setInitialTime] = useState(1200);
+  const [initialTime, setInitialTime] = useLocalStorage(
+    "timer-initial-time",
+    1200
+  );
 
   const { time, start, pause, reset, status } = useTimer({
     initialTime,
