@@ -15,9 +15,8 @@ const DevDataModal = ({ children, isOpen, onClose }) => {
       closeOnDocumentClick={true}
     >
       <Modal.Content className="info">
-        <h1>
-          Wellness Timer <img className="logo" src={lotus} alt="Logo" />
-        </h1>
+        <h1>Wellness Timer</h1>
+        <img className="logo" src={lotus} alt="Logo" />
         <a
           href="https://github.com/andy-todd-dev/wellness_tracker"
           target="_blank"

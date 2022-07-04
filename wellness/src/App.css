@@ -77,9 +77,12 @@ td {
   padding-top: 4vh;
 }
 
-h1 img.logo {
-  height: 1em;
+img.logo {
+  height: 2em;
   background-color: white;
+  display: block;
+  margin: auto;
+  margin-bottom: 10px;
 }
 
 .menu div.logo {
