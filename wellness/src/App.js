@@ -6,6 +6,7 @@ import "semantic-ui-css/semantic.min.css";
 import { Icon } from "semantic-ui-react";
 import Config from "./Config";
 import DevDataModal from "./DevDataModal";
+import background from "./images/water_bg.jpg";
 
 function App() {
   const { release: releaseWakeLock, request: acquireWakeLock } = useWakeLock();
@@ -15,7 +16,14 @@ function App() {
 
   return (
     <>
-      <div className="App">
+      <div
+        className="App"
+        style={{
+          backgroundImage: `url(${background})`,
+          backgroundRepeat: false,
+          backgroundSize: "100% 100%",
+        }}
+      >
         <DevDataModal
           onClose={() => {
             setDevDataIsOpen(false);
