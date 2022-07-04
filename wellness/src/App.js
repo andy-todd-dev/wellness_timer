@@ -1,48 +1,53 @@
 import "./App.css";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import MeditationTimer from "./meditationTimer/MeditationTimer";
 import { useWakeLock } from "react-screen-wake-lock";
 import "semantic-ui-css/semantic.min.css";
-import { Icon, Ref } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 import Config from "./Config";
-import UserMenu from "./menu/UserMenu";
+import DevDataModal from "./DevDataModal";
 
 function App() {
   const { release: releaseWakeLock, request: acquireWakeLock } = useWakeLock();
 
-  const [menuIsVisible, setMenuIsVisible] = useState(false);
-  const mainRef = useRef();
+  const [devDataIsOpen, setDevDataIsOpen] = useState(false);
+  const [displayInfo, setDisplayInfo] = useState(true);
 
   return (
     <>
-      <UserMenu
-        direction={"left"}
-        animation={"overlay"}
-        visible={menuIsVisible}
-        closeOnClick={mainRef}
-        onHide={() => setMenuIsVisible(false)}
-      />
-      <Ref innerRef={mainRef}>
-        <div className="App">
+      <div className="App">
+        <DevDataModal
+          onClose={() => {
+            setDevDataIsOpen(false);
+          }}
+          isOpen={devDataIsOpen}
+        >
           <Icon
-            // as={"div"}
             className="burger"
-            name="bars"
+            name="info circle"
             size="large"
+            disabled={!displayInfo}
+            inverted={!displayInfo}
             onClick={() => {
-              setMenuIsVisible(!menuIsVisible);
+              setDevDataIsOpen(!devDataIsOpen);
             }}
           />
-          <MeditationTimer
-            onComplete={releaseWakeLock}
-            onPause={releaseWakeLock}
-            onPlay={acquireWakeLock}
-            enableEditTimerButtons={
-              Config.meditationTimer.editTimerButtonsEnabled
-            }
-          />
-        </div>
-      </Ref>
+        </DevDataModal>
+        <MeditationTimer
+          onComplete={releaseWakeLock}
+          onPause={releaseWakeLock}
+          onPlay={() => {
+            setDisplayInfo(false);
+            acquireWakeLock();
+          }}
+          onReset={() => {
+            setDisplayInfo(true);
+          }}
+          enableEditTimerButtons={
+            Config.meditationTimer.editTimerButtonsEnabled
+          }
+        />
+      </div>
     </>
   );
 }

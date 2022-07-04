@@ -10,6 +10,7 @@ const MeditationTimer = ({
   onPause,
   onPlay,
   onComplete,
+  onReset,
   enableEditTimerButtons,
 }) => {
   const [play] = useSound(timerFinishedSfx);
@@ -88,7 +89,14 @@ const MeditationTimer = ({
             />
           )}
           {(isPaused || (isStopped && time === 0)) && (
-            <Button onClick={reset} icon="redo" circular={true} />
+            <Button
+              onClick={() => {
+                onReset && onReset();
+                reset();
+              }}
+              icon="redo"
+              circular={true}
+            />
           )}
         </div>
 
