@@ -65,8 +65,11 @@ Resources:
           AcmCertificateArn:
             Ref: ACMCertificate
         CustomErrorResponses:
-          - ErrorCode: 403 # not found
-            ResponseCode: 404
+          - ErrorCode: 403 # forbidden
+            ResponseCode: 200
+            ResponsePagePath: "/index.html"
+          - ErrorCode: 404 # not found
+            ResponseCode: 200
             ResponsePagePath: "/index.html"
         DefaultCacheBehavior:
           AllowedMethods:
