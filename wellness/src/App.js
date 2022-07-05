@@ -6,7 +6,7 @@ import "semantic-ui-css/semantic.min.css";
 import { Icon } from "semantic-ui-react";
 import Config from "./Config";
 import DevDataModal from "./DevDataModal";
-import background from "./images/water_bg.jpg";
+import background from "./images/water_bg.webp";
 
 function App() {
   const { release: releaseWakeLock, request: acquireWakeLock } = useWakeLock();
