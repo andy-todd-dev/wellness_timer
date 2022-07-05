@@ -79,15 +79,8 @@ td {
 
 img.logo {
   height: 2em;
-  background-color: white;
+  /* background-color: white; */
   display: block;
   margin: auto;
   margin-bottom: 10px;
-}
-
-.menu div.logo {
-  text-align: center;
-}
-.menu div.logo img {
-  background-color: white;
 }
