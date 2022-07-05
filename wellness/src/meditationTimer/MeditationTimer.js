@@ -5,7 +5,7 @@ import useSound from "use-sound";
 import { Button } from "semantic-ui-react";
 import { useTimer } from "@andy-todd-dev/use-timer";
 
-import timerFinishedSfx from "../sounds/singingxbowl.wav";
+import timerFinishedSfx from "../sounds/bowl_1.flac";
 
 const MeditationTimer = ({
   onPause,
@@ -59,6 +59,7 @@ const MeditationTimer = ({
                 setInitialTime(initialTime - 600);
               }}
               disabled={time <= 600}
+              aria-label="Decrease timer by 10 minutes"
             />
             <Button
               icon="step backward"
@@ -67,6 +68,7 @@ const MeditationTimer = ({
                 setInitialTime(initialTime - 60);
               }}
               disabled={time <= 60}
+              aria-label="Decrease timer by 1 minute"
             />
           </div>
         )}
@@ -80,6 +82,7 @@ const MeditationTimer = ({
                 start();
                 onPlay && onPlay();
               }}
+              aria-label="Start timer"
             />
           )}
           {isRunning && (
@@ -90,6 +93,7 @@ const MeditationTimer = ({
                 pause();
                 onPause && onPause();
               }}
+              aria-label="Pause timer"
             />
           )}
           {(isPaused || (isStopped && time === 0)) && (
@@ -100,6 +104,7 @@ const MeditationTimer = ({
               }}
               icon="redo"
               circular={true}
+              aria-label="Reset timer"
             />
           )}
         </div>
@@ -113,6 +118,7 @@ const MeditationTimer = ({
                 setInitialTime(initialTime + 60);
               }}
               disabled={time >= 99 * 60}
+              aria-label="Increase timer by 1 minute"
             />
 
             <Button
@@ -122,6 +128,7 @@ const MeditationTimer = ({
                 setInitialTime(initialTime + 600);
               }}
               disabled={time >= 90 * 60}
+              aria-label="Increase timer by 10 minutes"
             />
           </div>
         )}

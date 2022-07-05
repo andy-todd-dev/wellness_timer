@@ -40,12 +40,27 @@ const DevDataModal = ({ children, isOpen, onClose }) => {
         </table>
         <div className="credits">
           <h2>Credits</h2>
-          <a
-            href="https://www.flaticon.com/free-icons/lotus"
-            title="lotus icons"
-          >
-            Lotus icons created by Freepik - Flaticon
-          </a>
+          <ul>
+            <li>
+              <a
+                href="https://www.flaticon.com/free-icons/lotus"
+                title="lotus icons"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Lotus icons created by Freepik - Flaticon
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://BigSoundBank.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Additional sounds: Joseph SARDIN - BigSoundBank.com
+              </a>
+            </li>
+          </ul>
         </div>
       </Modal.Content>
     </Modal>
