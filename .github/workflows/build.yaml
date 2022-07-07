@@ -79,4 +79,5 @@ jobs:
           path: ./wellness/build
       - name: Run Lighthouse against build
         uses: treosh/lighthouse-ci-action@v9
-          configPath: './wellness/lighthouserc.json'
+        with:
+          configPath: ./wellness/lighthouserc.json
