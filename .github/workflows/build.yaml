@@ -81,3 +81,5 @@ jobs:
         uses: treosh/lighthouse-ci-action@v9
         with:
           configPath: ./wellness/lighthouserc
+          uploadArtifacts: true
+          temporaryPublicStorage: true 
