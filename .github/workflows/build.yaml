@@ -67,7 +67,7 @@ jobs:
           srcDir: ./build
           filesGlob: "**/*"
           cacheControl: "no-cache"
-performance:
+  performance:
     runs-on: ubuntu-latest
     needs: build
     steps:
