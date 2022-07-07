@@ -79,7 +79,6 @@ td {
 
 img.logo {
   height: 2em;
-  /* background-color: white; */
   display: block;
   margin: auto;
   margin-bottom: 10px;
@@ -88,4 +87,8 @@ img.logo {
 .credits ul {
   list-style-type: none;
   padding-left: 0;
+}
+
+.hidden {
+  visibility: hidden;
 }

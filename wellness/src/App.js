@@ -31,13 +31,14 @@ function App() {
           isOpen={devDataIsOpen}
         >
           <Icon
-            className="burger"
+            className={`burger ${displayInfo ? "" : "hidden"}`}
             name="info circle"
+            link={true}
             size="large"
-            disabled={!displayInfo}
-            inverted={!displayInfo}
             onClick={() => {
-              setDevDataIsOpen(!devDataIsOpen);
+              if (displayInfo) {
+                setDevDataIsOpen(!devDataIsOpen);
+              }
             }}
           />
         </DevDataModal>
