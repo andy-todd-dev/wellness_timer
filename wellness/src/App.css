@@ -13,7 +13,7 @@ div.root {
 }
 
 .burger {
-  padding-top: 2vh;
+  padding-top: max(2vh, 7px);
   padding-left: 5vw;
 }
 
@@ -49,10 +49,6 @@ td {
 
 .info {
   text-align: center;
-}
-
-.credits {
-  padding-top: 15px;
 }
 
 @media screen and (max-width: 400px) {
@@ -91,4 +87,22 @@ img.logo {
 
 .hidden {
   visibility: hidden;
+}
+
+div.actions span {
+  padding-left: 10px;
+}
+
+div.actions {
+  text-align: center !important;
+}
+
+.bmac {
+  padding-top: 5px;
+}
+.bmac img {
+  height: 40px !important;
+  margin: auto;
+  display: block;
+  padding-top: 5px;
 }

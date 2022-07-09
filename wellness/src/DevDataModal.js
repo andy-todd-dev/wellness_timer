@@ -1,6 +1,6 @@
 import React from "react";
 import { useWakeLock } from "react-screen-wake-lock";
-import { Icon, Modal } from "semantic-ui-react";
+import { Divider, Icon, Modal } from "semantic-ui-react";
 import Config from "./Config";
 import lotus from "./images/lotus.png";
 
@@ -25,44 +25,56 @@ const DevDataModal = ({ children, isOpen, onClose }) => {
           <Icon name="github" />
           https://github.com/andy-todd-dev/wellness_tracker
         </a>
-        <h2>Debug properties</h2>
-        <table className="devData">
-          <tbody>
-            <tr>
-              <th>Build</th>
-              <td>{Config.buildName}</td>
-            </tr>
-            <tr>
-              <th>Wake lock</th>
-              <td>{wakeLockIsSupported ? "supported" : "not supported"}</td>
-            </tr>
-          </tbody>
-        </table>
+        <p className="bmac">
+          If you have found this app useful and want to support future work:{" "}
+          <a
+            href="https://www.buymeacoffee.com/andytodddev"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+              alt="Buy Me A Coffee"
+            />
+          </a>
+        </p>
+        <Divider />
         <div className="credits">
-          <h2>Credits</h2>
           <ul>
             <li>
+              Lotus icons created by Freepik -{" "}
               <a
                 href="https://www.flaticon.com/free-icons/lotus"
                 title="lotus icons"
                 target="_blank"
                 rel="noreferrer"
               >
-                Lotus icons created by Freepik - Flaticon
+                Flaticon
               </a>
             </li>
             <li>
+              Additional sounds: Joseph SARDIN -{" "}
               <a
                 href="https://BigSoundBank.com"
                 target="_blank"
                 rel="noreferrer"
               >
-                Additional sounds: Joseph SARDIN - BigSoundBank.com
+                BigSoundBank.com
               </a>
             </li>
           </ul>
         </div>
       </Modal.Content>
+      <Modal.Actions>
+        <Divider />
+        <span>
+          <b>Build:</b> {Config.buildName}
+        </span>
+        <span>
+          <b>Wake lock:</b>{" "}
+          {wakeLockIsSupported ? "supported" : "not supported"}
+        </span>
+      </Modal.Actions>
     </Modal>
   );
 };
