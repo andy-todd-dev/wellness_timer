@@ -49,24 +49,15 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: arn:aws:iam::916865351479:role/wellness-builder-user-Role-192IBMAAE1IH8
-          aws-region: us-east-1
       - uses: actions/download-artifact@v3
         with:
           name: wellness-build-${{ github.sha }}
           path: ./build
-      - uses: badsyntax/github-action-aws-s3@v0.0.1
-        name: Sync App files to S3
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          bucket: wellness-ui
-          awsRegion: us-east-1
-          action: sync
-          srcDir: ./build
-          filesGlob: "**/*"
-          cacheControl: "no-cache"
+          branch: staging
+          folder: build
   performance:
     runs-on: ubuntu-latest
     needs: build
