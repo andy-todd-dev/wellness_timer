@@ -39,4 +39,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: staging
-          folder: build
+          folder: wellness/build
