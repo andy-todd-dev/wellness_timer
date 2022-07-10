@@ -1,0 +1,80 @@
+name: Production Release 
+on:
+  release:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install dependencies
+        working-directory: ./wellness
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm install
+      - name: Test
+        working-directory: ./wellness
+        run: npm test
+        env:
+          CI: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate build
+        working-directory: ./wellness
+        run: npm run build
+        env:
+          REACT_APP_BUILD: ${{ github.ref }}
+          REACT_APP_MT_EDIT_BUTTONS_ENABLED: ${{ true }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Share artifact inside workflow
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v1
+        with:
+          name: wellness-build-${{ github.sha }}
+          path: ./wellness/build
+  deploy:
+    if: github.repository == 'andy-todd-dev/wellness_timer'
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::916865351479:role/wellness-builder-user-Role-192IBMAAE1IH8
+          aws-region: us-east-1
+      - uses: actions/download-artifact@v3
+        with:
+          name: wellness-build-${{ github.sha }}
+          path: ./build
+      - uses: badsyntax/github-action-aws-s3@v0.0.1
+        name: Sync App files to S3
+        with:
+          bucket: wellness-ui
+          awsRegion: us-east-1
+          action: sync
+          srcDir: ./build
+          filesGlob: "**/*"
+          cacheControl: "no-cache"
+  performance:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+      - uses: actions/download-artifact@v3
+        with:
+          name: wellness-build-${{ github.sha }}
+          path: ./wellness/build
+      - name: Run Lighthouse against build
+        uses: treosh/lighthouse-ci-action@v9
+        with:
+          configPath: ./wellness/lighthouserc
+          uploadArtifacts: true
+          temporaryPublicStorage: true
