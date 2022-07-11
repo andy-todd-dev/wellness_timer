@@ -28,9 +28,6 @@ jobs:
         env:
           CI: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Add staging homepage
-        run: |
-          sed -i "1s/.*/\{ \"homepage\": \"wellness_timer\", /" ./wellness/package.json
       - name: Generate build
         working-directory: ./wellness
         run: npm run build
