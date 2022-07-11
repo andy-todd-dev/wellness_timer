@@ -29,7 +29,8 @@ jobs:
           CI: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Add staging homepage
-        run: sed -i "1s/.*/\{ \"homepage\": \"wellness_app\" /" ./wellness/package.json
+        run: |
+          sed -i "1s/.*/\{ \"homepage\": \"wellness_app\", /" ./wellness/package.json
       - name: Generate build
         working-directory: ./wellness
         run: npm run build
@@ -37,7 +38,7 @@ jobs:
           REACT_APP_BUILD: ${{ github.sha }}
           REACT_APP_MT_EDIT_BUTTONS_ENABLED: ${{ true }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Deploy to staging 
+      - name: Deploy to staging
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: staging
