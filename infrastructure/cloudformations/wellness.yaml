@@ -47,6 +47,7 @@ Resources:
               "Fn::GetAtt": ["CloudFrontDistribution", "DomainName"]
         - Type: CNAME
           Name: !Sub staging.${AppDomain}
+          TTL: 600
           ResourceRecords:
             - !Ref StagingCName
 
