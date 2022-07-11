@@ -7,6 +7,9 @@ Parameters:
   S3BucketName:
     Type: String
     Description: "Name of S3 bucket"
+  StagingCName:
+    Type: String
+    Description: "CName where staging is hosted"
 Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
@@ -42,6 +45,10 @@ Resources:
             HostedZoneId: "Z2FDTNDATAQYW2"
             DNSName:
               "Fn::GetAtt": ["CloudFrontDistribution", "DomainName"]
+        - Type: CNAME
+          Name: !Sub staging.${AppDomain}
+          ResourceRecords:
+            - !Ref StagingCName
 
   ACMCertificate:
     Type: "AWS::CertificateManager::Certificate"
