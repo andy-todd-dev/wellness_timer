@@ -22,7 +22,7 @@ Resources:
   HostedZone:
     Type: "AWS::Route53::HostedZone"
     Properties:
-      Name: "andytodd.dev"
+      Name: "wellness.andytodd.dev"
   ZoneRecords:
     Type: "AWS::Route53::RecordSetGroup"
     Properties:
