@@ -1,7 +1,7 @@
 const Config = {
   buildName:
     (process.env.REACT_APP_BUILD &&
-      process.env.REACT_APP_BUILD.substring(0, 7)) ||
+      process.env.REACT_APP_BUILD.substring(0, 9)) ||
     "dev",
   meditationTimer: {
     editTimerButtonsEnabled: JSON.parse(
