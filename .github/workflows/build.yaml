@@ -40,3 +40,4 @@ jobs:
         with:
           branch: staging
           folder: wellness/build
+          target-folder: builds/${{ github.ref_type }}/${{ github.ref_name }}
