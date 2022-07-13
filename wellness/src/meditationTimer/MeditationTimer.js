@@ -56,9 +56,10 @@ const MeditationTimer = ({
               icon="fast backward"
               circular={true}
               onClick={() => {
-                setInitialTime(initialTime - 600);
+                const newTime = initialTime - 600;
+                setInitialTime(newTime > 60 ? newTime : 60);
               }}
-              disabled={time <= 600}
+              disabled={time <= 60}
               aria-label="Decrease timer by 10 minutes"
             />
             <Button
@@ -125,9 +126,10 @@ const MeditationTimer = ({
               icon="fast forward"
               circular={true}
               onClick={() => {
-                setInitialTime(initialTime + 600);
+                const newTime = initialTime + 600;
+                setInitialTime(newTime < 99 * 60 ? newTime : 99 * 60);
               }}
-              disabled={time >= 90 * 60}
+              disabled={time >= 99 * 60}
               aria-label="Increase timer by 10 minutes"
             />
           </div>
