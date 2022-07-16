@@ -10,6 +10,10 @@ div.root {
   height: 100dvh;
   display: flex;
   flex-direction: column;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .burger {
