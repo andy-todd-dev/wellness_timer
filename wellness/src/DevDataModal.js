@@ -1,81 +1,102 @@
 import React from "react";
 import { useWakeLock } from "react-screen-wake-lock";
-import { Divider, Icon, Modal } from "semantic-ui-react";
+import { Backdrop, Container, Divider, Link, Typography } from "@mui/material";
 import Config from "./Config";
 import lotus from "./images/lotus.png";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import { grey } from "@mui/material/colors";
+
+const ModalDivider = () => {
+  return <Divider variant="middle" color={grey[50]} />;
+};
 
 const DevDataModal = ({ children, isOpen, onClose }) => {
   const { isSupported: wakeLockIsSupported } = useWakeLock();
   return (
-    <Modal
-      basic
-      trigger={children}
-      open={isOpen}
-      onClose={onClose}
-      closeOnDocumentClick={true}
-    >
-      <Modal.Content className="info">
-        <h1>Wellness Timer</h1>
-        <img className="logo" src={lotus} alt="Logo" />
-        <a
-          href="https://github.com/andy-todd-dev/wellness_tracker"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <Icon name="github" />
-          https://github.com/andy-todd-dev/wellness_tracker
-        </a>
-        <p className="bmac">
-          If you have found this app useful and want to support future work:{" "}
-          <a
-            href="https://www.buymeacoffee.com/andytodddev"
+    <>
+      {children}
+      <Backdrop
+        open={isOpen}
+        onClick={onClose}
+        sx={{
+          backgroundColor: "rgb(0, 0, 0, 0.90)",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          overflow: "scroll",
+        }}
+      >
+        <Container sx={{ textAlign: "center", color: grey[50] }}>
+          <Typography variant="h3" component="h1">
+            Wellness Timer
+          </Typography>
+          <img className="logo" src={lotus} alt="Logo" />
+          <GitHubIcon />
+          <Link
+            href="https://github.com/andy-todd-dev/wellness_tracker"
             target="_blank"
             rel="noreferrer"
           >
-            <img
-              src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
-              alt="Buy Me A Coffee"
-            />
-          </a>
-        </p>
-        <Divider />
-        <div className="credits">
-          <ul>
-            <li>
-              Lotus icons created by Freepik -{" "}
-              <a
-                href="https://www.flaticon.com/free-icons/lotus"
-                title="lotus icons"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Flaticon
-              </a>
-            </li>
-            <li>
-              Additional sounds: Joseph SARDIN -{" "}
-              <a
-                href="https://BigSoundBank.com"
-                target="_blank"
-                rel="noreferrer"
-              >
-                BigSoundBank.com
-              </a>
-            </li>
-          </ul>
-        </div>
-      </Modal.Content>
-      <Modal.Actions>
-        <Divider />
-        <span>
-          <b>Build:</b> {Config.buildName}
-        </span>
-        <span>
-          <b>Wake lock:</b>{" "}
-          {wakeLockIsSupported ? "supported" : "not supported"}
-        </span>
-      </Modal.Actions>
-    </Modal>
+            {" "}
+            https://github.com/andy-todd-dev/wellness_tracker
+          </Link>
+          <Typography paragraph sx={{ paddingTop: 5 }}>
+            If you have found this app useful and want to support my future
+            work:{" "}
+            <Link
+              href="https://www.buymeacoffee.com/andytodddev"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+                alt="Buy Me A Coffee"
+                style={{
+                  height: 40,
+                  margin: "auto",
+                  display: "block",
+                  paddingTop: 5,
+                }}
+              />
+            </Link>
+          </Typography>
+          <ModalDivider />
+          <div className="credits">
+            <ul>
+              <li>
+                Lotus icons created by Freepik -{" "}
+                <Link
+                  href="https://www.flaticon.com/free-icons/lotus"
+                  title="lotus icons"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Flaticon
+                </Link>
+              </li>
+              <li>
+                Additional sounds: Joseph SARDIN -{" "}
+                <Link
+                  href="https://BigSoundBank.com"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  BigSoundBank.com
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className="dev-values">
+            <ModalDivider />
+            <span>
+              <b>Build:</b> {Config.buildName}
+            </span>
+            <span>
+              <b>Wake lock:</b>{" "}
+              {wakeLockIsSupported ? "supported" : "not supported"}
+            </span>
+          </div>
+        </Container>
+      </Backdrop>
+    </>
   );
 };
 
