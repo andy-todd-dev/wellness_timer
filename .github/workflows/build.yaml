@@ -28,12 +28,12 @@ jobs:
         env:
           CI: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Set homepage car
+      - name: Set homepage var
         run: |
           if [ ${{ github.event_name }} = "pull_request" ]; then
-            echo "homepage={${{ github.head_ref }}}" >> $GITHUB_ENV
+            echo "homepage=${{ github.head_ref }}" >> $GITHUB_ENV
           else
-            echo "homepage={${{ github.ref_name }}}" >> $GITHUB_ENV
+            echo "homepage=${{ github.ref_name }}" >> $GITHUB_ENV
           fi
       - name: Add staging homepage
         run: |
