@@ -30,7 +30,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Add staging homepage
         run: |
-          sed -i "1s/.*/\{ \"homepage\": \"builds\/${{ github.ref_type }}\/${{ github.ref_name }}\", /" ./wellness/package.json
+          if [ ${{ github.event_name }} = "pull_request" ]; then
+            sed -i "1s/.*/\{ \"homepage\": \"builds\/${{ github.ref_type }}\/${{ github.head_ref }}\", /" ./wellness/package.json
+          else
+            sed -i "1s/.*/\{ \"homepage\": \"builds\/${{ github.ref_type }}\/${{ github.ref_name }}\", /" ./wellness/package.json
+          fi
       - name: Generate build
         working-directory: ./wellness
         run: npm run build
