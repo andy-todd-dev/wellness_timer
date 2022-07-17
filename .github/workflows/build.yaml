@@ -28,13 +28,16 @@ jobs:
         env:
           CI: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Add staging homepage
+      - name: Set homepage car
         run: |
           if [ ${{ github.event_name }} = "pull_request" ]; then
-            sed -i "1s/.*/\{ \"homepage\": \"builds\/${{ github.ref_type }}\/${{ github.head_ref }}\", /" ./wellness/package.json
+            echo "homepage={${{ github.head_ref }}}" >> $GITHUB_ENV
           else
-            sed -i "1s/.*/\{ \"homepage\": \"builds\/${{ github.ref_type }}\/${{ github.ref_name }}\", /" ./wellness/package.json
+            echo "homepage={${{ github.ref_name }}}" >> $GITHUB_ENV
           fi
+      - name: Add staging homepage
+        run: |
+          sed -i "1s/.*/\{ \"homepage\": \"builds\/${{ github.ref_type }}\/${{ env.homepage }}\", /" ./wellness/package.json
       - name: Generate build
         working-directory: ./wellness
         run: npm run build
@@ -47,4 +50,4 @@ jobs:
         with:
           branch: staging
           folder: wellness/build
-          target-folder: builds/${{ github.ref_type }}/${{ github.ref_name }}
+          target-folder: builds/${{ github.ref_type }}/${{ env.homepage }}
