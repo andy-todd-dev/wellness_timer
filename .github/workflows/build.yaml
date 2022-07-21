@@ -35,9 +35,13 @@ jobs:
           else
             echo "homepage=${{ github.ref_name }}" >> $GITHUB_ENV
           fi
+      - name: Escape homepage
+        run: |
+          ESCAPED = echo ${{ github.homepage }} | sed 's/\//\\\//g'
+          echo "escaped_homepage=${ESCAPED}" >> $GITHUB_ENV
       - name: Add staging homepage
         run: |
-          sed -i "1s/.*/\{ \"homepage\": \"builds\/${{ github.ref_type }}\/${{ env.homepage }}\", /" ./wellness/package.json
+          sed -i "1s/.*/\{ \"homepage\": \"builds\/${{ github.ref_type }}\/${{ env.escaped_homepage }}\", /" ./wellness/package.json
       - name: Generate build
         working-directory: ./wellness
         run: npm run build
