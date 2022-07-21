@@ -46,6 +46,7 @@ jobs:
         working-directory: ./wellness
         run: npm run build
         env:
+          REACT_APP_DISABLE_SERVICE_WORKER: ${{ true }}
           REACT_APP_BUILD: ${{ github.sha }}
           REACT_APP_MT_EDIT_BUTTONS_ENABLED: ${{ true }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
