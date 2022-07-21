@@ -37,7 +37,7 @@ jobs:
           fi
       - name: Escape homepage
         run: |
-          ESCAPED=echo ${{ env.homepage }} | sed 's/\//\\\//g'
+          ESCAPED=$(echo ${{ env.homepage }} | sed 's/\//\\\//g')
           echo "escaped_homepage=${ESCAPED}" >> $GITHUB_ENV
       - name: Add staging homepage
         run: |
