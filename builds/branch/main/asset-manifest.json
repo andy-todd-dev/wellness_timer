@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/builds/branch/main/static/css/main.195412b3.css",
-    "main.js": "/builds/branch/main/static/js/main.51214ed8.js",
+    "main.js": "/builds/branch/main/static/js/main.f220e575.js",
     "static/js/845.45516af7.chunk.js": "/builds/branch/main/static/js/845.45516af7.chunk.js",
     "static/js/787.d6fc05e7.chunk.js": "/builds/branch/main/static/js/787.d6fc05e7.chunk.js",
     "static/media/bowl_1.flac": "/builds/branch/main/static/media/bowl_1.2c4df1a82bcf0d9e73f4.flac",
@@ -26,12 +26,12 @@
     "static/media/outline-icons.woff2": "/builds/branch/main/static/media/outline-icons.687a4990ea22bb1a49d4.woff2",
     "index.html": "/builds/branch/main/index.html",
     "main.195412b3.css.map": "/builds/branch/main/static/css/main.195412b3.css.map",
-    "main.51214ed8.js.map": "/builds/branch/main/static/js/main.51214ed8.js.map",
+    "main.f220e575.js.map": "/builds/branch/main/static/js/main.f220e575.js.map",
     "845.45516af7.chunk.js.map": "/builds/branch/main/static/js/845.45516af7.chunk.js.map",
     "787.d6fc05e7.chunk.js.map": "/builds/branch/main/static/js/787.d6fc05e7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.195412b3.css",
-    "static/js/main.51214ed8.js"
+    "static/js/main.f220e575.js"
   ]
 }
