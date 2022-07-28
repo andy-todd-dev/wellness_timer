@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/builds/branch/14-migrate-to-material-ui/static/css/main.01972ebb.css",
-    "main.js": "/builds/branch/14-migrate-to-material-ui/static/js/main.33565ecc.js",
+    "main.js": "/builds/branch/14-migrate-to-material-ui/static/js/main.c0988534.js",
     "static/js/845.01907365.chunk.js": "/builds/branch/14-migrate-to-material-ui/static/js/845.01907365.chunk.js",
     "static/js/787.d6fc05e7.chunk.js": "/builds/branch/14-migrate-to-material-ui/static/js/787.d6fc05e7.chunk.js",
     "static/media/bowl_1.flac": "/builds/branch/14-migrate-to-material-ui/static/media/bowl_1.2c4df1a82bcf0d9e73f4.flac",
@@ -10,12 +10,12 @@
     "static/media/lotus.png": "/builds/branch/14-migrate-to-material-ui/static/media/lotus.02960992bb87ff5d70cb.png",
     "index.html": "/builds/branch/14-migrate-to-material-ui/index.html",
     "main.01972ebb.css.map": "/builds/branch/14-migrate-to-material-ui/static/css/main.01972ebb.css.map",
-    "main.33565ecc.js.map": "/builds/branch/14-migrate-to-material-ui/static/js/main.33565ecc.js.map",
+    "main.c0988534.js.map": "/builds/branch/14-migrate-to-material-ui/static/js/main.c0988534.js.map",
     "845.01907365.chunk.js.map": "/builds/branch/14-migrate-to-material-ui/static/js/845.01907365.chunk.js.map",
     "787.d6fc05e7.chunk.js.map": "/builds/branch/14-migrate-to-material-ui/static/js/787.d6fc05e7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.01972ebb.css",
-    "static/js/main.33565ecc.js"
+    "static/js/main.c0988534.js"
   ]
 }
