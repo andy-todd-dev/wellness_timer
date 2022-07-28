@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/builds/branch/14-migrate-to-material-ui/static/css/main.01972ebb.css",
-    "main.js": "/builds/branch/14-migrate-to-material-ui/static/js/main.c0988534.js",
+    "main.css": "/builds/branch/14-migrate-to-material-ui/static/css/main.0fa1674d.css",
+    "main.js": "/builds/branch/14-migrate-to-material-ui/static/js/main.4e7d6bd9.js",
     "static/js/845.01907365.chunk.js": "/builds/branch/14-migrate-to-material-ui/static/js/845.01907365.chunk.js",
     "static/js/787.d6fc05e7.chunk.js": "/builds/branch/14-migrate-to-material-ui/static/js/787.d6fc05e7.chunk.js",
     "static/media/bowl_1.flac": "/builds/branch/14-migrate-to-material-ui/static/media/bowl_1.2c4df1a82bcf0d9e73f4.flac",
@@ -9,13 +9,13 @@
     "service-worker.js": "/builds/branch/14-migrate-to-material-ui/service-worker.js",
     "static/media/lotus.png": "/builds/branch/14-migrate-to-material-ui/static/media/lotus.02960992bb87ff5d70cb.png",
     "index.html": "/builds/branch/14-migrate-to-material-ui/index.html",
-    "main.01972ebb.css.map": "/builds/branch/14-migrate-to-material-ui/static/css/main.01972ebb.css.map",
-    "main.c0988534.js.map": "/builds/branch/14-migrate-to-material-ui/static/js/main.c0988534.js.map",
+    "main.0fa1674d.css.map": "/builds/branch/14-migrate-to-material-ui/static/css/main.0fa1674d.css.map",
+    "main.4e7d6bd9.js.map": "/builds/branch/14-migrate-to-material-ui/static/js/main.4e7d6bd9.js.map",
     "845.01907365.chunk.js.map": "/builds/branch/14-migrate-to-material-ui/static/js/845.01907365.chunk.js.map",
     "787.d6fc05e7.chunk.js.map": "/builds/branch/14-migrate-to-material-ui/static/js/787.d6fc05e7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.01972ebb.css",
-    "static/js/main.c0988534.js"
+    "static/css/main.0fa1674d.css",
+    "static/js/main.4e7d6bd9.js"
   ]
 }
