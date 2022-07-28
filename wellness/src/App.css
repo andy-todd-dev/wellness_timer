@@ -1,29 +1,19 @@
 html,
 body,
-div.root {
+div.root,
+div.App {
   margin: 0;
   padding: 0;
-}
-
-.App {
   height: 100vh;
   height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-attachment: fixed;
 }
 
-.burger {
-  padding-top: max(2vh, 7px);
-  padding-left: 5vw;
+.burger .MuiSvgIcon-root {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 div.meditation-timer {
   width: fit-content;
-  /* margin: auto; */
 }
 
 div.timerButtons {
@@ -35,6 +25,20 @@ div.timerButtonsRunning {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+.buttonGroup {
+  display: inherit;
+}
+
+.buttonGroup .MuiAvatar-root {
+  margin: 0 0.175rem 0 0.175rem;
+  width: min(14vh, 14vw);
+  height: min(14vh, 14vw);
+}
+
+.buttonGroup path {
+  fill: dimgray;
 }
 
 .devDataButton {
@@ -51,30 +55,23 @@ td {
   font-size: small;
 }
 
-.info {
-  text-align: center;
+.meditation-timer button .MuiSvgIcon-root {
+  font-size: min(10vw, 10vh);
 }
 
 @media screen and (max-width: 400px) {
   .timer-display h1 {
     font-size: 32vw;
   }
-  .meditation-timer .ui.button {
-    font-size: 1.5rem;
-  }
 }
 @media screen and (min-width: 401px) {
   .timer-display h1 {
     font-size: 20vw;
   }
-  .meditation-timer .ui.button {
-    font-size: 1.7rem;
-  }
 }
 
 .meditation-timer {
   align-self: center;
-  padding-top: 4vh;
 }
 
 img.logo {
@@ -89,24 +86,10 @@ img.logo {
   padding-left: 0;
 }
 
-.hidden {
-  visibility: hidden;
-}
-
-div.actions span {
+div.dev-values span {
   padding-left: 10px;
 }
 
-div.actions {
+div.dev-values {
   text-align: center !important;
-}
-
-.bmac {
-  padding-top: 5px;
-}
-.bmac img {
-  height: 40px !important;
-  margin: auto;
-  display: block;
-  padding-top: 5px;
 }

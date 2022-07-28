@@ -2,12 +2,12 @@ import "./App.css";
 import { useState } from "react";
 import MeditationTimer from "./meditationTimer/MeditationTimer";
 import { useWakeLock } from "react-screen-wake-lock";
-import "semantic-ui-css/semantic.min.css";
-import { Icon } from "semantic-ui-react";
+import InfoIcon from "@mui/icons-material/Info";
 import Config from "./Config";
 import DevDataModal from "./DevDataModal";
 // import water_background from "./images/water_bg.webp";
 import aurora_background from "./images/aurora_bg.webp";
+import { AppBar, IconButton, Toolbar } from "@mui/material";
 
 function App() {
   const { release: releaseWakeLock, request: acquireWakeLock } = useWakeLock();
@@ -21,26 +21,39 @@ function App() {
         className="App"
         style={{
           backgroundImage: `url(${aurora_background})`,
+          display: "flex",
+          flexDirection: "column",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundAttachment: "fixed",
         }}
       >
-        <DevDataModal
-          onClose={() => {
-            setDevDataIsOpen(false);
-          }}
-          isOpen={devDataIsOpen}
+        <AppBar
+          position="static"
+          color="transparent"
+          sx={{ boxShadow: "none" }}
         >
-          <Icon
-            className={`burger ${displayInfo ? "" : "hidden"}`}
-            name="info circle"
-            link={true}
-            size="large"
-            onClick={() => {
-              if (displayInfo) {
-                setDevDataIsOpen(!devDataIsOpen);
-              }
-            }}
-          />
-        </DevDataModal>
+          <Toolbar>
+            <DevDataModal
+              onClose={() => {
+                setDevDataIsOpen(false);
+              }}
+              isOpen={devDataIsOpen}
+            >
+              <IconButton
+                onClick={() => {
+                  if (displayInfo) {
+                    setDevDataIsOpen(!devDataIsOpen);
+                  }
+                }}
+              >
+                <InfoIcon sx={{ color: "info" }} />
+              </IconButton>
+            </DevDataModal>
+          </Toolbar>
+        </AppBar>
+
         <MeditationTimer
           onComplete={releaseWakeLock}
           onPause={releaseWakeLock}

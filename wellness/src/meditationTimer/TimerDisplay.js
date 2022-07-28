@@ -1,12 +1,16 @@
+import { Typography } from "@mui/material";
 import React from "react";
 
 const TimerDisplay = ({ duration }) => {
-
   const minutes = Math.floor(duration / 60);
   const seconds = duration - minutes * 60;
   return (
     <div className="timer-display">
-      <h1> 
+      <Typography
+        variant="h2"
+        component="h1"
+        sx={{ margin: 0, textAlign: "center", lineHeight: 1, fontWeight: 500 }}
+      >
         {minutes.toLocaleString(undefined, {
           minimumIntegerDigits: 2,
           useGrouping: false,
@@ -16,7 +20,7 @@ const TimerDisplay = ({ duration }) => {
           minimumIntegerDigits: 2,
           useGrouping: false,
         })}
-      </h1>
+      </Typography>
     </div>
   );
 };

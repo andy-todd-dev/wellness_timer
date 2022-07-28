@@ -4,14 +4,16 @@
   "private": true,
   "dependencies": {
     "@andy-todd-dev/use-timer": "^2.0.2",
-    "@semantic-ui-react/css-patch": "^1.0.0",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/icons-material": "^5.8.4",
+    "@mui/material": "^5.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-screen-wake-lock": "^2.0.0",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^2.1.3",
     "use-local-storage": "^2.3.6",
     "use-sound": "^4.0.1",
+    "web-vitals": "^2.1.4",
     "workbox-background-sync": "^6.5.3",
     "workbox-broadcast-update": "^6.5.3",
     "workbox-cacheable-response": "^6.5.3",
@@ -23,21 +25,19 @@
     "workbox-range-requests": "^6.5.3",
     "workbox-routing": "^6.5.3",
     "workbox-strategies": "^6.5.3",
-    "workbox-streams": "^6.5.3",
-    "web-vitals": "^2.1.4"
+    "workbox-streams": "^6.5.3"
   },
   "devDependencies": {
-    "react-scripts": "5.0.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^14.3.0"
+    "@testing-library/user-event": "^14.3.0",
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "postinstall": "semantic-ui-css-patch"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
