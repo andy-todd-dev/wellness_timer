@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/builds/branch/thing/static/css/main.0fa1674d.css",
+    "main.js": "/builds/branch/thing/static/js/main.2059eb5a.js",
+    "static/js/845.01907365.chunk.js": "/builds/branch/thing/static/js/845.01907365.chunk.js",
+    "static/js/787.d6fc05e7.chunk.js": "/builds/branch/thing/static/js/787.d6fc05e7.chunk.js",
+    "static/media/bowl_1.flac": "/builds/branch/thing/static/media/bowl_1.2c4df1a82bcf0d9e73f4.flac",
+    "static/media/aurora_bg.webp": "/builds/branch/thing/static/media/aurora_bg.3785bddf33c48f49ef5b.webp",
+    "service-worker.js": "/builds/branch/thing/service-worker.js",
+    "static/media/lotus.png": "/builds/branch/thing/static/media/lotus.02960992bb87ff5d70cb.png",
+    "index.html": "/builds/branch/thing/index.html",
+    "main.0fa1674d.css.map": "/builds/branch/thing/static/css/main.0fa1674d.css.map",
+    "main.2059eb5a.js.map": "/builds/branch/thing/static/js/main.2059eb5a.js.map",
+    "845.01907365.chunk.js.map": "/builds/branch/thing/static/js/845.01907365.chunk.js.map",
+    "787.d6fc05e7.chunk.js.map": "/builds/branch/thing/static/js/787.d6fc05e7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0fa1674d.css",
+    "static/js/main.2059eb5a.js"
+  ]
+}
