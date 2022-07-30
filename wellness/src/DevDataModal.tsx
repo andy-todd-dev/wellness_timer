@@ -10,7 +10,13 @@ const ModalDivider = () => {
   return <Divider variant="middle" color={grey[50]} />;
 };
 
-const DevDataModal = ({ children, isOpen, onClose }) => {
+type DevDataModalProps = {
+  children: React.ReactNode;
+  isOpen: boolean;
+  onClose: () => void;
+};
+
+const DevDataModal = ({ children, isOpen, onClose }: DevDataModalProps) => {
   const { isSupported: wakeLockIsSupported } = useWakeLock();
   return (
     <>
