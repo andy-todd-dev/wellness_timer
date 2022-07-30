@@ -1,7 +1,11 @@
 import { Typography } from "@mui/material";
 import React from "react";
 
-const TimerDisplay = ({ duration }) => {
+type TimerDisplayProps = {
+  duration: number;
+};
+
+const TimerDisplay = ({ duration }: TimerDisplayProps) => {
   const minutes = Math.floor(duration / 60);
   const seconds = duration - minutes * 60;
   return (
