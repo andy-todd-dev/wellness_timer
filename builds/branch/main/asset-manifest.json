@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/builds/branch/main/static/css/main.0fa1674d.css",
-    "main.js": "/builds/branch/main/static/js/main.931f4fb9.js",
+    "main.css": "/builds/branch/main/static/css/main.a1323cad.css",
+    "main.js": "/builds/branch/main/static/js/main.501f74c0.js",
     "static/js/845.01907365.chunk.js": "/builds/branch/main/static/js/845.01907365.chunk.js",
     "static/js/787.d6fc05e7.chunk.js": "/builds/branch/main/static/js/787.d6fc05e7.chunk.js",
     "static/media/bowl_1.flac": "/builds/branch/main/static/media/bowl_1.2c4df1a82bcf0d9e73f4.flac",
@@ -9,13 +9,13 @@
     "service-worker.js": "/builds/branch/main/service-worker.js",
     "static/media/lotus.png": "/builds/branch/main/static/media/lotus.02960992bb87ff5d70cb.png",
     "index.html": "/builds/branch/main/index.html",
-    "main.0fa1674d.css.map": "/builds/branch/main/static/css/main.0fa1674d.css.map",
-    "main.931f4fb9.js.map": "/builds/branch/main/static/js/main.931f4fb9.js.map",
+    "main.a1323cad.css.map": "/builds/branch/main/static/css/main.a1323cad.css.map",
+    "main.501f74c0.js.map": "/builds/branch/main/static/js/main.501f74c0.js.map",
     "845.01907365.chunk.js.map": "/builds/branch/main/static/js/845.01907365.chunk.js.map",
     "787.d6fc05e7.chunk.js.map": "/builds/branch/main/static/js/787.d6fc05e7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0fa1674d.css",
-    "static/js/main.931f4fb9.js"
+    "static/css/main.a1323cad.css",
+    "static/js/main.501f74c0.js"
   ]
 }
