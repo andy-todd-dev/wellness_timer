@@ -7,9 +7,10 @@ const TimerDisplay = ({ duration }) => {
   return (
     <div className="timer-display">
       <Typography
-        variant="h2"
+        variant="timer"
         component="h1"
-        sx={{ margin: 0, textAlign: "center", lineHeight: 1, fontWeight: 500 }}
+        color="primary"
+        sx={{ margin: 0, textAlign: "center" }}
       >
         {minutes.toLocaleString(undefined, {
           minimumIntegerDigits: 2,

@@ -5,9 +5,7 @@ import { useWakeLock } from "react-screen-wake-lock";
 import InfoIcon from "@mui/icons-material/Info";
 import Config from "./Config";
 import DevDataModal from "./DevDataModal";
-// import water_background from "./images/water_bg.webp";
-import aurora_background from "./images/aurora_bg.webp";
-import { AppBar, IconButton, Toolbar } from "@mui/material";
+import { AppBar, IconButton, Toolbar, useTheme } from "@mui/material";
 
 function App() {
   const { release: releaseWakeLock, request: acquireWakeLock } = useWakeLock();
@@ -15,25 +13,25 @@ function App() {
   const [devDataIsOpen, setDevDataIsOpen] = useState(false);
   const [displayInfo, setDisplayInfo] = useState(true);
 
+  const theme = useTheme();
+
   return (
     <>
       <div
         className="App"
         style={{
-          backgroundImage: `url(${aurora_background})`,
+          backgroundImage: `url(${theme.backgroundImage})`,
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
         }}
       >
-        <AppBar
-          position="static"
-          color="transparent"
-          sx={{ boxShadow: "none" }}
-        >
+        <AppBar color="transparent" elevation={0} sx={{ justifySelf: "start" }}>
           <Toolbar>
             <DevDataModal
               onClose={() => {
@@ -48,7 +46,7 @@ function App() {
                   }
                 }}
               >
-                <InfoIcon sx={{ color: "info" }} />
+                <InfoIcon color="primary" />
               </IconButton>
             </DevDataModal>
           </Toolbar>
@@ -67,6 +65,7 @@ function App() {
           enableEditTimerButtons={
             Config.meditationTimer.editTimerButtonsEnabled
           }
+          sx={{ width: "fit-content", position: "relative", top: "-5vh" }}
         />
       </div>
     </>

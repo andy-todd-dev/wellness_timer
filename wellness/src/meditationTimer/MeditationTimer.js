@@ -3,7 +3,7 @@ import useLocalStorage from "use-local-storage";
 import TimerDisplay from "./TimerDisplay";
 import useSound from "use-sound";
 import { useTimer } from "@andy-todd-dev/use-timer";
-import { Avatar, Button } from "@mui/material";
+import { Avatar, Button, Container } from "@mui/material";
 import FastRewindIcon from "@mui/icons-material/FastRewind";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
@@ -15,7 +15,7 @@ import SkipNextIcon from "@mui/icons-material/SkipNext";
 import timerFinishedSfx from "../sounds/bowl_1.flac";
 
 const ButtonAvatar = ({ children, ...props }) => (
-  <Avatar sx={{ bgcolor: "white" }} {...props}>
+  <Avatar sx={{ bgcolor: (theme) => theme.palette.secondary.main }} {...props}>
     {children}
   </Avatar>
 );
@@ -26,6 +26,7 @@ const MeditationTimer = ({
   onComplete,
   onReset,
   enableEditTimerButtons,
+  sx,
 }) => {
   const [play] = useSound(timerFinishedSfx);
 
@@ -53,7 +54,7 @@ const MeditationTimer = ({
   const isStopped = status === "STOPPED";
 
   return (
-    <div className="meditation-timer">
+    <Container className="meditation-timer" sx={sx}>
       <TimerDisplay duration={time} />
 
       <div
@@ -162,7 +163,7 @@ const MeditationTimer = ({
           </div>
         )}
       </div>
-    </div>
+    </Container>
   );
 };
 
