@@ -12,10 +12,6 @@ div.App {
   font-size: clamp(1.5rem, 3vw, 2.5rem);
 }
 
-div.meditation-timer {
-  width: fit-content;
-}
-
 div.timerButtons {
   display: flex;
   flex-direction: row;
@@ -68,10 +64,6 @@ td {
   .timer-display h1 {
     font-size: 20vw;
   }
-}
-
-.meditation-timer {
-  align-self: center;
 }
 
 img.logo {
