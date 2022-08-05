@@ -4,11 +4,17 @@ import { Backdrop, Container, Divider, Link, Typography } from "@mui/material";
 import Config from "./Config";
 import lotus from "./images/lotus.png";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import { grey } from "@mui/material/colors";
+import { blue, grey } from "@mui/material/colors";
 
 const ModalDivider = () => {
   return <Divider variant="middle" color={grey[50]} />;
 };
+
+const ModalLink = ({ children, href }) => (
+  <Link href={href} target="_blank" rel="noreferrer" color={blue[500]}>
+    {children}
+  </Link>
+);
 
 const DevDataModal = ({ children, isOpen, onClose }) => {
   const { isSupported: wakeLockIsSupported } = useWakeLock();
@@ -30,22 +36,14 @@ const DevDataModal = ({ children, isOpen, onClose }) => {
           </Typography>
           <img className="logo" src={lotus} alt="Logo" />
           <GitHubIcon />
-          <Link
-            href="https://github.com/andy-todd-dev/wellness_tracker"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <ModalLink href="https://github.com/andy-todd-dev/wellness_tracker">
             {" "}
             https://github.com/andy-todd-dev/wellness_tracker
-          </Link>
+          </ModalLink>
           <Typography paragraph sx={{ paddingTop: 5 }}>
             If you have found this app useful and want to support my future
             work:{" "}
-            <Link
-              href="https://www.buymeacoffee.com/andytodddev"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <ModalLink href="https://www.buymeacoffee.com/andytodddev">
               <img
                 src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
                 alt="Buy Me A Coffee"
@@ -56,32 +54,32 @@ const DevDataModal = ({ children, isOpen, onClose }) => {
                   paddingTop: 5,
                 }}
               />
-            </Link>
+            </ModalLink>
           </Typography>
           <ModalDivider />
           <div className="credits">
             <ul>
-              <li>
-                Lotus icons created by Freepik -{" "}
-                <Link
-                  href="https://www.flaticon.com/free-icons/lotus"
-                  title="lotus icons"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Flaticon
-                </Link>
-              </li>
-              <li>
-                Additional sounds: Joseph SARDIN -{" "}
-                <Link
-                  href="https://BigSoundBank.com"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  BigSoundBank.com
-                </Link>
-              </li>
+              {[
+                {
+                  item: "Lotus icons",
+                  credit: "Freepik",
+                  href: "https://www.flaticon.com/free-icons/lotus",
+                  linkText: "Flaticon",
+                },
+                {
+                  item: "Additional sounds",
+                  credit: "Joseph Sardin",
+                  href: "https://BigSoundBank.com",
+                  linkText: "BigSoundBank.com",
+                },
+              ].map(({ item, credit, href, linkText }, index) => (
+                <li key={index}>
+                  <Typography variant="body1">
+                    {item} by {credit} -{" "}
+                    <ModalLink href={href}>{linkText}</ModalLink>
+                  </Typography>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="dev-values">
