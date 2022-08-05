@@ -40,6 +40,7 @@ function App() {
               isOpen={devDataIsOpen}
             >
               <IconButton
+                sx={{ visibility: displayInfo ? "visible" : "hidden" }}
                 onClick={() => {
                   if (displayInfo) {
                     setDevDataIsOpen(!devDataIsOpen);
