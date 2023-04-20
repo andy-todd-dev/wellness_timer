@@ -16,14 +16,13 @@ const ModalLink = ({ children, href }) => (
   </Link>
 );
 
-const DevDataModal = ({ children, isOpen, onClose }) => {
+const DevDataModal = ({ children, isOpen }) => {
   const { isSupported: wakeLockIsSupported } = useWakeLock();
   return (
     <>
       {children}
       <Backdrop
         open={isOpen}
-        onClick={onClose}
         sx={{
           backgroundColor: "rgb(0, 0, 0, 0.90)",
           zIndex: (theme) => theme.zIndex.drawer + 1,
