@@ -3,6 +3,7 @@ import { useState } from "react";
 import MeditationTimer from "./meditationTimer/MeditationTimer";
 import { useWakeLock } from "react-screen-wake-lock";
 import InfoIcon from "@mui/icons-material/Info";
+import CloseIcon from "@mui/icons-material/Close";
 import Config from "./Config";
 import DevDataModal from "./DevDataModal";
 import { AppBar, IconButton, Toolbar, useTheme } from "@mui/material";
@@ -40,14 +41,15 @@ function App() {
               isOpen={devDataIsOpen}
             >
               <IconButton
-                sx={{ visibility: displayInfo ? "visible" : "hidden" }}
+                sx={{ zIndex: "tooltip" }}
                 onClick={() => {
                   if (displayInfo) {
                     setDevDataIsOpen(!devDataIsOpen);
                   }
                 }}
               >
-                <InfoIcon color="primary" />
+                {!devDataIsOpen && <InfoIcon color="secondary" />}
+                {devDataIsOpen && <CloseIcon color="secondary" />}
               </IconButton>
             </DevDataModal>
           </Toolbar>
