@@ -43,4 +43,3 @@ jobs:
           template: infrastructure/cloudformations/wellness.yaml
           aws-region: us-east-1
           apply-change-set: true
-          parameters: "S3BucketName=wellness-ui&AppDomain=wellness.andytodd.dev&StagingCName=andy-todd-dev.github.io"
