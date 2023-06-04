@@ -1,0 +1,22 @@
+{
+  "git.ignoreLimitWarning": true,
+  "actionButtons": {
+    "commands": [
+      {
+        "name": "Dev",
+        "color": "#af565c",
+        "command": "npm --prefix ./wellness run start"
+      },
+      {
+        "name": "Build",
+        "color": "#af565c",
+        "command": "npm --prefix ./wellness run build"
+      },
+      {
+        "name": "Test",
+        "color": "#af565c",
+        "command": "npm --prefix ./wellness run test"
+      }
+    ]
+  }
+}
