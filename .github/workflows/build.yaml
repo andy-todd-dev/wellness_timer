@@ -46,9 +46,9 @@ jobs:
         working-directory: ./wellness
         run: npm run build
         env:
-          REACT_APP_DISABLE_SERVICE_WORKER: ${{ true }}
-          REACT_APP_BUILD: ${{ github.sha }}
-          REACT_APP_MT_EDIT_BUTTONS_ENABLED: ${{ true }}
+          VITE_DISABLE_SERVICE_WORKER: ${{ true }}
+          VITE_BUILD: ${{ github.sha }}
+          VITE_MT_EDIT_BUTTONS_ENABLED: ${{ true }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy to staging
         uses: JamesIves/github-pages-deploy-action@v4

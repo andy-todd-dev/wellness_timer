@@ -4,4 +4,4 @@
 // learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom";
 
-process.env.REACT_APP_MT_EDIT_BUTTONS_ENABLED = "true";
+import.meta.env.VITE_MT_EDIT_BUTTONS_ENABLED = "true";

@@ -15,7 +15,11 @@
     // Configure properties specific to VS Code.
     "vscode": {
       // Add the IDs of extensions you want installed when the container is created.
-      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "seunlanlege.action-buttons"
+      ]
     },
     "codespaces": {
       "repositories": {
@@ -37,7 +41,7 @@
   // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "node",
   "remoteEnv": {
-    "REACT_APP_MT_EDIT_BUTTONS_ENABLED": "true"
+    "VITE_MT_EDIT_BUTTONS_ENABLED": "true"
   },
   "features": {
     "git": "os-provided",
