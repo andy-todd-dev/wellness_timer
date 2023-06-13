@@ -58,17 +58,17 @@ jobs:
         name: Clean S3
         with:
           bucket: wellness-ui
-          awsRegion: us-east-1
+          aws-region: us-east-1
           action: clean
       - uses: badsyntax/github-action-aws-s3@v1.0.2
         name: Sync App files to S3
         with:
           bucket: wellness-ui
-          awsRegion: us-east-1
+          aws-region: us-east-1
           action: sync
-          srcDir: ./build
-          filesGlob: "**/*"
-          cacheControl: "no-cache"
+          src-dir: ./build
+          files-glob: "**/*"
+          cache-control: "no-cache"
   performance:
     runs-on: ubuntu-latest
     needs: build
