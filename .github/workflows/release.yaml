@@ -54,13 +54,13 @@ jobs:
         with:
           name: wellness-build-${{ github.sha }}
           path: ./build
-      - uses: badsyntax/github-action-aws-s3@v1
+      - uses: badsyntax/github-action-aws-s3@v1.0.2
         name: Clean S3
         with:
           bucket: wellness-ui
           awsRegion: us-east-1
           action: clean
-      - uses: badsyntax/github-action-aws-s3@v1
+      - uses: badsyntax/github-action-aws-s3@v1.0.2
         name: Sync App files to S3
         with:
           bucket: wellness-ui
