@@ -60,6 +60,8 @@ jobs:
           bucket: wellness-ui
           aws-region: us-east-1
           action: clean
+          src-dir: ./build
+          files-glob: "**/*"
       - uses: badsyntax/github-action-aws-s3@v1.0.2
         name: Sync App files to S3
         with:
