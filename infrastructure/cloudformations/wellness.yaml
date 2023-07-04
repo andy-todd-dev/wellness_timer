@@ -3,5 +3,5 @@ Resources:
     Type: AndyToddDev::Stack::WebApp::MODULE
     Properties:
       AppDomain: wellness.andytodd.dev
-      S3BucketName: wellness-bucket
+      AppName: wellness
       StagingCName: andy-todd-dev.github.io
