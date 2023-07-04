@@ -57,7 +57,7 @@ jobs:
       - uses: badsyntax/github-action-aws-s3@v1.0.2
         name: Clean S3
         with:
-          bucket: wellness-ui
+          bucket: webapp-wellness-ui
           aws-region: us-east-1
           action: clean
           src-dir: ./build
@@ -65,7 +65,7 @@ jobs:
       - uses: badsyntax/github-action-aws-s3@v1.0.2
         name: Sync App files to S3
         with:
-          bucket: wellness-ui
+          bucket: webapp-wellness-ui
           aws-region: us-east-1
           action: sync
           src-dir: ./build
