@@ -18,12 +18,10 @@ jobs:
         with:
           node-version: 16.x
       - name: Install dependencies
-        working-directory: ./wellness
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm install
       - name: Test
-        working-directory: ./wellness
         run: npm test
         env:
           CI: true
@@ -41,9 +39,8 @@ jobs:
           echo "escaped_homepage=${ESCAPED}" >> $GITHUB_ENV
       - name: Add staging homepage
         run: |
-          sed -i "1s/.*/\{ \"homepage\": \"builds\/${{ github.ref_type }}\/${{ env.escaped_homepage }}\", /" ./wellness/package.json
+          sed -i "1s/.*/\{ \"homepage\": \"builds\/${{ github.ref_type }}\/${{ env.escaped_homepage }}\", /" ./package.json
       - name: Generate build
-        working-directory: ./wellness
         run: npm run build
         env:
           VITE_DISABLE_SERVICE_WORKER: ${{ true }}
@@ -54,5 +51,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: staging
-          folder: wellness/build
+          folder: build
           target-folder: builds/${{ github.ref_type }}/${{ env.homepage }}

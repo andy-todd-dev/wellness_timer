@@ -14,18 +14,15 @@ jobs:
         with:
           node-version: 16.x
       - name: Install dependencies
-        working-directory: ./wellness
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm install
       - name: Test
-        working-directory: ./wellness
         run: npm test
         env:
           CI: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Generate build
-        working-directory: ./wellness
         run: npm run build
         env:
           VITE_BUILD: ${{ github.event.release.tag_name }}
@@ -36,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: wellness-build-${{ github.sha }}
-          path: ./wellness/build
+          path: ./build
   deploy:
     if: github.repository == 'andy-todd-dev/wellness_timer'
     runs-on: ubuntu-latest
@@ -80,10 +77,10 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: wellness-build-${{ github.sha }}
-          path: ./wellness/build
+          path: ./build
       - name: Run Lighthouse against build
         uses: treosh/lighthouse-ci-action@v9
         with:
-          configPath: ./wellness/lighthouserc
+          configPath: ./lighthouserc
           uploadArtifacts: true
           temporaryPublicStorage: true
