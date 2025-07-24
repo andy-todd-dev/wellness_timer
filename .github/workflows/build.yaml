@@ -4,7 +4,9 @@ on:
     branches:
       - main
     paths:
-      - wellness/**
+      - src/**
+      - public/**
+      - package.json
   pull_request_target:
   workflow_dispatch:
 jobs:

@@ -2,7 +2,7 @@
   "name": "Node.js",
   "build": {
     "dockerfile": "Dockerfile",
-    "args": { "VARIANT": "16-bullseye" }
+    "args": { "VARIANT": "22-bullseye" }
   },
 
   "customizations": {
@@ -13,15 +13,6 @@
         "seunlanlege.action-buttons"
       ]
     },
-    "codespaces": {
-      "repositories": {
-        "andy-todd-dev/use-timer": {
-          "permissions": {
-            "packages": "read"
-          }
-        }
-      }
-    }
   },
 
   "remoteUser": "node",
