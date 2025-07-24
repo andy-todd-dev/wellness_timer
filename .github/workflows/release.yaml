@@ -14,20 +14,16 @@ jobs:
         with:
           node-version: 16.x
       - name: Install dependencies
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm install
       - name: Test
         run: npm test
         env:
           CI: true
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Generate build
         run: npm run build
         env:
           VITE_BUILD: ${{ github.event.release.tag_name }}
           VITE_MT_EDIT_BUTTONS_ENABLED: ${{ true }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # Share artifact inside workflow
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v1

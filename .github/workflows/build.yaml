@@ -18,14 +18,11 @@ jobs:
         with:
           node-version: 16.x
       - name: Install dependencies
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm install
       - name: Test
         run: npm test
         env:
           CI: true
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Set homepage var
         run: |
           if [ ${{ github.event_name }} = "pull_request" ]; then
@@ -46,7 +43,6 @@ jobs:
           VITE_DISABLE_SERVICE_WORKER: ${{ true }}
           VITE_BUILD: ${{ github.sha }}
           VITE_MT_EDIT_BUTTONS_ENABLED: ${{ true }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy to staging
         uses: JamesIves/github-pages-deploy-action@v4
         with:
