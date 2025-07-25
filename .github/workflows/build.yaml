@@ -29,6 +29,7 @@ jobs:
         run: npm start & wait-on http://localhost:3000 && npx cypress run
         env:
           TERM: xterm
+          VITE_MT_EDIT_BUTTONS_ENABLED: false
       - name: Set homepage var
         run: |
           if [ ${{ github.event_name }} = "pull_request" ]; then
