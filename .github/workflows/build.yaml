@@ -28,7 +28,7 @@ jobs:
       - name: BDD Tests
         run: npm start & wait-on http://localhost:3000 && npx cypress run
         env:
-          CI: true
+          TERM: xterm
       - name: Set homepage var
         run: |
           if [ ${{ github.event_name }} = "pull_request" ]; then
