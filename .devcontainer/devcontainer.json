@@ -10,7 +10,8 @@
       "extensions": [
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
-        "seunlanlege.action-buttons"
+        "seunlanlege.action-buttons",
+        "alexkrechik.cucumberautocomplete"
       ]
     },
   },
