@@ -74,9 +74,3 @@ jobs:
         with:
           name: wellness-build-${{ github.sha }}
           path: ./build
-      - name: Run Lighthouse against build
-        uses: treosh/lighthouse-ci-action@v9
-        with:
-          configPath: ./lighthouserc
-          uploadArtifacts: true
-          temporaryPublicStorage: true

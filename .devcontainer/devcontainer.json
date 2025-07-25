@@ -1,9 +1,10 @@
 {
   "name": "Node.js",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "args": { "VARIANT": "22-bullseye" }
-  },
+  "image": "ghcr.io/andy-todd-dev/wellness_timer:latest",
+  // "build": {
+  //   "dockerfile": "Dockerfile",
+  //   "args": { "VARIANT": "22-bullseye" }
+  // },
 
   "customizations": {
     "vscode": {
@@ -13,7 +14,7 @@
         "seunlanlege.action-buttons",
         "alexkrechik.cucumberautocomplete"
       ]
-    },
+    }
   },
 
   "remoteUser": "node",
