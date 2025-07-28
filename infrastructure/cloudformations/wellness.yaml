@@ -1,7 +1,0 @@
-Resources:
-  WebApp:
-    Type: AndyToddDev::Stack::WebApp::MODULE
-    Properties:
-      AppDomain: wellness.andytodd.dev
-      AppName: wellness
-      StagingCName: andy-todd-dev.github.io

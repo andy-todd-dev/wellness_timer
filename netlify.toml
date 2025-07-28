@@ -2,6 +2,7 @@
 command = "npm test && npm run build"
 functions = "netlify/functions"
 publish = "build"
+ignore = "./netlify-ignore.sh"
 
 [build.environment]
 CYPRESS_CACHE_FOLDER = "./node_modules/CypressBinary"
