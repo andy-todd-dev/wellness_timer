@@ -15,4 +15,5 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     xvfb
 
 RUN su node -c "npm i -g wait-on"
+RUN su node -c "npm i -g netlify-cli"
 RUN su node -c "npx cypress install"

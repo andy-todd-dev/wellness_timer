@@ -1,10 +1,10 @@
 {
   "name": "Node.js",
-  "image": "ghcr.io/andy-todd-dev/wellness_timer:latest",
-  // "build": {
-  //   "dockerfile": "Dockerfile",
-  //   "args": { "VARIANT": "22-bullseye" }
-  // },
+  // "image": "ghcr.io/andy-todd-dev/wellness_timer:latest",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": { "VARIANT": "22-bullseye" }
+  },
 
   "customizations": {
     "vscode": {
@@ -12,7 +12,8 @@
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "seunlanlege.action-buttons",
-        "alexkrechik.cucumberautocomplete"
+        "alexkrechik.cucumberautocomplete",
+        "tamasfe.even-better-toml"
       ]
     }
   },

@@ -23,6 +23,7 @@
     "@vitejs/plugin-react": "^4.7.0",
     "cypress": "^14.5.2",
     "jsdom": "^26.1.0",
+    "netlify-plugin-cypress": "^2.2.1",
     "vite": "^7.0.6",
     "vite-plugin-pwa": "^1.0.1",
     "vitest": "^3.2.4"
