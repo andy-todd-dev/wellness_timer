@@ -6,7 +6,7 @@ publish = "build"
 [build.environment]
 CYPRESS_CACHE_FOLDER = "./node_modules/CypressBinary"
 TERM = "xterm"
-VITE_MT_EDIT_BUTTONS_ENABLED = "false"
+VITE_MT_EDIT_BUTTONS_ENABLED = "true"
 
 [[plugins]]
 package = "netlify-plugin-cypress"
