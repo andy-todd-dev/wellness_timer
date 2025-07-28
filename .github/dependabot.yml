@@ -11,7 +11,7 @@ registries:
     token: ${{secrets.DEPENDABOT_TOKEN}}
 updates:
   - package-ecosystem: "npm"
-    directory: "/wellness"
+    directory: "."
     schedule:
       interval: "weekly"
     registries:
