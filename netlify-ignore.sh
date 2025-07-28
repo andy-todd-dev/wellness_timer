@@ -8,8 +8,8 @@ CHANGED_FILES=$(git diff --name-only $CACHED_COMMIT_REF $COMMIT_REF)
 echo "$CHANGED_FILES" | grep -E '^(public/|src/|tests/)' > /dev/null
 if [ $? -eq 0 ]; then
   # There are changes in the watched directories, do not ignore build
-  exit 0
+  exit 1
 else
   # No changes in watched directories, skip build
-  exit 1
+  exit 0
 fi
