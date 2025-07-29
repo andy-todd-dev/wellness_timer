@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import useLocalStorage from "use-local-storage";
+import React, { useEffect, useState } from "react";
 import TimerDisplay from "./TimerDisplay";
 import useSound from "use-sound";
 import { useTimer } from "@andy-todd-dev/use-timer";
@@ -20,6 +19,7 @@ const ButtonAvatar = ({ children, ...props }) => (
   </Avatar>
 );
 
+
 const MeditationTimer = ({
   onPause,
   onPlay,
@@ -27,16 +27,18 @@ const MeditationTimer = ({
   onReset,
   enableEditTimerButtons,
   sx,
+  initialTime,
+  onTimeUpdated,
+  autorun,
+  minimumTimeSeconds,
+  maximumTimeSeconds,
 }) => {
   const [play] = useSound(timerFinishedSfx);
 
-  const [initialTime, setInitialTime] = useLocalStorage(
-    "timer-initial-time",
-    1200
-  );
+  const [currentInitialTime, setCurrentInitialTime] = useState(initialTime);
 
   const { time, start, pause, reset, status } = useTimer({
-    initialTime,
+    initialTime: currentInitialTime,
     timerType: "DECREMENTAL",
     endTime: 0,
     onTimeOver: () => {
@@ -47,11 +49,32 @@ const MeditationTimer = ({
 
   useEffect(() => {
     reset();
-  }, [initialTime, reset]);
+  }, [currentInitialTime, reset]);
 
   const isRunning = status === "RUNNING";
   const isPaused = status === "PAUSED";
   const isStopped = status === "STOPPED";
+
+  const startTimer = () => {
+    start();
+    onPlay && onPlay();
+  };
+
+  useEffect(() => {
+    if (autorun) {
+      startTimer();
+    }
+  }, []);
+
+  const timerUpdateHandlerBuilder = (secondsToChangeBy) => {
+    return () => {
+      const rawNewTime = currentInitialTime + secondsToChangeBy;
+      const newTime = Math.min(Math.max(rawNewTime, minimumTimeSeconds), maximumTimeSeconds);
+      setCurrentInitialTime(newTime);
+      onTimeUpdated(newTime);
+    };
+  };
+
 
   return (
     <Container className="meditation-timer" sx={sx}>
@@ -68,10 +91,7 @@ const MeditationTimer = ({
           <div className="backButtons buttonGroup">
             <ButtonAvatar>
               <Button
-                onClick={() => {
-                  const newTime = initialTime - 600;
-                  setInitialTime(newTime > 60 ? newTime : 60);
-                }}
+                onClick={timerUpdateHandlerBuilder(-600)}
                 disabled={time <= 60}
                 aria-label="Decrease timer by 10 minutes"
               >
@@ -80,9 +100,7 @@ const MeditationTimer = ({
             </ButtonAvatar>
             <ButtonAvatar>
               <Button
-                onClick={() => {
-                  setInitialTime(initialTime - 60);
-                }}
+                onClick={timerUpdateHandlerBuilder(-60)}
                 disabled={time <= 60}
                 aria-label="Decrease timer by 1 minute"
               >
@@ -96,10 +114,7 @@ const MeditationTimer = ({
           {!isRunning && time > 0 && (
             <ButtonAvatar>
               <Button
-                onClick={() => {
-                  start();
-                  onPlay && onPlay();
-                }}
+                onClick={startTimer}
                 aria-label="Start timer"
               >
                 <PlayArrowIcon fontSize="large" />
@@ -138,9 +153,7 @@ const MeditationTimer = ({
           <div className="forwardButtons buttonGroup">
             <ButtonAvatar>
               <Button
-                onClick={() => {
-                  setInitialTime(initialTime + 60);
-                }}
+                onClick={timerUpdateHandlerBuilder(60)}
                 disabled={time >= 99 * 60}
                 aria-label="Increase timer by 1 minute"
               >
@@ -150,10 +163,7 @@ const MeditationTimer = ({
 
             <ButtonAvatar>
               <Button
-                onClick={() => {
-                  const newTime = initialTime + 600;
-                  setInitialTime(newTime < 99 * 60 ? newTime : 99 * 60);
-                }}
+                onClick={timerUpdateHandlerBuilder(600)}
                 disabled={time >= 99 * 60}
                 aria-label="Increase timer by 10 minutes"
               >
