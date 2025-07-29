@@ -42,17 +42,6 @@ Given("I have a near complete wellness timer", () => {
   });
 });
 
-Given(
-  "I have a wellness timer with the timer set to one minute and 30 seconds",
-  () => {
-    cy.visit("/", {
-      qs: {
-        initialTime: "PT1M30S",
-      },
-    });
-  }
-);
-
 const ISO_PREFIX = "PT";
 const ISO_MINUTES = "M";
 const ISO_SECONDS = "S";
