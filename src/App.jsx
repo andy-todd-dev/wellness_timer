@@ -13,6 +13,34 @@ import { AppBar, IconButton, Toolbar, useTheme } from "@mui/material";
 const SECONDS_PER_MINUTE = 60;
 const DEFAULT_TIMER_SECONDS = 20 * SECONDS_PER_MINUTE; // 20 minutes
 
+const getInitialTimeParameter = () => {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const initialTimeParam = params.get("initialTime");
+    if (initialTimeParam) {
+      const durationObj = parseISODuration(initialTimeParam);
+      const seconds = toSeconds(durationObj);
+      if (seconds && seconds > 0) {
+        return seconds;
+      }
+    }
+  } catch (e) {
+    console.error("Error parsing initialTime parameter:", e);
+  }
+  return DEFAULT_TIMER_SECONDS;
+};
+
+const getRunningParameter = () => {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const runningParam = params.get("running");
+    return runningParam && (runningParam === "true" || runningParam === "1");
+  } catch (e) {
+    console.error("Error parsing running parameter:", e);
+  }
+  return false;
+};
+
 function App() {
   const { release: releaseWakeLock, request: acquireWakeLock } = useWakeLock();
 
@@ -21,34 +49,12 @@ function App() {
 
   const theme = useTheme();
 
-  // Get initialTime param from URL and parse as ISO 8601 duration using iso8601-duration
-  let initialTimeFromParam = null;
-  let runningFromParam = false;
-  try {
-    const params = new URLSearchParams(window.location.search);
-    const initialTimeParam = params.get("initialTime");
-    if (initialTimeParam) {
-      const durationObj = parseISODuration(initialTimeParam);
-      const seconds = toSeconds(durationObj);
-      if (seconds && seconds > 0) {
-        initialTimeFromParam = seconds;
-      }
-    }
-    const runningParam = params.get("running");
-    if (runningParam && (runningParam === "true" || runningParam === "1")) {
-      runningFromParam = true;
-    }
-  } catch (e) {
-    // ignore
-  }
-
-  // Always call useLocalStorage at the top level
   const [storedInitialTime, setStoredInitialTime] = useLocalStorage("timer-initial-time", DEFAULT_TIMER_SECONDS);
-  // Use the URL param if present, otherwise use local storage
-  console.log("Initial time from URL param:", initialTimeFromParam);
-  console.log("Stored initial time from local storage:", storedInitialTime);
+  const initialTimeFromParam = getInitialTimeParameter();
+  const runningFromParam = getRunningParameter();
+
+  // The URL overrides the local storage value if present
   const initialTime = initialTimeFromParam !== null ? initialTimeFromParam : storedInitialTime;
-  console.log("Using initial time:", initialTime);
 
   return (
     <>
