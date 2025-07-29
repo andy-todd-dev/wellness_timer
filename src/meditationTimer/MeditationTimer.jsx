@@ -66,7 +66,7 @@ const MeditationTimer = ({
     }
   }, []);
 
-  const timerUpdateHandlerbuilder = (secondsToChangeBy) => {
+  const timerUpdateHandlerBuilder = (secondsToChangeBy) => {
     return () => {
       const rawNewTime = currentInitialTime + secondsToChangeBy;
       const newTime = Math.min(Math.max(rawNewTime, minimumTimeSeconds), maximumTimeSeconds);
@@ -91,7 +91,7 @@ const MeditationTimer = ({
           <div className="backButtons buttonGroup">
             <ButtonAvatar>
               <Button
-                onClick={timerUpdateHandlerbuilder(-600)}
+                onClick={timerUpdateHandlerBuilder(-600)}
                 disabled={time <= 60}
                 aria-label="Decrease timer by 10 minutes"
               >
@@ -100,7 +100,7 @@ const MeditationTimer = ({
             </ButtonAvatar>
             <ButtonAvatar>
               <Button
-                onClick={timerUpdateHandlerbuilder(-60)}
+                onClick={timerUpdateHandlerBuilder(-60)}
                 disabled={time <= 60}
                 aria-label="Decrease timer by 1 minute"
               >
@@ -153,7 +153,7 @@ const MeditationTimer = ({
           <div className="forwardButtons buttonGroup">
             <ButtonAvatar>
               <Button
-                onClick={timerUpdateHandlerbuilder(60)}
+                onClick={timerUpdateHandlerBuilder(60)}
                 disabled={time >= 99 * 60}
                 aria-label="Increase timer by 1 minute"
               >
@@ -163,7 +163,7 @@ const MeditationTimer = ({
 
             <ButtonAvatar>
               <Button
-                onClick={timerUpdateHandlerbuilder(600)}
+                onClick={timerUpdateHandlerBuilder(600)}
                 disabled={time >= 99 * 60}
                 aria-label="Increase timer by 10 minutes"
               >
