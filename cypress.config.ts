@@ -8,6 +8,7 @@ export default defineConfig({
     specPattern: "**/*.feature",
     baseUrl: "http://localhost:3000",
     supportFile: false,
+    video: false,
     async setupNodeEvents(on, config) {
       // Register the Cucumber preprocessor as the file preprocessor
       await addCucumberPreprocessorPlugin(on, config);
