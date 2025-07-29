@@ -29,9 +29,9 @@ const MeditationTimer = ({
   sx,
   initialTime,
   onTimeUpdated,
-  running = false,
-  minimumTime = 60, // Minimum time in seconds
-  maximumTime = 99 * 60, // Maximum time in seconds (99 minutes)
+  autorun,
+  minimumTimeSeconds,
+  maximumTimeSeconds,
 }) => {
   const [play] = useSound(timerFinishedSfx);
 
@@ -61,7 +61,7 @@ const MeditationTimer = ({
   };
 
   useEffect(() => {
-    if (running) {
+    if (autorun) {
       startTimer();
     }
   }, []);
@@ -69,7 +69,7 @@ const MeditationTimer = ({
   const timerUpdateHandlerbuilder = (secondsToChangeBy) => {
     return () => {
       const rawNewTime = currentInitialTime + secondsToChangeBy;
-      const newTime = Math.min(Math.max(rawNewTime, minimumTime), maximumTime);
+      const newTime = Math.min(Math.max(rawNewTime, minimumTimeSeconds), maximumTimeSeconds);
       setCurrentInitialTime(newTime);
       onTimeUpdated(newTime);
     };

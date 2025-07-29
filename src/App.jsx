@@ -12,6 +12,8 @@ import { AppBar, IconButton, Toolbar, useTheme } from "@mui/material";
 
 const SECONDS_PER_MINUTE = 60;
 const DEFAULT_TIMER_SECONDS = 20 * SECONDS_PER_MINUTE; // 20 minutes
+const MAXIMUM_TIMER_SECONDS = 99 * SECONDS_PER_MINUTE; // 60 minutes
+const MINIMUM_TIMER_SECONDS = 1 * SECONDS_PER_MINUTE; // 1 minute
 
 const getInitialTimeParameter = () => {
   try {
@@ -109,9 +111,11 @@ function App() {
             Config.meditationTimer.editTimerButtonsEnabled
           }
           initialTime={initialTime}
-          running={runningFromParam}
+          autorun={runningFromParam}
           onTimeUpdated={setStoredInitialTime}
           sx={{ width: "fit-content", position: "relative", top: "-5vh" }}
+          minimumTimeSeconds={MINIMUM_TIMER_SECONDS}
+          maximumTimeSeconds={MAXIMUM_TIMER_SECONDS}
         />
       </div>
     </>
