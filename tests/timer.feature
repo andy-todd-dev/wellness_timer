@@ -15,12 +15,12 @@ Feature: Wellness timer
         When I pause the wellness timer
         Then the timer should stop counting down
 
-# Scenario: Resetting the wellness timer
-#     Given I have a running wellness timer
-#     When I reset the wellness timer
-#     Then the timer should return to its initial value
+    Scenario: Resetting the wellness timer
+        Given I have a paused wellness timer
+        When I reset the wellness timer
+        Then the timer should return to its initial value
 
-# Scenario: Completing the wellness timer
-#     Given I have a running wellness timer
-#     When the timer reaches zero
-#     Then I should see a completion message
+    Scenario: Completing the wellness timer
+        Given I have a near complete wellness timer
+        When the timer reaches zero
+        Then the timer should stop there and show the reset button
