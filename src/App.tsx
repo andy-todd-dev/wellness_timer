@@ -53,12 +53,16 @@ function App() {
 
   const theme = useTheme();
 
-  const [storedInitialTime, setStoredInitialTime] = useLocalStorage("timer-initial-time", DEFAULT_TIMER_SECONDS);
+  const [storedInitialTime, setStoredInitialTime] = useLocalStorage(
+    "timer-initial-time",
+    DEFAULT_TIMER_SECONDS
+  );
   const initialTimeFromParam = getInitialTimeParameter();
   const runningFromParam = getRunningParameter();
 
   // The URL overrides the local storage value if present
-  const initialTime = initialTimeFromParam !== null ? initialTimeFromParam : storedInitialTime;
+  const initialTime =
+    initialTimeFromParam !== null ? initialTimeFromParam : storedInitialTime;
 
   return (
     <>
