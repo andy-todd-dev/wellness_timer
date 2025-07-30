@@ -8,7 +8,7 @@ ignore = "./netlify-ignore.sh"
 CYPRESS_CACHE_FOLDER = "./node_modules/CypressBinary"
 TERM = "xterm"
 VITE_MT_EDIT_BUTTONS_ENABLED = "true"
-VITE_BUILD = "$COMMIT_REF"
+VITE_BUILD = "{{COMMIT_REF}}"
 
 [[plugins]]
 package = "netlify-plugin-cypress"
