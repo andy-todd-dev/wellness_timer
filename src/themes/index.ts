@@ -3,7 +3,10 @@ import { deepmerge } from "@mui/utils";
 import auroraBackground from "../images/aurora_bg.webp";
 // import waterBackground from "../images/water_bg.webp";
 
-const baseTheme = {
+
+import type { ThemeOptions, Theme } from "@mui/material";
+
+const baseTheme: ThemeOptions = {
   typography: {
     timer: {
       fontFamily: "Roboto, sans-serif",
@@ -15,7 +18,7 @@ const baseTheme = {
   },
 };
 
-const buildTheme = (theme) => createTheme(deepmerge(baseTheme, theme));
+const buildTheme = (theme: ThemeOptions): Theme => createTheme(deepmerge(baseTheme, theme));
 
 const auroraTheme = buildTheme({
   backgroundImage: auroraBackground,
@@ -31,6 +34,6 @@ const auroraTheme = buildTheme({
 
 export const DEFAULT_THEME = "auroraTheme";
 
-export const allThemes = {
+export const allThemes: Record<string, typeof auroraTheme> = {
   auroraTheme,
 };

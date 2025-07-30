@@ -4,4 +4,4 @@
 // learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom";
 
-import.meta.env.VITE_MT_EDIT_BUTTONS_ENABLED = "true";
+Object.defineProperty(import.meta.env, 'VITE_MT_EDIT_BUTTONS_ENABLED', { value: "true", writable: false });
