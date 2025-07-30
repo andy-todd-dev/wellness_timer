@@ -8,10 +8,7 @@ interface AppConfig {
 }
 
 const Config: AppConfig = {
-  buildName:
-    (import.meta.env.VITE_BUILD &&
-      import.meta.env.VITE_BUILD.substring(0, 9)) ||
-    "dev",
+  buildName: import.meta.env.VITE_BUILD || "dev",
   meditationTimer: {
     editTimerButtonsEnabled: JSON.parse(
       import.meta.env.VITE_MT_EDIT_BUTTONS_ENABLED.toLowerCase()
