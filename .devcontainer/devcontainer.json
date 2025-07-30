@@ -14,7 +14,11 @@
         "seunlanlege.action-buttons",
         "alexkrechik.cucumberautocomplete",
         "tamasfe.even-better-toml"
-      ]
+      ],
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+      }
     }
   },
 
