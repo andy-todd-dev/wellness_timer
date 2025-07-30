@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { useWakeLock } from "react-screen-wake-lock";
 import { Backdrop, Container, Divider, Link, Typography } from "@mui/material";
 import Config from "./Config";
@@ -10,13 +10,23 @@ const ModalDivider = () => {
   return <Divider variant="middle" color={grey[50]} />;
 };
 
-const ModalLink = ({ children, href }) => (
+type ModalLinkProps = {
+  children: ReactNode;
+  href: string;
+};
+
+const ModalLink = ({ children, href }: ModalLinkProps) => (
   <Link href={href} target="_blank" rel="noreferrer" color={blue[500]}>
     {children}
   </Link>
 );
 
-const DevDataModal = ({ children, isOpen }) => {
+type DevDataModalProps = {
+  children: ReactNode;
+  isOpen: boolean;
+};
+
+const DevDataModal = ({ children, isOpen }: DevDataModalProps) => {
   const { isSupported: wakeLockIsSupported } = useWakeLock();
   return (
     <>

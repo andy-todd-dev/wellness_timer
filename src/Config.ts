@@ -1,4 +1,13 @@
-const Config = {
+interface MeditationTimerConfig {
+  editTimerButtonsEnabled: boolean;
+}
+
+interface AppConfig {
+  buildName: string;
+  meditationTimer: MeditationTimerConfig;
+}
+
+const Config: AppConfig = {
   buildName:
     (import.meta.env.VITE_BUILD &&
       import.meta.env.VITE_BUILD.substring(0, 9)) ||

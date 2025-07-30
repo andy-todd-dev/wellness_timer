@@ -15,7 +15,7 @@ const DEFAULT_TIMER_SECONDS = 20 * SECONDS_PER_MINUTE; // 20 minutes
 const MAXIMUM_TIMER_SECONDS = 99 * SECONDS_PER_MINUTE; // 60 minutes
 const MINIMUM_TIMER_SECONDS = 1 * SECONDS_PER_MINUTE; // 1 minute
 
-const getInitialTimeParameter = () => {
+const getInitialTimeParameter = (): number => {
   try {
     const params = new URLSearchParams(window.location.search);
     const initialTimeParam = params.get("initialTime");
@@ -32,11 +32,13 @@ const getInitialTimeParameter = () => {
   return DEFAULT_TIMER_SECONDS;
 };
 
-const getRunningParameter = () => {
+const getRunningParameter = (): boolean => {
   try {
     const params = new URLSearchParams(window.location.search);
     const runningParam = params.get("running");
-    return runningParam && (runningParam === "true" || runningParam === "1");
+    if (runningParam === "true" || runningParam === "1") {
+      return true;
+    }
   } catch (e) {
     console.error("Error parsing running parameter:", e);
   }
@@ -76,12 +78,7 @@ function App() {
       >
         <AppBar color="transparent" elevation={0} sx={{ justifySelf: "start" }}>
           <Toolbar>
-            <DevDataModal
-              onClose={() => {
-                setDevDataIsOpen(false);
-              }}
-              isOpen={devDataIsOpen}
-            >
+            <DevDataModal isOpen={devDataIsOpen}>
               <IconButton
                 sx={{ zIndex: "tooltip" }}
                 onClick={() => {

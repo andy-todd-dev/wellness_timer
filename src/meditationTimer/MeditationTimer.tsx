@@ -13,12 +13,33 @@ import SkipNextIcon from "@mui/icons-material/SkipNext";
 
 import timerFinishedSfx from "../sounds/bowl_1.flac";
 
-const ButtonAvatar = ({ children, ...props }) => (
+import type { SxProps, Theme } from "@mui/material";
+import type { ReactNode, ButtonHTMLAttributes } from "react";
+
+type ButtonAvatarProps = {
+  children: ReactNode;
+} & Omit<React.ComponentProps<typeof Avatar>, "children">;
+
+const ButtonAvatar = ({ children, ...props }: ButtonAvatarProps) => (
   <Avatar sx={{ bgcolor: (theme) => theme.palette.secondary.main }} {...props}>
     {children}
   </Avatar>
 );
 
+
+type MeditationTimerProps = {
+  onPause?: () => void;
+  onPlay?: () => void;
+  onComplete: () => void;
+  onReset?: () => void;
+  enableEditTimerButtons?: boolean;
+  sx?: SxProps<Theme>;
+  initialTime: number;
+  onTimeUpdated: (newTime: number) => void;
+  autorun?: boolean;
+  minimumTimeSeconds: number;
+  maximumTimeSeconds: number;
+};
 
 const MeditationTimer = ({
   onPause,
@@ -32,7 +53,7 @@ const MeditationTimer = ({
   autorun,
   minimumTimeSeconds,
   maximumTimeSeconds,
-}) => {
+}: MeditationTimerProps) => {
   const [play] = useSound(timerFinishedSfx);
 
   const [currentInitialTime, setCurrentInitialTime] = useState(initialTime);
@@ -75,7 +96,7 @@ const MeditationTimer = ({
     }
   }, []);
 
-  const timerUpdateHandlerBuilder = (secondsToChangeBy) => {
+  const timerUpdateHandlerBuilder = (secondsToChangeBy: number) => {
     return () => {
       const rawNewTime = currentInitialTime + secondsToChangeBy;
       const newTime = Math.min(Math.max(rawNewTime, minimumTimeSeconds), maximumTimeSeconds);
