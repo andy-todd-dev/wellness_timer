@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@andy-todd-dev/use-timer": "github:andy-todd-dev/use-timer#develop",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.17",
@@ -11,6 +10,7 @@
     "iso8601-duration": "^2.1.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hook-time": "^1.0.7-5",
     "react-screen-wake-lock": "^3.1.1",
     "use-local-storage": "^3.0.0",
     "use-sound": "^5.0.0"
