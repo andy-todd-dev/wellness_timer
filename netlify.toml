@@ -1,14 +1,15 @@
+
 [build]
-command = "npm test && npm run build"
+command = "npm test && export VITE_BUILD=$COMMIT_REF && npm run build"
 functions = "netlify/functions"
 publish = "build"
 ignore = "./netlify-ignore.sh"
+
 
 [build.environment]
 CYPRESS_CACHE_FOLDER = "./node_modules/CypressBinary"
 TERM = "xterm"
 VITE_MT_EDIT_BUTTONS_ENABLED = "true"
-VITE_BUILD = "{{COMMIT_REF}}"
 
 [[plugins]]
 package = "netlify-plugin-cypress"
