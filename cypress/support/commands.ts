@@ -1,5 +1,19 @@
 /// <reference types="cypress" />
 
+// Declare the custom command type first
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      // cypress-real-events commands are automatically added
+      // Custom command for react-swipeable compatible swipes
+      swipeReactSwipeable(
+        direction: "up" | "down",
+        distance?: number
+      ): Chainable;
+    }
+  }
+}
+
 // Helper function to simulate swipe gestures compatible with react-swipeable
 const simulateSwipe = (
   element: any,
@@ -48,16 +62,5 @@ Cypress.Commands.add(
   }
 );
 
-// Add custom commands here if needed
-declare global {
-  namespace Cypress {
-    interface Chainable {
-      // cypress-real-events commands are automatically added
-      // Custom command for react-swipeable compatible swipes
-      swipeReactSwipeable(
-        direction: "up" | "down",
-        distance?: number
-      ): Chainable;
-    }
-  }
-}
+// Export an empty object to make this file a module
+export {};
