@@ -78,7 +78,6 @@ const TimerDisplay = ({ duration, onDurationChange }: TimerDisplayProps) => {
         style={{
           cursor: onDurationChange ? "pointer" : "default",
           userSelect: "none",
-          touchAction: "none",
         }}
       >
         {value}
@@ -100,6 +99,7 @@ const TimerDisplay = ({ duration, onDurationChange }: TimerDisplayProps) => {
         width: "100%",
         height: "100%",
         position: "relative",
+        touchAction: "none",
       }}
     >
       <div

@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 
-// Declare the custom command type first
 declare global {
   namespace Cypress {
     interface Chainable {
