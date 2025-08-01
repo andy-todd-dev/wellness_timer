@@ -26,7 +26,6 @@ const ButtonAvatar = ({ children, ...props }: ButtonAvatarProps) => (
   </Avatar>
 );
 
-
 type MeditationTimerProps = {
   onPause?: () => void;
   onPlay?: () => void;
@@ -60,26 +59,29 @@ const MeditationTimer = ({
   const [isPaused, setIsPaused] = useState(false);
   const [isStopped, setIsStopped] = useState(true);
 
-  const { currentTime, start, pause, reset, setTime, isRunning } = useTimer(currentInitialTime, {
-    onEnd: () => {
-      setIsPaused(false);
-      setIsStopped(true);
-      play();
-      onComplete();
-    },
-    onPause: () => {
-      setIsPaused(true);
-      setIsStopped(false);
-    },
-    onStart: () => {
-      setIsPaused(false);
-      setIsStopped(false);
-    },
-    onReset: () => {
-      setIsPaused(false);
-      setIsStopped(true);
+  const { currentTime, start, pause, reset, setTime, isRunning } = useTimer(
+    currentInitialTime,
+    {
+      onEnd: () => {
+        setIsPaused(false);
+        setIsStopped(true);
+        play();
+        onComplete();
+      },
+      onPause: () => {
+        setIsPaused(true);
+        setIsStopped(false);
+      },
+      onStart: () => {
+        setIsPaused(false);
+        setIsStopped(false);
+      },
+      onReset: () => {
+        setIsPaused(false);
+        setIsStopped(true);
+      },
     }
-  });
+  );
 
   useEffect(() => {
     setTime(currentInitialTime);
@@ -96,19 +98,32 @@ const MeditationTimer = ({
     }
   }, []);
 
+  const handleTimerDisplayChange = (newDuration: number) => {
+    const clampedDuration = Math.min(
+      Math.max(newDuration, minimumTimeSeconds),
+      maximumTimeSeconds
+    );
+    setCurrentInitialTime(clampedDuration);
+    onTimeUpdated(clampedDuration);
+  };
+
   const timerUpdateHandlerBuilder = (secondsToChangeBy: number) => {
     return () => {
       const rawNewTime = currentInitialTime + secondsToChangeBy;
-      const newTime = Math.min(Math.max(rawNewTime, minimumTimeSeconds), maximumTimeSeconds);
-      setCurrentInitialTime(newTime);
-      onTimeUpdated(newTime);
+      handleTimerDisplayChange(rawNewTime);
     };
   };
 
-
   return (
     <Container className="meditation-timer" sx={sx}>
-      <TimerDisplay duration={currentTime} />
+      <TimerDisplay
+        duration={currentTime}
+        onDurationChange={
+          enableEditTimerButtons && isStopped && currentTime > 0
+            ? handleTimerDisplayChange
+            : undefined
+        }
+      />
 
       <div
         className={
@@ -143,10 +158,7 @@ const MeditationTimer = ({
         <div className="mainButtons buttonGroup">
           {!isRunning && currentTime > 0 && (
             <ButtonAvatar>
-              <Button
-                onClick={startTimer}
-                aria-label="Start timer"
-              >
+              <Button onClick={startTimer} aria-label="Start timer">
                 <PlayArrowIcon fontSize="large" />
               </Button>
             </ButtonAvatar>
