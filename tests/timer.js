@@ -84,13 +84,30 @@ When("the timer reaches zero", () => {
 
 When(
   /^I click the (plus|minus) (one|ten) (minute|minutes) button$/,
-  (plusOrMinus, amount, minuteWord) => {
+  (plusOrMinus, amount) => {
     // Map to ARIA label
     const action = plusOrMinus === "plus" ? "Increase" : "Decrease";
     const minutes = amount === "one" ? 1 : 10;
     const minuteLabel = minutes === 1 ? "minute" : "minutes";
     const ariaLabel = `${action} timer by ${minutes} ${minuteLabel}`;
     cy.get(`[aria-label='${ariaLabel}']`).click();
+  }
+);
+
+When(
+  /^I swipe (up|down) on the (minutes tens|minutes ones|seconds tens|seconds ones) digit$/,
+  (direction, digitType) => {
+    // Map digit types to aria-labels
+    const digitAriaLabels = {
+      "minutes tens": "Tens of minutes digit",
+      "minutes ones": "Ones of minutes digit",
+      "seconds tens": "Tens of seconds digit",
+      "seconds ones": "Ones of seconds digit",
+    };
+
+    cy.get(`[aria-label='${digitAriaLabels[digitType]}']`)
+      .should("be.visible")
+      .swipe(direction);
   }
 );
 
@@ -125,11 +142,25 @@ Then("the timer should not go below one minute", () => {
   cy.get(".timer-display").should("contain", "1:00");
 });
 
-Then(/^the timer should display (\d+) minute(?:s)?$/, (minutes) => {
-  // Accepts both 'minute' and 'minutes' in the step
-  const expected = `${parseInt(minutes, 10)}:00`;
-  cy.get(".timer-display").should("contain", expected);
-});
+Then(
+  /^the timer should display (\d+) minute(?:s)?(?:\s+and\s+(\d+) second(?:s)?)?$/,
+  (minutes, seconds) => {
+    const expectedMinutes = parseInt(minutes, 10);
+    const formattedMinutes = expectedMinutes.toString().padStart(2, "0");
+
+    if (seconds) {
+      // Handle cases with both minutes and seconds
+      const expectedSeconds = parseInt(seconds, 10);
+      const formattedSeconds = expectedSeconds.toString().padStart(2, "0");
+      const expected = `${formattedMinutes}:${formattedSeconds}`;
+      cy.get(".timer-display").should("contain", expected);
+    } else {
+      // Handle cases with only minutes (assumes :00 seconds)
+      const expected = `${formattedMinutes}:00`;
+      cy.get(".timer-display").should("contain", expected);
+    }
+  }
+);
 
 Then("the timer should continue counting down from where it left off", () => {
   cy.wait(2000); // Wait for the timer to continue

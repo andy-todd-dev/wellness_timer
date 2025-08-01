@@ -7,7 +7,7 @@ export default defineConfig({
   e2e: {
     specPattern: "**/*.feature",
     baseUrl: "http://localhost:3000",
-    supportFile: false,
+    supportFile: "cypress/support/commands.ts",
     video: false,
     async setupNodeEvents(on, config) {
       // Register the Cucumber preprocessor as the file preprocessor

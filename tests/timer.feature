@@ -60,3 +60,83 @@ Feature: Wellness timer
         When I click the minus ten minute button
         Then the timer should display 5 minutes
 
+    Scenario: Swiping up on minutes tens digit
+        Given I have a wellness timer with the timer set to 5 minutes and 30 seconds
+        When I swipe up on the minutes tens digit
+        Then the timer should display 15 minutes and 30 seconds
+
+    Scenario: Swiping down on minutes tens digit
+        Given I have a wellness timer with the timer set to 14 minutes and 20 seconds
+        When I swipe down on the minutes tens digit
+        Then the timer should display 4 minutes and 20 seconds
+
+    Scenario: Swiping up on minutes tens digit with rollover
+        Given I have a wellness timer with the timer set to 95 minutes and 30 seconds
+        When I swipe up on the minutes tens digit
+        Then the timer should display 5 minutes and 30 seconds
+
+    Scenario: Swiping down on minutes tens digit with rollover
+        Given I have a wellness timer with the timer set to 5 minutes and 30 seconds
+        When I swipe down on the minutes tens digit
+        Then the timer should display 95 minutes and 30 seconds
+
+    Scenario: Swiping up on minutes ones digit
+        Given I have a wellness timer with the timer set to 15 minutes and 30 seconds
+        When I swipe up on the minutes ones digit
+        Then the timer should display 16 minutes and 30 seconds
+
+    Scenario: Swiping down on minutes ones digit
+        Given I have a wellness timer with the timer set to 16 minutes and 30 seconds
+        When I swipe down on the minutes ones digit
+        Then the timer should display 15 minutes and 30 seconds
+
+    Scenario: Swiping up on minutes ones digit with rollover
+        Given I have a wellness timer with the timer set to 19 minutes and 30 seconds
+        When I swipe up on the minutes ones digit
+        Then the timer should display 10 minutes and 30 seconds
+
+    Scenario: Swiping down on minutes ones digit with rollover
+        Given I have a wellness timer with the timer set to 10 minutes and 30 seconds
+        When I swipe down on the minutes ones digit
+        Then the timer should display 19 minutes and 30 seconds
+
+    Scenario: Swiping up on seconds tens digit
+        Given I have a wellness timer with the timer set to 5 minutes and 20 seconds
+        When I swipe up on the seconds tens digit
+        Then the timer should display 5 minutes and 30 seconds
+
+    Scenario: Swiping down on seconds tens digit
+        Given I have a wellness timer with the timer set to 5 minutes and 30 seconds
+        When I swipe down on the seconds tens digit
+        Then the timer should display 5 minutes and 20 seconds
+
+    Scenario: Swiping up on seconds tens digit with rollover
+        Given I have a wellness timer with the timer set to 5 minutes and 50 seconds
+        When I swipe up on the seconds tens digit
+        Then the timer should display 5 minutes and 0 seconds
+
+    Scenario: Swiping down on seconds tens digit with rollover
+        Given I have a wellness timer with the timer set to 5 minutes and 0 seconds
+        When I swipe down on the seconds tens digit
+        Then the timer should display 5 minutes and 50 seconds
+
+    Scenario: Swiping up on seconds ones digit
+        Given I have a wellness timer with the timer set to 5 minutes and 25 seconds
+        When I swipe up on the seconds ones digit
+        Then the timer should display 5 minutes and 26 seconds
+
+    Scenario: Swiping down on seconds ones digit
+        Given I have a wellness timer with the timer set to 5 minutes and 26 seconds
+        When I swipe down on the seconds ones digit
+        Then the timer should display 5 minutes and 25 seconds
+
+    Scenario: Swiping up on seconds ones digit with rollover
+        Given I have a wellness timer with the timer set to 5 minutes and 29 seconds
+        When I swipe up on the seconds ones digit
+        Then the timer should display 5 minutes and 20 seconds
+
+    Scenario: Swiping down on seconds ones digit with rollover
+        Given I have a wellness timer with the timer set to 5 minutes and 20 seconds
+        When I swipe down on the seconds ones digit
+        Then the timer should display 5 minutes and 29 seconds
+

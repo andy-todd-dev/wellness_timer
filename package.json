@@ -12,6 +12,7 @@
     "react-dom": "^19.1.0",
     "react-hook-time": "^1.0.7-5",
     "react-screen-wake-lock": "^3.1.1",
+    "react-swipeable": "^7.0.2",
     "use-local-storage": "^3.0.0",
     "use-sound": "^5.0.0"
   },
