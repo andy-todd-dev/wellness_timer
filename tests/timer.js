@@ -107,7 +107,7 @@ When(
 
     cy.get(`[aria-label='${digitAriaLabels[digitType]}']`)
       .should("be.visible")
-      .swipeReactSwipeable(direction);
+      .swipe(direction);
   }
 );
 
