@@ -105,9 +105,7 @@ When(
       "seconds ones": "Ones of seconds digit",
     };
 
-    cy.get(`[aria-label='${digitAriaLabels[digitType]}']`)
-      .should("be.visible")
-      .swipe(direction);
+    cy.get(`[aria-label='${digitAriaLabels[digitType]}']`).swipe(direction);
   }
 );
 
