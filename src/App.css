@@ -55,17 +55,6 @@ td {
   font-size: min(10vw, 10vh);
 }
 
-@media screen and (max-width: 400px) {
-  .timer-display h1 {
-    font-size: 32vw;
-  }
-}
-@media screen and (min-width: 401px) {
-  .timer-display h1 {
-    font-size: 20vw;
-  }
-}
-
 img.logo {
   height: 2em;
   display: block;
