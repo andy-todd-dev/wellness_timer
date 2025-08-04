@@ -3,18 +3,14 @@ import TimerDisplay from "./TimerDisplay";
 import useSound from "use-sound";
 import { useTimer } from "react-hook-time";
 import { Avatar, Button, Container } from "@mui/material";
-import FastRewindIcon from "@mui/icons-material/FastRewind";
-import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import FastForwardIcon from "@mui/icons-material/FastForward";
-import SkipNextIcon from "@mui/icons-material/SkipNext";
 
 import timerFinishedSfx from "../sounds/bowl_1.flac";
 
 import type { SxProps, Theme } from "@mui/material";
-import type { ReactNode, ButtonHTMLAttributes } from "react";
+import type { ReactNode } from "react";
 
 type ButtonAvatarProps = {
   children: ReactNode;
@@ -107,13 +103,6 @@ const MeditationTimer = ({
     onTimeUpdated(clampedDuration);
   };
 
-  const timerUpdateHandlerBuilder = (secondsToChangeBy: number) => {
-    return () => {
-      const rawNewTime = currentInitialTime + secondsToChangeBy;
-      handleTimerDisplayChange(rawNewTime);
-    };
-  };
-
   return (
     <Container className="meditation-timer" sx={sx}>
       <TimerDisplay
@@ -125,36 +114,7 @@ const MeditationTimer = ({
         }
       />
 
-      <div
-        className={
-          enableEditTimerButtons && isStopped && currentTime > 0
-            ? "timerButtons"
-            : "timerButtonsRunning"
-        }
-      >
-        {enableEditTimerButtons && isStopped && currentTime > 0 && (
-          <div className="backButtons buttonGroup">
-            <ButtonAvatar>
-              <Button
-                onClick={timerUpdateHandlerBuilder(-600)}
-                disabled={currentTime <= 60}
-                aria-label="Decrease timer by 10 minutes"
-              >
-                <FastRewindIcon fontSize="large" />
-              </Button>
-            </ButtonAvatar>
-            <ButtonAvatar>
-              <Button
-                onClick={timerUpdateHandlerBuilder(-60)}
-                disabled={currentTime <= 60}
-                aria-label="Decrease timer by 1 minute"
-              >
-                <SkipPreviousIcon fontSize="large" />
-              </Button>
-            </ButtonAvatar>
-          </div>
-        )}
-
+      <div className={"timerButtons"}>
         <div className="mainButtons buttonGroup">
           {!isRunning && currentTime > 0 && (
             <ButtonAvatar>
@@ -190,30 +150,6 @@ const MeditationTimer = ({
             </ButtonAvatar>
           )}
         </div>
-
-        {enableEditTimerButtons && isStopped && currentTime > 0 && (
-          <div className="forwardButtons buttonGroup">
-            <ButtonAvatar>
-              <Button
-                onClick={timerUpdateHandlerBuilder(60)}
-                disabled={currentTime >= 99 * 60}
-                aria-label="Increase timer by 1 minute"
-              >
-                <SkipNextIcon fontSize="large" />
-              </Button>
-            </ButtonAvatar>
-
-            <ButtonAvatar>
-              <Button
-                onClick={timerUpdateHandlerBuilder(600)}
-                disabled={currentTime >= 99 * 60}
-                aria-label="Increase timer by 10 minutes"
-              >
-                <FastForwardIcon fontSize="large" />
-              </Button>
-            </ButtonAvatar>
-          </div>
-        )}
       </div>
     </Container>
   );

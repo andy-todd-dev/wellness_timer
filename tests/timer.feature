@@ -30,35 +30,85 @@ Feature: Wellness timer
         When the timer reaches zero
         Then the timer should stop there and show the reset button
 
-    Scenario: Subtracting one minute when timer is near minimum
-        Given I have a wellness timer with the timer set to 1 minute and 30 seconds
-        When I click the minus one minute button
-        Then the timer should not go below one minute
+    Scenario: Clicking up arrow on minutes tens digit
+        Given I have a wellness timer with the timer set to 5 minutes and 30 seconds
+        When I click the up arrow on the minutes tens digit
+        Then the timer should display 15 minutes and 30 seconds
 
-    Scenario: Subtracting ten minutes when timer is near minimum
-        Given I have a wellness timer with the timer set to 2 minutes
-        When I click the minus ten minute button
-        Then the timer should not go below one minute
+    Scenario: Clicking down arrow on minutes tens digit
+        Given I have a wellness timer with the timer set to 14 minutes and 20 seconds
+        When I click the down arrow on the minutes tens digit
+        Then the timer should display 4 minutes and 20 seconds
 
-    Scenario: Incrementing the timer by one minute
-        Given I have a wellness timer with the timer set to 5 minutes
-        When I click the plus one minute button
-        Then the timer should display 6 minutes
+    Scenario: Clicking up arrow on minutes tens digit with rollover
+        Given I have a wellness timer with the timer set to 95 minutes and 30 seconds
+        When I click the up arrow on the minutes tens digit
+        Then the timer should display 5 minutes and 30 seconds
 
-    Scenario: Incrementing the timer by ten minutes
-        Given I have a wellness timer with the timer set to 5 minutes
-        When I click the plus ten minute button
-        Then the timer should display 15 minutes
+    Scenario: Clicking down arrow on minutes tens digit with rollover
+        Given I have a wellness timer with the timer set to 5 minutes and 30 seconds
+        When I click the down arrow on the minutes tens digit
+        Then the timer should display 95 minutes and 30 seconds
 
-    Scenario: Decrementing the timer by one minute
-        Given I have a wellness timer with the timer set to 5 minutes
-        When I click the minus one minute button
-        Then the timer should display 4 minutes
+    Scenario: Clicking up arrow on minutes ones digit
+        Given I have a wellness timer with the timer set to 15 minutes and 30 seconds
+        When I click the up arrow on the minutes ones digit
+        Then the timer should display 16 minutes and 30 seconds
 
-    Scenario: Decrementing the timer by ten minutes
-        Given I have a wellness timer with the timer set to 15 minutes
-        When I click the minus ten minute button
-        Then the timer should display 5 minutes
+    Scenario: Clicking down arrow on minutes ones digit
+        Given I have a wellness timer with the timer set to 16 minutes and 30 seconds
+        When I click the down arrow on the minutes ones digit
+        Then the timer should display 15 minutes and 30 seconds
+
+    Scenario: Clicking up arrow on minutes ones digit with rollover
+        Given I have a wellness timer with the timer set to 19 minutes and 30 seconds
+        When I click the up arrow on the minutes ones digit
+        Then the timer should display 10 minutes and 30 seconds
+
+    Scenario: Clicking down arrow on minutes ones digit with rollover
+        Given I have a wellness timer with the timer set to 10 minutes and 30 seconds
+        When I click the down arrow on the minutes ones digit
+        Then the timer should display 19 minutes and 30 seconds
+
+    Scenario: Clicking up arrow on seconds tens digit
+        Given I have a wellness timer with the timer set to 5 minutes and 20 seconds
+        When I click the up arrow on the seconds tens digit
+        Then the timer should display 5 minutes and 30 seconds
+
+    Scenario: Clicking down arrow on seconds tens digit
+        Given I have a wellness timer with the timer set to 5 minutes and 30 seconds
+        When I click the down arrow on the seconds tens digit
+        Then the timer should display 5 minutes and 20 seconds
+
+    Scenario: Clicking up arrow on seconds tens digit with rollover
+        Given I have a wellness timer with the timer set to 5 minutes and 50 seconds
+        When I click the up arrow on the seconds tens digit
+        Then the timer should display 5 minutes and 0 seconds
+
+    Scenario: Clicking down arrow on seconds tens digit with rollover
+        Given I have a wellness timer with the timer set to 5 minutes and 0 seconds
+        When I click the down arrow on the seconds tens digit
+        Then the timer should display 5 minutes and 50 seconds
+
+    Scenario: Clicking up arrow on seconds ones digit
+        Given I have a wellness timer with the timer set to 5 minutes and 25 seconds
+        When I click the up arrow on the seconds ones digit
+        Then the timer should display 5 minutes and 26 seconds
+
+    Scenario: Clicking down arrow on seconds ones digit
+        Given I have a wellness timer with the timer set to 5 minutes and 26 seconds
+        When I click the down arrow on the seconds ones digit
+        Then the timer should display 5 minutes and 25 seconds
+
+    Scenario: Clicking up arrow on seconds ones digit with rollover
+        Given I have a wellness timer with the timer set to 5 minutes and 29 seconds
+        When I click the up arrow on the seconds ones digit
+        Then the timer should display 5 minutes and 20 seconds
+
+    Scenario: Clicking down arrow on seconds ones digit with rollover
+        Given I have a wellness timer with the timer set to 5 minutes and 20 seconds
+        When I click the down arrow on the seconds ones digit
+        Then the timer should display 5 minutes and 29 seconds
 
     Scenario: Swiping up on minutes tens digit
         Given I have a wellness timer with the timer set to 5 minutes and 30 seconds

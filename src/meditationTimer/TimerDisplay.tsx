@@ -36,6 +36,49 @@ const TimerDisplay = ({ duration, onDurationChange }: TimerDisplayProps) => {
       onDurationChange && onDurationChange(duration + difference);
     };
 
+  const ArrowButton = ({
+    onClick,
+    arrow,
+    label,
+    top = undefined,
+    bottom = undefined,
+  }: {
+    onClick: React.MouseEventHandler<HTMLButtonElement>;
+    arrow: React.ReactNode;
+    label: string;
+    top?: string;
+    bottom?: string;
+  }) => {
+    return (
+      <button
+        onClick={onClick}
+        aria-label={label}
+        style={{
+          position: "absolute",
+          top: top,
+          bottom: bottom,
+          left: "50%",
+          transform: "translateX(-50%)",
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          padding: "0.1em",
+          opacity: 0.3,
+          transition: "opacity 0.2s ease",
+          fontSize: "0.2em",
+          color: "inherit",
+          zIndex: 2,
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
+        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.3")}
+        onMouseDown={(e) => (e.currentTarget.style.opacity = "1")}
+        onMouseUp={(e) => (e.currentTarget.style.opacity = "1")}
+      >
+        {arrow}
+      </button>
+    );
+  };
+
   const SwipeableDigit = ({
     value,
     max,
@@ -47,40 +90,74 @@ const TimerDisplay = ({ duration, onDurationChange }: TimerDisplayProps) => {
     secondsMultiplier: number;
     label: string;
   }) => {
+    const handleIncrement = handleDigitSwipeBuilder({
+      min: 0,
+      max: max,
+      currentValue: value,
+      increment: 1,
+      secondsMultiplier: secondsMultiplier,
+    });
+
+    const handleDecrement = handleDigitSwipeBuilder({
+      min: 0,
+      max: max,
+      currentValue: value,
+      increment: -1,
+      secondsMultiplier: secondsMultiplier,
+    });
+
     const handlers = useSwipeable({
-      onSwipedUp: handleDigitSwipeBuilder({
-        min: 0,
-        max: max,
-        currentValue: value,
-        increment: 1,
-        secondsMultiplier: secondsMultiplier,
-      }),
-      onSwipedDown: handleDigitSwipeBuilder({
-        min: 0,
-        max: max,
-        currentValue: value,
-        increment: -1,
-        secondsMultiplier: secondsMultiplier,
-      }),
+      onSwipedUp: handleIncrement,
+      onSwipedDown: handleDecrement,
       trackMouse: true,
       preventScrollOnSwipe: true,
     });
 
     return (
       <span
-        {...handlers}
-        aria-label={label}
-        role="spinbutton"
-        aria-valuemin={0}
-        aria-valuemax={max}
-        aria-valuenow={value}
-        tabIndex={onDurationChange ? 0 : -1}
         style={{
-          cursor: onDurationChange ? "pointer" : "default",
+          position: "relative",
+          display: "inline-flex",
+          flexDirection: "column",
+          alignItems: "center",
           userSelect: "none",
         }}
       >
-        {value}
+        {onDurationChange && (
+          <ArrowButton
+            onClick={handleIncrement}
+            arrow="▲"
+            label={`Increase ${label}`}
+            top="-0.8em"
+          />
+        )}
+
+        <span
+          {...handlers}
+          aria-label={label}
+          role="spinbutton"
+          aria-valuemin={0}
+          aria-valuemax={max}
+          aria-valuenow={value}
+          tabIndex={onDurationChange ? 0 : -1}
+          style={{
+            cursor: onDurationChange ? "pointer" : "default",
+            userSelect: "none",
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
+          {value}
+        </span>
+
+        {onDurationChange && (
+          <ArrowButton
+            onClick={handleDecrement}
+            arrow="▼"
+            label={`Decrease ${label}`}
+            bottom="-0.8em"
+          />
+        )}
       </span>
     );
   };

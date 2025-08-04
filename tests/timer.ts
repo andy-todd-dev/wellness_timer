@@ -1,9 +1,37 @@
+/// <reference types="cypress" />
+/// <reference path="../cypress/support/commands.ts" />
 import { When, Then, Given } from "@badeball/cypress-cucumber-preprocessor";
 
 // ISO 8601 format
 const DEFAULT_TIMER = "PT20M";
 const NEAR_COMPLETE_TIMER = "PT2S";
 
+// Map digit types to aria-labels
+const digitAriaLabels: Record<string, string> = {
+  "minutes tens": "Tens of minutes digit",
+  "minutes ones": "Ones of minutes digit",
+  "seconds tens": "Tens of seconds digit",
+  "seconds ones": "Ones of seconds digit",
+};
+
+const checkTimerDisplay = (displayString: string) => {
+  displayString.length > 0 &&
+    cy
+      .get("[aria-label='Tens of minutes digit']")
+      .should("contain", displayString[0]);
+  displayString.length > 1 &&
+    cy
+      .get("[aria-label='Ones of minutes digit']")
+      .should("contain", displayString[1]);
+  displayString.length > 3 &&
+    cy
+      .get("[aria-label='Tens of seconds digit']")
+      .should("contain", displayString[3]);
+  displayString.length > 4 &&
+    cy
+      .get("[aria-label='Ones of seconds digit']")
+      .should("contain", displayString[4]);
+};
 // GIVENs
 Given("I have a wellness timer", () => {
   cy.visit("/", {
@@ -48,7 +76,7 @@ const ISO_SECONDS = "S";
 
 Given(
   /^I have a wellness timer with the timer set to (\d+) minute(?:s)?(?: and (\d+) second(?:s)?)?$/,
-  (minutes, seconds) => {
+  (minutes: string, seconds?: string) => {
     const isoTime = seconds
       ? `${ISO_PREFIX}${minutes}${ISO_MINUTES}${seconds}${ISO_SECONDS}`
       : `${ISO_PREFIX}${minutes}${ISO_MINUTES}`;
@@ -84,7 +112,7 @@ When("the timer reaches zero", () => {
 
 When(
   /^I click the (plus|minus) (one|ten) (minute|minutes) button$/,
-  (plusOrMinus, amount) => {
+  (plusOrMinus: string, amount: string) => {
     // Map to ARIA label
     const action = plusOrMinus === "plus" ? "Increase" : "Decrease";
     const minutes = amount === "one" ? 1 : 10;
@@ -95,27 +123,28 @@ When(
 );
 
 When(
-  /^I swipe (up|down) on the (minutes tens|minutes ones|seconds tens|seconds ones) digit$/,
-  (direction, digitType) => {
-    // Map digit types to aria-labels
-    const digitAriaLabels = {
-      "minutes tens": "Tens of minutes digit",
-      "minutes ones": "Ones of minutes digit",
-      "seconds tens": "Tens of seconds digit",
-      "seconds ones": "Ones of seconds digit",
-    };
+  /^I click the (up|down) arrow on the (minutes tens|minutes ones|seconds tens|seconds ones) digit$/,
+  (direction: string, digitType: string) => {
+    const action = direction === "up" ? "Increase" : "Decrease";
+    const ariaLabel = `${action} ${digitAriaLabels[digitType]}`;
+    cy.get(`[aria-label='${ariaLabel}']`).click();
+  }
+);
 
+When(
+  /^I swipe (up|down) on the (minutes tens|minutes ones|seconds tens|seconds ones) digit$/,
+  (direction: "up" | "down", digitType: string) => {
     cy.get(`[aria-label='${digitAriaLabels[digitType]}']`).swipe(direction);
   }
 );
 
 // THENs
 Then("the timer should display the initial time", () => {
-  cy.get(".timer-display").should("contain", "20:00");
+  checkTimerDisplay("20:00");
 });
 
 Then("the timer should begin counting down", () => {
-  cy.get(".timer-display").should("contain", "19:");
+  checkTimerDisplay("19:");
 });
 
 Then("the timer should stop counting down", () => {
@@ -128,21 +157,21 @@ Then("the timer should stop counting down", () => {
 });
 
 Then("the timer should return to its initial value", () => {
-  cy.get(".timer-display").should("contain", "20:00");
+  checkTimerDisplay("20:00");
 });
 
 Then("the timer should stop there and show the reset button", () => {
-  cy.get(".timer-display").should("contain", "00:00");
+  checkTimerDisplay("00:00");
   cy.get("[aria-label='Reset timer']").should("be.visible");
 });
 
 Then("the timer should not go below one minute", () => {
-  cy.get(".timer-display").should("contain", "1:00");
+  checkTimerDisplay("01:00");
 });
 
 Then(
   /^the timer should display (\d+) minute(?:s)?(?:\s+and\s+(\d+) second(?:s)?)?$/,
-  (minutes, seconds) => {
+  (minutes: string, seconds?: string) => {
     const expectedMinutes = parseInt(minutes, 10);
     const formattedMinutes = expectedMinutes.toString().padStart(2, "0");
 
@@ -151,16 +180,16 @@ Then(
       const expectedSeconds = parseInt(seconds, 10);
       const formattedSeconds = expectedSeconds.toString().padStart(2, "0");
       const expected = `${formattedMinutes}:${formattedSeconds}`;
-      cy.get(".timer-display").should("contain", expected);
+      checkTimerDisplay(expected);
     } else {
       // Handle cases with only minutes (assumes :00 seconds)
       const expected = `${formattedMinutes}:00`;
-      cy.get(".timer-display").should("contain", expected);
+      checkTimerDisplay(expected);
     }
   }
 );
 
 Then("the timer should continue counting down from where it left off", () => {
   cy.wait(2000); // Wait for the timer to continue
-  cy.get(".timer-display").should("contain", "19:55");
+  checkTimerDisplay("19:55");
 });

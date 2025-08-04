@@ -15,11 +15,6 @@ div.App {
 div.timerButtons {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-}
-div.timerButtonsRunning {
-  display: flex;
-  flex-direction: row;
   justify-content: center;
 }
 
