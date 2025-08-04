@@ -3,7 +3,6 @@
 declare global {
   namespace Cypress {
     interface Chainable {
-      // Custom command for react-swipeable compatible swipes
       swipe(direction: "up" | "down", distance?: number): Chainable;
     }
   }
@@ -51,7 +50,6 @@ const simulateSwipe = (
   });
 };
 
-// Add custom Cypress command for easier usage
 Cypress.Commands.add(
   "swipe",
   { prevSubject: "element" },
