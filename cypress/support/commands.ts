@@ -34,16 +34,19 @@ const simulateSwipe = (
         touches: [{ clientX: centerX, clientY: startY }],
         targetTouches: [{ clientX: centerX, clientY: startY }],
         changedTouches: [{ clientX: centerX, clientY: startY }],
+        force: true,
       })
       .trigger("touchmove", {
         touches: [{ clientX: centerX, clientY: endY }],
         targetTouches: [{ clientX: centerX, clientY: endY }],
         changedTouches: [{ clientX: centerX, clientY: endY }],
+        force: true,
       })
       .trigger("touchend", {
         touches: [],
         targetTouches: [],
         changedTouches: [{ clientX: centerX, clientY: endY }],
+        force: true,
       });
   });
 };
