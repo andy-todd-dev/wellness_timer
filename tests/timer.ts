@@ -181,12 +181,10 @@ Then(
       const formattedSeconds = expectedSeconds.toString().padStart(2, "0");
       const expected = `${formattedMinutes}:${formattedSeconds}`;
       checkTimerDisplay(expected);
-      // cy.get(".timer-display").should("contain", expected);
     } else {
       // Handle cases with only minutes (assumes :00 seconds)
       const expected = `${formattedMinutes}:00`;
       checkTimerDisplay(expected);
-      // cy.get(".timer-display").should("contain", expected);
     }
   }
 );
