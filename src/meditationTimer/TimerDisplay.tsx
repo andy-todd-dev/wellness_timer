@@ -123,7 +123,6 @@ const TimerDisplay = ({ duration, onDurationChange }: TimerDisplayProps) => {
           userSelect: "none",
         }}
       >
-        {/* Up Arrow */}
         {onDurationChange && (
           <ArrowButton
             onClick={handleIncrement}
@@ -151,7 +150,6 @@ const TimerDisplay = ({ duration, onDurationChange }: TimerDisplayProps) => {
           {value}
         </span>
 
-        {/* Down Arrow */}
         {onDurationChange && (
           <ArrowButton
             onClick={handleDecrement}
