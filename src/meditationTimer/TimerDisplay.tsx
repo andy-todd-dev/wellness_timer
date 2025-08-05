@@ -1,6 +1,7 @@
-import { Tooltip, Typography } from "@mui/material";
+import { Tooltip, Typography, IconButton } from "@mui/material";
 import React from "react";
 import { useSwipeable } from "react-swipeable";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 type TimerDisplayProps = {
   duration: number;
@@ -9,6 +10,8 @@ type TimerDisplayProps = {
   showToolTip: boolean;
   onToolTipClose?: () => void;
   onDurationChange?: (newDuration: number) => void;
+  showResetButton?: boolean;
+  onReset?: () => void;
 };
 
 const TimerDisplay = ({
@@ -18,6 +21,8 @@ const TimerDisplay = ({
   showToolTip,
   onToolTipClose,
   onDurationChange,
+  showResetButton,
+  onReset,
 }: TimerDisplayProps) => {
   const minutes = Math.floor(duration / 60);
   const seconds = duration - minutes * 60;
@@ -253,6 +258,7 @@ const TimerDisplay = ({
           style={{
             position: "relative",
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
             borderRadius: "50%",
@@ -305,6 +311,26 @@ const TimerDisplay = ({
               label="Ones of seconds digit"
             />
           </Typography>
+          {showResetButton && onReset && (
+            <IconButton
+              onClick={onReset}
+              aria-label="Reset timer"
+              sx={{
+                position: "absolute",
+                bottom: "8%",
+                opacity: 0.75,
+                color: "primary.main",
+                fontSize: "0.8em",
+                padding: "0.3em",
+                transition: "opacity 0.2s ease",
+                "&:hover": {
+                  opacity: 1,
+                },
+              }}
+            >
+              <RefreshIcon fontSize="small" />
+            </IconButton>
+          )}
         </div>
       </div>
     </div>

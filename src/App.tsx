@@ -138,7 +138,7 @@ function App() {
           initialTime={initialTime}
           autorun={runningFromParam}
           onTimeUpdated={setStoredInitialTime}
-          sx={{ width: "fit-content", position: "relative", top: "-5vh" }}
+          sx={{ width: "fit-content", position: "relative", top: "-10vh" }}
           minimumTimeSeconds={MINIMUM_TIMER_SECONDS}
           maximumTimeSeconds={MAXIMUM_TIMER_SECONDS}
           enableSwipeToUpdate={enableSwipeToUpdate}

@@ -124,6 +124,11 @@ const MeditationTimer = ({
         }
         showToolTip={showToolTip}
         onToolTipClose={onToolTipClose}
+        showResetButton={isPaused || (isStopped && currentTime === 0)}
+        onReset={() => {
+          onReset && onReset();
+          reset();
+        }}
       />
 
       <div className={"timerButtons"}>
@@ -145,19 +150,6 @@ const MeditationTimer = ({
                 aria-label="Pause timer"
               >
                 <PauseIcon fontSize="large" />
-              </Button>
-            </ButtonAvatar>
-          )}
-          {(isPaused || (isStopped && currentTime === 0)) && (
-            <ButtonAvatar>
-              <Button
-                onClick={() => {
-                  onReset && onReset();
-                  reset();
-                }}
-                aria-label="Reset timer"
-              >
-                <RefreshIcon fontSize="large" />
               </Button>
             </ButtonAvatar>
           )}

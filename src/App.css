@@ -23,13 +23,30 @@ div.timerButtons {
 }
 
 .buttonGroup .MuiAvatar-root {
-  margin: 0 0.175rem 0 0.175rem;
-  width: min(14vh, 14vw);
-  height: min(14vh, 14vw);
+  margin: 0 0.1rem 0 0.175rem;
+  width: clamp(60px, max(15vh, 20vw), 120px);
+  height: clamp(60px, max(15vh, 20vw), 120px);
+}
+
+.buttonGroup .MuiButton-root {
+  background-color: transparent !important;
+}
+
+.buttonGroup .MuiButton-root:hover {
+  background-color: transparent !important;
+}
+
+.buttonGroup .MuiSvgIcon-root {
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.buttonGroup .MuiAvatar-root:hover .MuiSvgIcon-root {
+  opacity: 1;
 }
 
 .buttonGroup path {
-  fill: dimgray;
+  fill: black;
 }
 
 .devDataButton {
@@ -47,7 +64,7 @@ td {
 }
 
 .meditation-timer button .MuiSvgIcon-root {
-  font-size: min(10vw, 10vh);
+  font-size: clamp(2.5rem, max(10vh, 12vw), 5rem);
 }
 
 img.logo {
