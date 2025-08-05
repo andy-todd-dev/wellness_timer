@@ -9,41 +9,54 @@ import CloseIcon from "@mui/icons-material/Close";
 import Config from "./Config";
 import DevDataModal from "./DevDataModal";
 import { AppBar, IconButton, Toolbar, useTheme } from "@mui/material";
+import { isTouchScreen } from "./detectTouchScreen";
 
 const SECONDS_PER_MINUTE = 60;
 const DEFAULT_TIMER_SECONDS = 20 * SECONDS_PER_MINUTE; // 20 minutes
 const MAXIMUM_TIMER_SECONDS = 99 * SECONDS_PER_MINUTE; // 60 minutes
 const MINIMUM_TIMER_SECONDS = 1 * SECONDS_PER_MINUTE; // 1 minute
 
-const getInitialTimeParameter = (): number => {
+const getParameter = <T,>(
+  parse: (value: string) => T,
+  name: string,
+  defaultValue: T
+): T => {
   try {
     const params = new URLSearchParams(window.location.search);
-    const initialTimeParam = params.get("initialTime");
-    if (initialTimeParam) {
-      const durationObj = parseISODuration(initialTimeParam);
-      const seconds = toSeconds(durationObj);
-      if (seconds && seconds > 0) {
-        return seconds;
-      }
+    const value = params.get(name);
+    if (value != null) {
+      return parse(value);
     }
   } catch (e) {
-    console.error("Error parsing initialTime parameter:", e);
+    console.error(`Error parsing ${name} parameter:`, e);
   }
-  return DEFAULT_TIMER_SECONDS;
+  return defaultValue;
 };
 
-const getRunningParameter = (): boolean => {
-  try {
-    const params = new URLSearchParams(window.location.search);
-    const runningParam = params.get("running");
-    if (runningParam === "true" || runningParam === "1") {
-      return true;
-    }
-  } catch (e) {
-    console.error("Error parsing running parameter:", e);
-  }
-  return false;
-};
+const parseBoolean = (value: string): boolean =>
+  value === "true" || value === "1";
+
+const getInitialTimeParameter = (): number =>
+  getParameter(
+    (value) => {
+      const seconds = toSeconds(parseISODuration(value));
+      return seconds > 0 ? seconds : DEFAULT_TIMER_SECONDS;
+    },
+    "initialTime",
+    DEFAULT_TIMER_SECONDS
+  );
+
+const getRunningParameter = (): boolean =>
+  getParameter(parseBoolean, "running", false);
+
+const getForceSwipeParameter = (): boolean =>
+  getParameter(parseBoolean, "forceSwipe", false);
+
+const getForceButtonsParameter = (): boolean =>
+  getParameter(parseBoolean, "forceButtons", false);
+
+const getForceNoToolTipParameter = (): boolean =>
+  getParameter(parseBoolean, "forceNoToolTip", false);
 
 function App() {
   const { release: releaseWakeLock, request: acquireWakeLock } = useWakeLock();
@@ -57,8 +70,19 @@ function App() {
     "timer-initial-time",
     DEFAULT_TIMER_SECONDS
   );
+  const [toolTipAlreadySeen, setToolTipAlreadySeen] = useLocalStorage(
+    "toolTipAlreadySeen",
+    false
+  );
   const initialTimeFromParam = getInitialTimeParameter();
   const runningFromParam = getRunningParameter();
+  const forceSwipe = getForceSwipeParameter();
+  const forceButtons = getForceButtonsParameter();
+  const forceNoToolTip = getForceNoToolTipParameter();
+
+  const enableSwipeToUpdate = forceSwipe || isTouchScreen;
+  const showToolTip =
+    !forceNoToolTip && !toolTipAlreadySeen && enableSwipeToUpdate;
 
   // The URL overrides the local storage value if present
   const initialTime =
@@ -117,6 +141,12 @@ function App() {
           sx={{ width: "fit-content", position: "relative", top: "-5vh" }}
           minimumTimeSeconds={MINIMUM_TIMER_SECONDS}
           maximumTimeSeconds={MAXIMUM_TIMER_SECONDS}
+          enableSwipeToUpdate={enableSwipeToUpdate}
+          enableButtonsToUpdate={forceButtons || !isTouchScreen}
+          showToolTip={showToolTip}
+          onToolTipClose={() => {
+            setToolTipAlreadySeen(true);
+          }}
         />
       </div>
     </>

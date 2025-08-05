@@ -14,6 +14,18 @@ const digitAriaLabels: Record<string, string> = {
   "seconds ones": "Ones of seconds digit",
 };
 
+const visit = (path: string, options: Partial<Cypress.VisitOptions>) => {
+  cy.visit(path, {
+    ...options,
+    qs: {
+      forceSwipe: true,
+      forceButtons: true,
+      forceNoToolTip: true,
+      ...options.qs,
+    },
+  });
+};
+
 const checkTimerDisplay = (displayString: string) => {
   displayString.length > 0 &&
     cy
@@ -32,9 +44,10 @@ const checkTimerDisplay = (displayString: string) => {
       .get("[aria-label='Ones of seconds digit']")
       .should("contain", displayString[4]);
 };
+
 // GIVENs
 Given("I have a wellness timer", () => {
-  cy.visit("/", {
+  visit("/", {
     qs: {
       initialTime: DEFAULT_TIMER,
     },
@@ -42,7 +55,7 @@ Given("I have a wellness timer", () => {
 });
 
 Given("I have a running wellness timer", () => {
-  cy.visit("/", {
+  visit("/", {
     qs: {
       initialTime: DEFAULT_TIMER,
       running: true,
@@ -51,7 +64,7 @@ Given("I have a running wellness timer", () => {
 });
 
 Given("I have a paused wellness timer", () => {
-  cy.visit("/", {
+  visit("/", {
     qs: {
       initialTime: DEFAULT_TIMER,
       running: true,
@@ -62,7 +75,7 @@ Given("I have a paused wellness timer", () => {
 });
 
 Given("I have a near complete wellness timer", () => {
-  cy.visit("/", {
+  visit("/", {
     qs: {
       initialTime: NEAR_COMPLETE_TIMER,
       running: true,
@@ -80,7 +93,7 @@ Given(
     const isoTime = seconds
       ? `${ISO_PREFIX}${minutes}${ISO_MINUTES}${seconds}${ISO_SECONDS}`
       : `${ISO_PREFIX}${minutes}${ISO_MINUTES}`;
-    cy.visit("/", {
+    visit("/", {
       qs: {
         initialTime: isoTime,
       },

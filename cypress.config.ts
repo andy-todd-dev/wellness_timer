@@ -12,11 +12,12 @@ export default defineConfig({
     async setupNodeEvents(on, config) {
       // Register the Cucumber preprocessor as the file preprocessor
       await addCucumberPreprocessorPlugin(on, config);
-      on("file:preprocessor", createBundler({
-        plugins: [
-          createEsbuildPlugin(config)
-        ],
-      }));
+      on(
+        "file:preprocessor",
+        createBundler({
+          plugins: [createEsbuildPlugin(config)],
+        })
+      );
       return config;
     },
   },
