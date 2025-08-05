@@ -34,6 +34,8 @@ type MeditationTimerProps = {
   autorun?: boolean;
   minimumTimeSeconds: number;
   maximumTimeSeconds: number;
+  enableSwipeToUpdate: boolean;
+  enableButtonsToUpdate: boolean;
 };
 
 const MeditationTimer = ({
@@ -48,6 +50,8 @@ const MeditationTimer = ({
   autorun,
   minimumTimeSeconds,
   maximumTimeSeconds,
+  enableSwipeToUpdate,
+  enableButtonsToUpdate,
 }: MeditationTimerProps) => {
   const [play] = useSound(timerFinishedSfx);
 
@@ -107,6 +111,8 @@ const MeditationTimer = ({
     <Container className="meditation-timer" sx={sx}>
       <TimerDisplay
         duration={currentTime}
+        enableSwipeToUpdate={enableSwipeToUpdate}
+        enableButtonsToUpdate={enableButtonsToUpdate}
         onDurationChange={
           enableEditTimerButtons && isStopped && currentTime > 0
             ? handleTimerDisplayChange

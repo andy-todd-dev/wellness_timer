@@ -6,17 +6,18 @@ import { createEsbuildPlugin } from "@badeball/cypress-cucumber-preprocessor/esb
 export default defineConfig({
   e2e: {
     specPattern: "**/*.feature",
-    baseUrl: "http://localhost:3000",
+    baseUrl: "http://localhost:3000?forceSwipe=true&forceButtons=true",
     supportFile: "cypress/support/commands.ts",
     video: false,
     async setupNodeEvents(on, config) {
       // Register the Cucumber preprocessor as the file preprocessor
       await addCucumberPreprocessorPlugin(on, config);
-      on("file:preprocessor", createBundler({
-        plugins: [
-          createEsbuildPlugin(config)
-        ],
-      }));
+      on(
+        "file:preprocessor",
+        createBundler({
+          plugins: [createEsbuildPlugin(config)],
+        })
+      );
       return config;
     },
   },

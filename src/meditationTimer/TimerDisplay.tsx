@@ -1,15 +1,34 @@
-import { Typography } from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
 import React from "react";
 import { useSwipeable } from "react-swipeable";
+import useLocalStorage from "use-local-storage";
 
 type TimerDisplayProps = {
   duration: number;
+  enableSwipeToUpdate: boolean;
+  enableButtonsToUpdate: boolean;
   onDurationChange?: (newDuration: number) => void;
 };
 
-const TimerDisplay = ({ duration, onDurationChange }: TimerDisplayProps) => {
+const TimerDisplay = ({
+  duration,
+  enableSwipeToUpdate,
+  enableButtonsToUpdate,
+  onDurationChange,
+}: TimerDisplayProps) => {
   const minutes = Math.floor(duration / 60);
   const seconds = duration - minutes * 60;
+
+  // State for tooltip visibility
+  const [toolTipAlreadySeen, setToolTipAlreadySeen] = useLocalStorage(
+    "toolTipAlreadySeen",
+    false
+  );
+  const showToolTip = !toolTipAlreadySeen && enableSwipeToUpdate;
+
+  const handleTooltipClose = () => {
+    setToolTipAlreadySeen(true);
+  };
 
   // Helper function to handle digit swipe
   const handleDigitSwipeBuilder =
@@ -84,11 +103,13 @@ const TimerDisplay = ({ duration, onDurationChange }: TimerDisplayProps) => {
     max,
     secondsMultiplier,
     label,
+    showToolTip = false,
   }: {
     value: number;
     max: number;
     secondsMultiplier: number;
     label: string;
+    showToolTip?: boolean;
   }) => {
     const handleIncrement = handleDigitSwipeBuilder({
       min: 0,
@@ -114,51 +135,75 @@ const TimerDisplay = ({ duration, onDurationChange }: TimerDisplayProps) => {
     });
 
     return (
-      <span
-        style={{
-          position: "relative",
-          display: "inline-flex",
-          flexDirection: "column",
-          alignItems: "center",
-          userSelect: "none",
+      <Tooltip
+        title="Swipe up/down to adjust time"
+        open={showToolTip}
+        onClick={handleTooltipClose}
+        onClose={handleTooltipClose}
+        arrow
+        placement="top"
+        componentsProps={{
+          tooltip: {
+            sx: {
+              bgcolor: "rgba(0, 0, 0, 0.8)",
+              fontSize: "0.875rem",
+              backdropFilter: "blur(8px)",
+            },
+          },
+          arrow: {
+            sx: {
+              color: "rgba(0, 0, 0, 0.8)",
+            },
+          },
         }}
       >
-        {onDurationChange && (
-          <ArrowButton
-            onClick={handleIncrement}
-            arrow="▲"
-            label={`Increase ${label}`}
-            top="-0.8em"
-          />
-        )}
-
         <span
-          {...handlers}
-          aria-label={label}
-          role="spinbutton"
-          aria-valuemin={0}
-          aria-valuemax={max}
-          aria-valuenow={value}
-          tabIndex={onDurationChange ? 0 : -1}
           style={{
-            cursor: onDurationChange ? "pointer" : "default",
-            userSelect: "none",
             position: "relative",
-            zIndex: 1,
+            display: "inline-flex",
+            flexDirection: "column",
+            alignItems: "center",
+            userSelect: "none",
           }}
         >
-          {value}
-        </span>
+          {onDurationChange && enableButtonsToUpdate && (
+            <ArrowButton
+              onClick={handleIncrement}
+              arrow="▲"
+              label={`Increase ${label}`}
+              top="-0.8em"
+            />
+          )}
 
-        {onDurationChange && (
-          <ArrowButton
-            onClick={handleDecrement}
-            arrow="▼"
-            label={`Decrease ${label}`}
-            bottom="-0.8em"
-          />
-        )}
-      </span>
+          <span
+            {...(enableSwipeToUpdate ? handlers : {})}
+            aria-label={label}
+            role="spinbutton"
+            aria-valuemin={0}
+            aria-valuemax={max}
+            aria-valuenow={value}
+            tabIndex={onDurationChange ? 0 : -1}
+            style={{
+              cursor: onDurationChange ? "pointer" : "default",
+              userSelect: "none",
+              position: "relative",
+              zIndex: 1,
+            }}
+            onClick={showToolTip ? handleTooltipClose : undefined}
+          >
+            {value}
+          </span>
+
+          {onDurationChange && enableButtonsToUpdate && (
+            <ArrowButton
+              onClick={handleDecrement}
+              arrow="▼"
+              label={`Decrease ${label}`}
+              bottom="-0.8em"
+            />
+          )}
+        </span>
+      </Tooltip>
     );
   };
 
@@ -247,6 +292,7 @@ const TimerDisplay = ({ duration, onDurationChange }: TimerDisplayProps) => {
               max={9}
               secondsMultiplier={600}
               label="Tens of minutes digit"
+              showToolTip={showToolTip}
             />
             <SwipeableDigit
               value={minutesOnes}
