@@ -36,6 +36,8 @@ type MeditationTimerProps = {
   maximumTimeSeconds: number;
   enableSwipeToUpdate: boolean;
   enableButtonsToUpdate: boolean;
+  showToolTip: boolean;
+  onToolTipClose: () => void;
 };
 
 const MeditationTimer = ({
@@ -52,6 +54,8 @@ const MeditationTimer = ({
   maximumTimeSeconds,
   enableSwipeToUpdate,
   enableButtonsToUpdate,
+  showToolTip,
+  onToolTipClose,
 }: MeditationTimerProps) => {
   const [play] = useSound(timerFinishedSfx);
 
@@ -118,6 +122,8 @@ const MeditationTimer = ({
             ? handleTimerDisplayChange
             : undefined
         }
+        showToolTip={showToolTip}
+        onToolTipClose={onToolTipClose}
       />
 
       <div className={"timerButtons"}>

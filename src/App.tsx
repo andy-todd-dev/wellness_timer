@@ -24,7 +24,7 @@ const getParameter = <T,>(
   try {
     const params = new URLSearchParams(window.location.search);
     const value = params.get(name);
-    if (value) {
+    if (value != null) {
       return parse(value);
     }
   } catch (e) {
@@ -32,6 +32,9 @@ const getParameter = <T,>(
   }
   return defaultValue;
 };
+
+const parseBoolean = (value: string): boolean =>
+  value === "true" || value === "1";
 
 const getInitialTimeParameter = (): number =>
   getParameter(
@@ -44,21 +47,16 @@ const getInitialTimeParameter = (): number =>
   );
 
 const getRunningParameter = (): boolean =>
-  getParameter((value) => value === "true" || value === "1", "running", false);
+  getParameter(parseBoolean, "running", false);
 
 const getForceSwipeParameter = (): boolean =>
-  getParameter(
-    (value) => value === "true" || value === "1",
-    "forceSwipe",
-    false
-  );
+  getParameter(parseBoolean, "forceSwipe", false);
 
 const getForceButtonsParameter = (): boolean =>
-  getParameter(
-    (value) => value === "true" || value === "1",
-    "forceButtons",
-    false
-  );
+  getParameter(parseBoolean, "forceButtons", false);
+
+const getForceNoToolTipParameter = (): boolean =>
+  getParameter(parseBoolean, "forceNoToolTip", false);
 
 function App() {
   const { release: releaseWakeLock, request: acquireWakeLock } = useWakeLock();
@@ -72,10 +70,19 @@ function App() {
     "timer-initial-time",
     DEFAULT_TIMER_SECONDS
   );
+  const [toolTipAlreadySeen, setToolTipAlreadySeen] = useLocalStorage(
+    "toolTipAlreadySeen",
+    false
+  );
   const initialTimeFromParam = getInitialTimeParameter();
   const runningFromParam = getRunningParameter();
   const forceSwipe = getForceSwipeParameter();
   const forceButtons = getForceButtonsParameter();
+  const forceNoToolTip = getForceNoToolTipParameter();
+
+  const enableSwipeToUpdate = forceSwipe || isTouchScreen;
+  const showToolTip =
+    !forceNoToolTip && !toolTipAlreadySeen && enableSwipeToUpdate;
 
   // The URL overrides the local storage value if present
   const initialTime =
@@ -134,8 +141,12 @@ function App() {
           sx={{ width: "fit-content", position: "relative", top: "-5vh" }}
           minimumTimeSeconds={MINIMUM_TIMER_SECONDS}
           maximumTimeSeconds={MAXIMUM_TIMER_SECONDS}
-          enableSwipeToUpdate={forceSwipe || isTouchScreen}
+          enableSwipeToUpdate={enableSwipeToUpdate}
           enableButtonsToUpdate={forceButtons || !isTouchScreen}
+          showToolTip={showToolTip}
+          onToolTipClose={() => {
+            setToolTipAlreadySeen(true);
+          }}
         />
       </div>
     </>

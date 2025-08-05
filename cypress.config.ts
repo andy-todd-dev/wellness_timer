@@ -6,7 +6,7 @@ import { createEsbuildPlugin } from "@badeball/cypress-cucumber-preprocessor/esb
 export default defineConfig({
   e2e: {
     specPattern: "**/*.feature",
-    baseUrl: "http://localhost:3000?forceSwipe=true&forceButtons=true",
+    baseUrl: "http://localhost:3000",
     supportFile: "cypress/support/commands.ts",
     video: false,
     async setupNodeEvents(on, config) {

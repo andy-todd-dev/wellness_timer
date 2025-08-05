@@ -1,12 +1,13 @@
 import { Tooltip, Typography } from "@mui/material";
 import React from "react";
 import { useSwipeable } from "react-swipeable";
-import useLocalStorage from "use-local-storage";
 
 type TimerDisplayProps = {
   duration: number;
   enableSwipeToUpdate: boolean;
   enableButtonsToUpdate: boolean;
+  showToolTip: boolean;
+  onToolTipClose?: () => void;
   onDurationChange?: (newDuration: number) => void;
 };
 
@@ -14,23 +15,13 @@ const TimerDisplay = ({
   duration,
   enableSwipeToUpdate,
   enableButtonsToUpdate,
+  showToolTip,
+  onToolTipClose,
   onDurationChange,
 }: TimerDisplayProps) => {
   const minutes = Math.floor(duration / 60);
   const seconds = duration - minutes * 60;
 
-  // State for tooltip visibility
-  const [toolTipAlreadySeen, setToolTipAlreadySeen] = useLocalStorage(
-    "toolTipAlreadySeen",
-    false
-  );
-  const showToolTip = !toolTipAlreadySeen && enableSwipeToUpdate;
-
-  const handleTooltipClose = () => {
-    setToolTipAlreadySeen(true);
-  };
-
-  // Helper function to handle digit swipe
   const handleDigitSwipeBuilder =
     ({
       min,
@@ -138,8 +129,8 @@ const TimerDisplay = ({
       <Tooltip
         title="Swipe up/down to adjust time"
         open={showToolTip}
-        onClick={handleTooltipClose}
-        onClose={handleTooltipClose}
+        onClick={onToolTipClose}
+        onClose={onToolTipClose}
         arrow
         placement="top"
         componentsProps={{
@@ -189,7 +180,7 @@ const TimerDisplay = ({
               position: "relative",
               zIndex: 1,
             }}
-            onClick={showToolTip ? handleTooltipClose : undefined}
+            onClick={showToolTip ? onToolTipClose : undefined}
           >
             {value}
           </span>
