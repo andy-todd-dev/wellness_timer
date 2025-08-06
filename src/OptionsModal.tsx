@@ -13,6 +13,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  TextField,
   useTheme,
 } from "@mui/material";
 import Config from "./Config";
@@ -59,7 +60,14 @@ const OptionsModal = ({
           },
         }}
       >
-        <Container sx={{ py: 3, height: "100%" }}>
+        <Container
+          sx={{
+            py: 3,
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <Typography
             variant="h5"
             component="h2"
@@ -67,12 +75,13 @@ const OptionsModal = ({
               mb: 3,
               textAlign: "center",
               fontWeight: 500,
+              flexShrink: 0,
             }}
           >
             Settings
           </Typography>
 
-          <Box sx={{ height: "100%", overflow: "auto" }}>
+          <Box sx={{ flex: 1, overflow: "auto" }}>
             <List>
               <ListItem>
                 <Box sx={{ width: "100%" }}>
@@ -104,38 +113,62 @@ const OptionsModal = ({
               <Divider variant="inset" component="li" />
 
               <ListItem>
-                <ListItemText
-                  primary="Build Version"
-                  secondary={Config.buildName}
-                  primaryTypographyProps={{
-                    fontWeight: 500,
-                    color: "text.primary",
-                  }}
-                  secondaryTypographyProps={{
-                    color: "text.secondary",
-                    fontSize: "0.875rem",
-                  }}
-                />
+                <Box sx={{ width: "100%" }}>
+                  <TextField
+                    fullWidth
+                    size="small"
+                    label="Build Version"
+                    value={Config.buildName}
+                    disabled
+                    variant="outlined"
+                    sx={{
+                      "& .MuiInputBase-input.Mui-disabled": {
+                        WebkitTextFillColor: "rgba(0, 0, 0, 0.87)",
+                        color: "rgba(0, 0, 0, 0.87)",
+                        opacity: 1,
+                      },
+                      "& .MuiInputLabel-root.Mui-disabled": {
+                        color: "rgba(0, 0, 0, 0.6)",
+                      },
+                      "& .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline":
+                        {
+                          borderColor: "rgba(0, 0, 0, 0.23)",
+                        },
+                    }}
+                  />
+                </Box>
               </ListItem>
 
               <Divider variant="inset" component="li" />
 
               <ListItem>
-                <ListItemText
-                  primary="Wake Lock"
-                  secondary={
-                    wakeLockIsSupported ? "Supported" : "Not supported"
-                  }
-                  primaryTypographyProps={{
-                    fontWeight: 500,
-                    color: "text.primary",
-                  }}
-                  secondaryTypographyProps={{
-                    color: wakeLockIsSupported ? "success.main" : "error.main",
-                    fontSize: "0.875rem",
-                    fontWeight: 500,
-                  }}
-                />
+                <Box sx={{ width: "100%" }}>
+                  <TextField
+                    fullWidth
+                    size="small"
+                    label="Wake Lock Support"
+                    value={wakeLockIsSupported ? "Supported" : "Not supported"}
+                    disabled
+                    variant="outlined"
+                    sx={{
+                      "& .MuiInputBase-input.Mui-disabled": {
+                        WebkitTextFillColor: wakeLockIsSupported
+                          ? "#2e7d32"
+                          : "#d32f2f",
+                        color: wakeLockIsSupported ? "#2e7d32" : "#d32f2f",
+                        opacity: 1,
+                        fontWeight: 500,
+                      },
+                      "& .MuiInputLabel-root.Mui-disabled": {
+                        color: "rgba(0, 0, 0, 0.6)",
+                      },
+                      "& .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline":
+                        {
+                          borderColor: "rgba(0, 0, 0, 0.23)",
+                        },
+                    }}
+                  />
+                </Box>
               </ListItem>
             </List>
           </Box>
