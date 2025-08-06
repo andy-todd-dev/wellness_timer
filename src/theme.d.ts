@@ -1,11 +1,12 @@
-
 import "@mui/material/styles";
 
 declare module "@mui/material/styles" {
   interface Theme {
+    name: string;
     backgroundImage?: string;
   }
   interface ThemeOptions {
+    name?: string;
     backgroundImage?: string;
   }
 

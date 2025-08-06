@@ -1,8 +1,7 @@
 import { createTheme } from "@mui/material";
 import { deepmerge } from "@mui/utils";
 import auroraBackground from "../images/aurora_bg.webp";
-// import waterBackground from "../images/water_bg.webp";
-
+import waterBackground from "../images/water_bg.webp";
 
 import type { ThemeOptions, Theme } from "@mui/material";
 
@@ -18,9 +17,11 @@ const baseTheme: ThemeOptions = {
   },
 };
 
-const buildTheme = (theme: ThemeOptions): Theme => createTheme(deepmerge(baseTheme, theme));
+const buildTheme = (theme: ThemeOptions): Theme =>
+  createTheme(deepmerge(baseTheme, theme));
 
 const auroraTheme = buildTheme({
+  name: "Aurora",
   backgroundImage: auroraBackground,
   palette: {
     primary: {
@@ -32,8 +33,22 @@ const auroraTheme = buildTheme({
   },
 });
 
-export const DEFAULT_THEME = "auroraTheme";
+const waterTheme = buildTheme({
+  name: "Water",
+  backgroundImage: waterBackground,
+  palette: {
+    primary: {
+      main: "rgb(0, 0, 0, 0.87)",
+    },
+    secondary: {
+      main: "rgb(255, 255, 255, 0.87)",
+    },
+  },
+});
+
+export const DEFAULT_THEME = auroraTheme;
 
 export const allThemes: Record<string, typeof auroraTheme> = {
-  auroraTheme,
+  [auroraTheme.name]: auroraTheme,
+  [waterTheme.name]: waterTheme,
 };
