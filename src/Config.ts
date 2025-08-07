@@ -22,4 +22,5 @@ const Config: AppConfig = {
     defaultTimerSeconds: 20 * 60, // 20 minutes
   },
 };
+
 export default Config;
