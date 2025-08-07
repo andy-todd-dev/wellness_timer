@@ -32,6 +32,6 @@ output_path = "reports/lighthouse.html"
     seo = 0.9
     pwa = 0.9
 
-# Extract Lighthouse scores to JSON after report generation
+# Generate Lighthouse badge files after report generation
 [[plugins]]
-package = "./netlify/plugins/extract-lighthouse-scores"
+package = "./netlify/plugins/lighthouse-badge-generator"

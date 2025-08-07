@@ -54,38 +54,47 @@ module.exports = {
   onPostBuild: async ({ constants, inputs, utils }) => {
     try {
       // Get configuration from inputs with defaults
-      const outputPath = inputs.output_path || "reports/lighthouse.json";
+      const outputDirectory = inputs.output_directory || "reports";
+      const completeJsonFilename =
+        inputs.complete_json_filename || "lighthouse.json";
+      const badgeFilenamePrefix = inputs.badge_filename_prefix || "lighthouse";
       const allowedBranches = inputs.branch_filter
         ?.split(",")
         .map((b) => b.trim()) || ["main"];
 
-      // Only extract JSON for specified branches
+      // Only generate badges for specified branches
       const currentBranch = process.env.BRANCH || process.env.HEAD;
 
       if (!allowedBranches.includes(currentBranch)) {
         console.log(
-          `🔍 Skipping Lighthouse JSON extraction for branch: ${currentBranch} (only runs on: ${allowedBranches.join(
+          `🔍 Skipping Lighthouse badge generation for branch: ${currentBranch} (only runs on: ${allowedBranches.join(
             ", "
           )})`
         );
         return;
       }
 
+      // Build paths using the configured directory
       const lighthouseHtmlPath = path.join(
         constants.PUBLISH_DIR,
-        "reports/lighthouse.html"
+        outputDirectory,
+        "lighthouse.html"
       );
-      const lighthouseJsonPath = path.join(constants.PUBLISH_DIR, outputPath);
+      const lighthouseJsonPath = path.join(
+        constants.PUBLISH_DIR,
+        outputDirectory,
+        completeJsonFilename
+      );
 
       // Check if Lighthouse HTML report exists
       if (!fs.existsSync(lighthouseHtmlPath)) {
         console.log(
-          "🔍 Lighthouse HTML report not found at expected location, skipping JSON extraction"
+          "🔍 Lighthouse HTML report not found at expected location, skipping badge generation"
         );
         return;
       }
 
-      console.log("🔍 Extracting Lighthouse JSON from HTML report...");
+      console.log("🔍 Generating Lighthouse badges from HTML report...");
 
       // Read the HTML content
       const htmlContent = fs.readFileSync(lighthouseHtmlPath, "utf8");
@@ -95,7 +104,7 @@ module.exports = {
 
       if (!lighthouseData) {
         utils.build.failPlugin(
-          "Could not extract Lighthouse JSON data from HTML report. The HTML file exists but doesn't contain valid Lighthouse data."
+          "Could not extract Lighthouse data from HTML report. The HTML file exists but doesn't contain valid Lighthouse data."
         );
         return;
       }
@@ -106,7 +115,7 @@ module.exports = {
       }
 
       // Ensure output directory exists
-      const outputDir = path.dirname(lighthouseJsonPath);
+      const outputDir = path.join(constants.PUBLISH_DIR, outputDirectory);
       if (!fs.existsSync(outputDir)) {
         fs.mkdirSync(outputDir, { recursive: true });
       }
@@ -147,10 +156,11 @@ module.exports = {
           color: color,
         };
 
-        // Use original categoryName (with hyphens) for filename
+        // Use configured prefix and directory for filename
         const categoryPath = path.join(
           constants.PUBLISH_DIR,
-          `reports/lighthouse-${categoryName}.json`
+          outputDirectory,
+          `${badgeFilenamePrefix}-${categoryName}.json`
         );
 
         fs.writeFileSync(categoryPath, JSON.stringify(categoryJson, null, 2));
@@ -160,8 +170,8 @@ module.exports = {
       });
 
       utils.status.show({
-        title: "Lighthouse JSON Extracted",
-        summary: `Successfully extracted Lighthouse data to ${outputPath} and individual badge files`,
+        title: "Lighthouse Badges Generated",
+        summary: `Successfully generated Lighthouse badges and data files`,
         text: `Performance: ${Math.round(
           lighthouseData.categories.performance.score * 100
         )}%\nAccessibility: ${Math.round(
@@ -171,11 +181,18 @@ module.exports = {
         )}%\nSEO: ${Math.round(lighthouseData.categories.seo.score * 100)}%`,
       });
 
-      console.log("✅ Lighthouse JSON extracted successfully:");
-      console.log(`   Complete data saved to: ${lighthouseJsonPath}`);
-      console.log(`   Individual badge files created in reports/ directory`);
+      console.log("✅ Lighthouse badges generated successfully:");
+      console.log(
+        `   Complete data saved to: ${path.join(
+          outputDirectory,
+          completeJsonFilename
+        )}`
+      );
+      console.log(
+        `   Individual badge files created in ${outputDirectory}/ directory`
+      );
     } catch (error) {
-      utils.build.failPlugin("Error extracting Lighthouse JSON", { error });
+      utils.build.failPlugin("Error generating Lighthouse badges", { error });
     }
   },
 };
