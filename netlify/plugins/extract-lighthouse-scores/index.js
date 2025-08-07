@@ -2,7 +2,10 @@ const fs = require("fs");
 const path = require("path");
 
 function extractLighthouseJSON(htmlContent) {
-  console.log("🔍 Extracting Lighthouse JSON from dedicated script tag...");
+  console.log(
+    "First characters of HTML content:",
+    htmlContent.substring(0, 2000)
+  );
 
   // Extract the first script tag that contains __LIGHTHOUSE_JSON__
   const scriptMatch = htmlContent.match(
