@@ -13,6 +13,21 @@
   </p>
 </div>
 
+<details>
+<summary><strong>Table of Contents</strong></summary>
+
+- [About this project](#about-this-project)
+- [Getting Started](#getting-started)
+  - [Live Demo](#live-demo)
+  - [Development](#development)
+- [Implementation notes](#implementation-notes)
+  - [Application](#application)
+  - [Testing](#testing)
+  - [Infrastructure](#infrastructure)
+- [Contact](#contact)
+
+</details>
+
 ## About this project
 
 <div align="center">
