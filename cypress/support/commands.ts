@@ -58,5 +58,5 @@ Cypress.Commands.add(
   }
 );
 
-// Export an empty object to make this file a module
+// Export an empty object to make this file a module.
 export {};
