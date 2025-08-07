@@ -5,7 +5,7 @@ module.exports = {
   onPostBuild: async ({ constants, inputs, utils }) => {
     try {
       // Get configuration from inputs with defaults
-      const outputPath = inputs.output_path || "reports/lighthouse.json";
+      const outputPath = inputs.output_path || "lighthouse.json";
       const allowedBranches = inputs.branch_filter
         ?.split(",")
         .map((b) => b.trim()) || ["main"];
@@ -27,7 +27,6 @@ module.exports = {
 
       const lighthouseHtmlPath = path.join(
         constants.PUBLISH_DIR,
-        "reports",
         "lighthouse.html"
       );
       const lighthouseJsonPath = path.join(constants.PUBLISH_DIR, outputPath);

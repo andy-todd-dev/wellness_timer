@@ -1,9 +1,9 @@
 
 [build]
 command = "npm test && export VITE_BUILD=$COMMIT_REF && npm run build"
-functions = "netlify/functions"
+# functions = "netlify/functions"
 publish = "build"
-ignore = "./netlify-ignore.sh"
+# ignore = "./netlify-ignore.sh"
 
 
 [build.environment]
@@ -32,7 +32,7 @@ fail_deploy_on_score_thresholds = "true"
     pwa = 0.9
 
 [plugins.inputs.audits]
-output_path = "reports/lighthouse.html"
+    output_path = "lighthouse.html"
 
 # Extract Lighthouse scores to JSON after report generation
 [[plugins]]
