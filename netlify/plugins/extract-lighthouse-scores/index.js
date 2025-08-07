@@ -6,7 +6,7 @@ function extractLighthouseJSON(htmlContent) {
 
   // Extract the first script tag that contains __LIGHTHOUSE_JSON__
   const scriptMatch = htmlContent.match(
-    /<script[^>]*>\s*window\.__LIGHTHOUSE_JSON__\s*=\s*({[\s\S]*?});\s*<\/script>/
+    /<script>window.__LIGHTHOUSE__JSON=(.+)<\/script>/
   );
 
   if (scriptMatch && scriptMatch[1]) {
