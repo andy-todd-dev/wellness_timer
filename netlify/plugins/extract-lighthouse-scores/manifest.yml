@@ -1,0 +1,11 @@
+name: extract-lighthouse-scores
+description: Extract Lighthouse JSON data from HTML reports for badge generation
+inputs:
+  - name: output_path
+    description: Path where the Lighthouse JSON file will be saved
+    required: false
+    default: "reports/lighthouse.json"
+  - name: branch_filter
+    description: Comma-separated list of branches to run on
+    required: false
+    default: "main"

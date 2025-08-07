@@ -2,13 +2,21 @@ const fs = require("fs");
 const path = require("path");
 
 module.exports = {
-  onSuccess: async ({ constants, utils }) => {
+  onSuccess: async ({ constants, inputs, utils }) => {
     try {
-      // Only extract JSON for main branch builds
+      // Get configuration from inputs with defaults
+      const outputPath = inputs.output_path || "reports/lighthouse.json";
+      const allowedBranches = inputs.branch_filter
+        ?.split(",")
+        .map((b) => b.trim()) || ["main"];
+
+      // Only extract JSON for specified branches
       const currentBranch = process.env.BRANCH || process.env.HEAD;
-      if (currentBranch !== "main") {
+      if (!allowedBranches.includes(currentBranch)) {
         console.log(
-          `🔍 Skipping Lighthouse JSON extraction for branch: ${currentBranch}`
+          `🔍 Skipping Lighthouse JSON extraction for branch: ${currentBranch} (only runs on: ${allowedBranches.join(
+            ", "
+          )})`
         );
         return;
       }
@@ -18,11 +26,7 @@ module.exports = {
         "reports",
         "lighthouse.html"
       );
-      const lighthouseJsonPath = path.join(
-        constants.PUBLISH_DIR,
-        "reports",
-        "lighthouse.json"
-      );
+      const lighthouseJsonPath = path.join(constants.PUBLISH_DIR, outputPath);
 
       // Check if Lighthouse HTML report exists
       if (!fs.existsSync(lighthouseHtmlPath)) {
@@ -43,21 +47,23 @@ module.exports = {
       );
 
       if (!jsonMatch) {
-        console.error("❌ Could not find Lighthouse JSON data in HTML report");
+        utils.build.failPlugin(
+          "Could not find Lighthouse JSON data in HTML report"
+        );
         return;
       }
 
       const lighthouseData = JSON.parse(jsonMatch[1]);
 
       if (!lighthouseData.categories) {
-        console.error("❌ Invalid Lighthouse data structure");
+        utils.build.failPlugin("Invalid Lighthouse data structure");
         return;
       }
 
-      // Ensure reports directory exists
-      const reportsDir = path.dirname(lighthouseJsonPath);
-      if (!fs.existsSync(reportsDir)) {
-        fs.mkdirSync(reportsDir, { recursive: true });
+      // Ensure output directory exists
+      const outputDir = path.dirname(lighthouseJsonPath);
+      if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
       }
 
       // Save the complete standard Lighthouse JSON
@@ -66,11 +72,24 @@ module.exports = {
         JSON.stringify(lighthouseData, null, 2)
       );
 
+      // Use utils.status.show for better visibility in deploy summary
+      utils.status.show({
+        title: "Lighthouse JSON Extracted",
+        summary: `Successfully extracted Lighthouse scores to ${outputPath}`,
+        text: `Performance: ${Math.round(
+          lighthouseData.categories.performance.score * 100
+        )}%\nAccessibility: ${Math.round(
+          lighthouseData.categories.accessibility.score * 100
+        )}%\nBest Practices: ${Math.round(
+          lighthouseData.categories["best-practices"].score * 100
+        )}%\nSEO: ${Math.round(lighthouseData.categories.seo.score * 100)}%`,
+      });
+
       console.log("✅ Lighthouse JSON extracted successfully:");
       console.log(`   Saved to: ${lighthouseJsonPath}`);
     } catch (error) {
-      console.error("❌ Error extracting Lighthouse JSON:", error.message);
-      // Don't fail the build, just log the error
+      // Use proper error reporting instead of just console.error
+      utils.build.failPlugin("Error extracting Lighthouse JSON", { error });
     }
   },
 };
