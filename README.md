@@ -15,9 +15,20 @@
 
 ## About this project
 
+<div align="center">
+<img src="rm_images/timer_screen_shot.webp" height="500px" />
+</div>
+
 This codebase demonstrates good software development practices for a single page web application through a wellness timer with the following features:
 
-- ?
+- **Responsive Design** - Adaptive interface that works seamlessly across desktop, tablet, and mobile devices
+- **Intuitive Timer Controls** - Interactive digit adjustment via swipe gestures on touch devices or click controls on desktop
+- **Customizable Duration** - Set meditation sessions from 1 to 99 minutes with precise second-level control
+- **Beautiful Themes** - Multiple visual themes including Aurora and Water backgrounds for ambiance
+- **Progressive Web App** - Installable as a native app with offline functionality and service worker caching
+- **Audio Feedback** - Gentle bell sound notification when meditation session completes
+- **Screen Wake Lock** - Prevents device from sleeping during active meditation sessions
+- **Accessibility** - Full ARIA label support and keyboard navigation for inclusive design
 
 ## Getting Started
 
@@ -39,25 +50,30 @@ A local dev environment can be set up in minutes using the supplied DevContainer
 
 ### Application
 
-- **Typescript** - ?
-- **React** - Industry standard UI component building library
-- **Material Design (MUI) library** - ?
-- **Emotion** - ?
+- **TypeScript** - Ensures type safety and better developer experience with compile-time error detection and enhanced IDE support
+- **React** - Industry standard UI component building library providing declarative, component-based architecture
+- **Material Design (MUI) library** - Professional UI components following Google's Material Design principles for consistent, accessible interfaces
+- **Emotion** - CSS-in-JS library enabling dynamic styling and theme management with excellent performance
 
-? A summary of design descisions ?
+The application architecture follows modern React patterns with custom hooks for timer logic, separation of concerns through component composition, and responsive design principles. TypeScript provides compile-time safety while Emotion enables theming and responsive styling.
 
 ### Testing
 
-- **Behaviour Driven Development** - ?
-- **Cucumber** - ?
-- **Cypress** - ?
+- **Behaviour Driven Development** - User-story focused testing approach ensuring features meet real-world usage scenarios
+- **Cucumber** - Gherkin syntax BDD framework allowing non-technical stakeholders to understand test scenarios
+- **Cypress** - Modern end-to-end testing framework providing reliable browser automation and excellent debugging capabilities
+- **Lighthouse** - Automated performance, accessibility, and SEO auditing integrated into the CI/CD pipeline for continuous quality monitoring
 
-? A summary of design descisions ?
+The testing strategy emphasizes user behavior over implementation details, with comprehensive scenarios covering timer functionality, user interactions, and edge cases. Cypress provides visual testing feedback and reliable cross-browser compatibility validation. Lighthouse ensures the application maintains high performance standards and accessibility compliance with every deployment.
 
 ### Infrastructure
 
-- **Github** - ?
-- **Netlify** - ?
-- **Continuous Deployment** - ?
+- **GitHub** - Version control and CI/CD pipeline with automated testing, dependency management via Dependabot, and security scanning
+- **Netlify** - Serverless deployment platform with automatic builds, branch previews, and global CDN distribution for optimal performance
+- **Continuous Deployment** - Automated build and deployment pipeline triggered by git commits, including integrated testing and Lighthouse performance audits
 
-? A summary of design descisions ?
+The infrastructure emphasizes automation and reliability with smart build optimization (only rebuilding when source files change), comprehensive test integration, and performance monitoring. The setup demonstrates modern DevOps practices with minimal maintenance overhead.
+
+## Contact
+
+Andrew Todd - contact@andytodd.dev
