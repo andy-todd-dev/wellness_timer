@@ -21,3 +21,9 @@ wait-on-timeout = 30
 
 [[plugins]]
 package = "@netlify/plugin-lighthouse"
+[plugins.inputs.audits]
+output_path = "reports/lighthouse.html"
+
+# Extract Lighthouse scores to JSON after report generation
+[[plugins]]
+package = "./netlify/plugins/extract-lighthouse-scores"

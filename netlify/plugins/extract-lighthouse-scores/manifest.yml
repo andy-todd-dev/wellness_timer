@@ -1,0 +1,10 @@
+name: extract-lighthouse-scores
+inputs:
+  - name: output_path
+    description: Path where the Lighthouse JSON file will be saved
+    required: false
+    default: "reports/lighthouse.json"
+  - name: branch_filter
+    description: Comma-separated list of branches to run on
+    required: false
+    default: "main"
