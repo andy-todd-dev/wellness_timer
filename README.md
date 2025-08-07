@@ -53,7 +53,7 @@ A live demonstration of the running application can be accessed here: https://we
 
 ### Development
 
-A local development environment can be set up in minutes using the supplied DevContainer config and Dockerfile configuration. DevContainer plugins are available for most major IDEs (including Visual Studio Code and IntelliJ).
+A local containerised development environment can be set up in minutes using the supplied DevContainer config and Docker. DevContainer plugins are available for most major IDEs (including Visual Studio Code and IntelliJ).
 
 #### Useful development commands
 
