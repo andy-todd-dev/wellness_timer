@@ -55,8 +55,6 @@ module.exports = {
     try {
       // Get configuration from inputs with defaults
       const outputDirectory = inputs.output_directory || "reports";
-      const completeJsonFilename =
-        inputs.complete_json_filename || "lighthouse.json";
       const badgeFilenamePrefix = inputs.badge_filename_prefix || "lighthouse";
       const allowedBranches = inputs.branch_filter
         ?.split(",")
@@ -79,11 +77,6 @@ module.exports = {
         constants.PUBLISH_DIR,
         outputDirectory,
         "lighthouse.html"
-      );
-      const lighthouseJsonPath = path.join(
-        constants.PUBLISH_DIR,
-        outputDirectory,
-        completeJsonFilename
       );
 
       // Check if Lighthouse HTML report exists
@@ -119,12 +112,6 @@ module.exports = {
       if (!fs.existsSync(outputDir)) {
         fs.mkdirSync(outputDir, { recursive: true });
       }
-
-      // Save the complete standard Lighthouse JSON
-      fs.writeFileSync(
-        lighthouseJsonPath,
-        JSON.stringify(lighthouseData, null, 2)
-      );
 
       // Create individual JSON files for each category with percentage scores and colors
       const categories = {
@@ -171,7 +158,7 @@ module.exports = {
 
       utils.status.show({
         title: "Lighthouse Badges Generated",
-        summary: `Successfully generated Lighthouse badges and data files`,
+        summary: `Successfully generated Lighthouse badge files in ${outputDirectory}/`,
         text: `Performance: ${Math.round(
           lighthouseData.categories.performance.score * 100
         )}%\nAccessibility: ${Math.round(
@@ -182,15 +169,7 @@ module.exports = {
       });
 
       console.log("✅ Lighthouse badges generated successfully:");
-      console.log(
-        `   Complete data saved to: ${path.join(
-          outputDirectory,
-          completeJsonFilename
-        )}`
-      );
-      console.log(
-        `   Individual badge files created in ${outputDirectory}/ directory`
-      );
+      console.log(`   Badge files created in ${outputDirectory}/ directory`);
     } catch (error) {
       utils.build.failPlugin("Error generating Lighthouse badges", { error });
     }

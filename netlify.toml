@@ -1,9 +1,9 @@
 
 [build]
 command = "npm test && export VITE_BUILD=$COMMIT_REF && npm run build"
-# functions = "netlify/functions"
+functions = "netlify/functions"
 publish = "build"
-# ignore = "./netlify-ignore.sh"
+ignore = "./netlify-ignore.sh"
 
 
 [build.environment]
@@ -32,6 +32,5 @@ output_path = "reports/lighthouse.html"
     seo = 0.9
     pwa = 0.9
 
-# Generate Lighthouse badge files after report generation
 [[plugins]]
 package = "./netlify/plugins/lighthouse-badge-generator"

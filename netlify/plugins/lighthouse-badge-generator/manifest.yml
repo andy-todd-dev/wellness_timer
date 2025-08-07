@@ -1,13 +1,9 @@
 name: lighthouse-badge-generator
 inputs:
   - name: output_directory
-    description: Directory where all Lighthouse files will be saved (relative to publish directory)
+    description: Directory where badge JSON files will be saved (relative to publish directory)
     required: false
     default: "reports"
-  - name: complete_json_filename
-    description: Filename for the complete Lighthouse JSON data
-    required: false
-    default: "lighthouse.json"
   - name: badge_filename_prefix
     description: Prefix for individual badge JSON files
     required: false
