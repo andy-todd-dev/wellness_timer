@@ -21,3 +21,5 @@ wait-on-timeout = 30
 
 [[plugins]]
 package = "@netlify/plugin-lighthouse"
+[plugins.inputs.audits]
+output_path = "reports/lighthouse.html"
