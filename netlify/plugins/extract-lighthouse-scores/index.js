@@ -2,11 +2,6 @@ const fs = require("fs");
 const path = require("path");
 
 function extractLighthouseJSON(htmlContent) {
-  console.log(
-    "First characters of HTML content:",
-    htmlContent.substring(0, 2000)
-  );
-
   // Extract the first script tag that contains __LIGHTHOUSE_JSON__
   const scriptMatch = htmlContent.match(
     /<script>window.__LIGHTHOUSE_JSON__=(.+)<\/script>/
@@ -14,7 +9,15 @@ function extractLighthouseJSON(htmlContent) {
 
   if (scriptMatch && scriptMatch[1]) {
     try {
-      const parsed = JSON.parse(scriptMatch[1]);
+      // The extracted content is a JavaScript object literal, not JSON
+      // We need to evaluate it as JavaScript instead of parsing as JSON
+      const objectLiteral = scriptMatch[1];
+
+      // Remove the trailing semicolon if present
+      const cleanedObject = objectLiteral.replace(/;$/, "");
+
+      // Use Function constructor to safely evaluate the object literal
+      const parsed = new Function("return " + cleanedObject)();
 
       // Validate it's actually Lighthouse data
       if (parsed && parsed.lighthouseVersion && parsed.categories) {
@@ -29,9 +32,12 @@ function extractLighthouseJSON(htmlContent) {
         return null;
       }
     } catch (parseError) {
-      console.log("❌ Failed to parse extracted JSON:", parseError.message);
       console.log(
-        `🔍 JSON content (first 200 chars):`,
+        "❌ Failed to parse extracted JavaScript object:",
+        parseError.message
+      );
+      console.log(
+        `🔍 Object content (first 200 chars):`,
         scriptMatch[1].substring(0, 200)
       );
       return null;
