@@ -1,5 +1,4 @@
 name: extract-lighthouse-scores
-description: Extract Lighthouse JSON data from HTML reports for badge generation
 inputs:
   - name: output_path
     description: Path where the Lighthouse JSON file will be saved
