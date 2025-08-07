@@ -1,6 +1,47 @@
 const fs = require("fs");
 const path = require("path");
 
+function extractLighthouseJSON(htmlContent) {
+  console.log("🔍 Extracting Lighthouse JSON from dedicated script tag...");
+
+  // Extract the first script tag that contains __LIGHTHOUSE_JSON__
+  // The script tag contains only: window.__LIGHTHOUSE_JSON__ = { ... };
+  const scriptMatch = htmlContent.match(
+    /<script[^>]*>\s*window\.__LIGHTHOUSE_JSON__\s*=\s*({[\s\S]*?});\s*<\/script>/
+  );
+
+  if (scriptMatch && scriptMatch[1]) {
+    try {
+      const parsed = JSON.parse(scriptMatch[1]);
+
+      // Validate it's actually Lighthouse data
+      if (parsed && parsed.lighthouseVersion && parsed.categories) {
+        console.log(
+          "✅ Successfully extracted Lighthouse JSON from script tag"
+        );
+        return parsed;
+      } else {
+        console.log(
+          "❌ Extracted JSON doesn't contain expected Lighthouse structure"
+        );
+        return null;
+      }
+    } catch (parseError) {
+      console.log("❌ Failed to parse extracted JSON:", parseError.message);
+      console.log(
+        `🔍 JSON content (first 200 chars):`,
+        scriptMatch[1].substring(0, 200)
+      );
+      return null;
+    }
+  }
+
+  console.log(
+    "❌ Could not find script tag with window.__LIGHTHOUSE_JSON__ assignment"
+  );
+  return null;
+}
+
 module.exports = {
   onPostBuild: async ({ constants, inputs, utils }) => {
     try {
@@ -12,9 +53,6 @@ module.exports = {
 
       // Only extract JSON for specified branches
       const currentBranch = process.env.BRANCH || process.env.HEAD;
-      console.log(
-        `🔍 Debug: Environment variables - BRANCH: ${process.env.BRANCH}, HEAD: ${process.env.HEAD}, COMMIT_REF: ${process.env.COMMIT_REF}`
-      );
 
       if (!allowedBranches.includes(currentBranch)) {
         console.log(
@@ -31,61 +69,6 @@ module.exports = {
       );
       const lighthouseJsonPath = path.join(constants.PUBLISH_DIR, outputPath);
 
-      // Debug: List what's actually in the publish directory
-      console.log(`🔍 Debug: PUBLISH_DIR is ${constants.PUBLISH_DIR}`);
-      console.log(`🔍 Debug: Current branch: ${currentBranch}`);
-      console.log(`🔍 Debug: Allowed branches: ${allowedBranches.join(", ")}`);
-      console.log(`🔍 Debug: Looking for HTML at ${lighthouseHtmlPath}`);
-
-      // Check if reports directory exists
-      const reportsDir = path.join(constants.PUBLISH_DIR, "reports");
-      if (fs.existsSync(reportsDir)) {
-        console.log(`🔍 Debug: Reports directory exists, contents:`);
-        const files = fs.readdirSync(reportsDir);
-        files.forEach((file) => console.log(`   - ${file}`));
-      } else {
-        console.log(
-          `🔍 Debug: Reports directory does not exist at ${reportsDir}`
-        );
-
-        // Check if it might be in the root build directory
-        const rootFiles = fs.readdirSync(constants.PUBLISH_DIR);
-        console.log(`🔍 Debug: Files in PUBLISH_DIR root:`);
-        rootFiles.forEach((file) => console.log(`   - ${file}`));
-
-        // Also check for any lighthouse-related files anywhere
-        console.log(`🔍 Debug: Searching for any lighthouse files...`);
-        try {
-          const findLighthouseFiles = (dir, results = []) => {
-            const items = fs.readdirSync(dir);
-            for (const item of items) {
-              const fullPath = path.join(dir, item);
-              if (fs.statSync(fullPath).isDirectory()) {
-                findLighthouseFiles(fullPath, results);
-              } else if (item.toLowerCase().includes("lighthouse")) {
-                results.push(fullPath);
-              }
-            }
-            return results;
-          };
-
-          const lighthouseFiles = findLighthouseFiles(constants.PUBLISH_DIR);
-          if (lighthouseFiles.length > 0) {
-            console.log(`🔍 Debug: Found lighthouse files:`);
-            lighthouseFiles.forEach((file) => console.log(`   - ${file}`));
-          } else {
-            console.log(
-              `🔍 Debug: No lighthouse files found anywhere in PUBLISH_DIR`
-            );
-          }
-        } catch (searchError) {
-          console.log(
-            `🔍 Debug: Error searching for lighthouse files:`,
-            searchError.message
-          );
-        }
-      }
-
       // Check if Lighthouse HTML report exists
       if (!fs.existsSync(lighthouseHtmlPath)) {
         console.log(
@@ -99,19 +82,15 @@ module.exports = {
       // Read the HTML content
       const htmlContent = fs.readFileSync(lighthouseHtmlPath, "utf8");
 
-      // Extract the JSON data embedded in the HTML
-      const jsonMatch = htmlContent.match(
-        /window\.__LIGHTHOUSE_JSON__\s*=\s*({.*?});/s
-      );
+      // Use the robust extraction function
+      const lighthouseData = extractLighthouseJSON(htmlContent);
 
-      if (!jsonMatch) {
+      if (!lighthouseData) {
         utils.build.failPlugin(
-          "Could not find Lighthouse JSON data in HTML report"
+          "Could not extract Lighthouse JSON data from HTML report. The HTML file exists but doesn't contain valid Lighthouse data."
         );
         return;
       }
-
-      const lighthouseData = JSON.parse(jsonMatch[1]);
 
       if (!lighthouseData.categories) {
         utils.build.failPlugin("Invalid Lighthouse data structure");
@@ -130,10 +109,9 @@ module.exports = {
         JSON.stringify(lighthouseData, null, 2)
       );
 
-      // Use utils.status.show for better visibility in deploy summary
       utils.status.show({
         title: "Lighthouse JSON Extracted",
-        summary: `Successfully extracted Lighthouse scores to ${outputPath}`,
+        summary: `Successfully extracted Lighthouse JSON to ${outputPath}`,
         text: `Performance: ${Math.round(
           lighthouseData.categories.performance.score * 100
         )}%\nAccessibility: ${Math.round(
@@ -146,7 +124,6 @@ module.exports = {
       console.log("✅ Lighthouse JSON extracted successfully:");
       console.log(`   Saved to: ${lighthouseJsonPath}`);
     } catch (error) {
-      // Use proper error reporting instead of just console.error
       utils.build.failPlugin("Error extracting Lighthouse JSON", { error });
     }
   },
