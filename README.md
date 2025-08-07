@@ -79,7 +79,7 @@ The application architecture follows modern React patterns with custom hooks for
 - **Cypress** - Modern end-to-end testing framework providing reliable browser automation and excellent debugging capabilities
 - **Lighthouse** - Automated performance, accessibility, and SEO auditing integrated into the CI/CD pipeline for continuous quality monitoring
 
-The testing strategy emphasizes user behavior over implementation details, with comprehensive scenarios covering timer functionality, user interactions, and edge cases. Cypress provides visual testing feedback and reliable cross-browser compatibility validation. Lighthouse ensures the application maintains high performance standards and accessibility compliance with every deployment.
+The testing strategy emphasises user behaviour over implementation details, with comprehensive scenarios covering timer functionality, user interactions, and edge cases. Cypress provides visual testing feedback and reliable cross-browser compatibility validation. Lighthouse ensures the application maintains high performance standards and accessibility compliance with every deployment.
 
 ### Infrastructure
 
@@ -87,7 +87,9 @@ The testing strategy emphasizes user behavior over implementation details, with 
 - **Netlify** - Serverless deployment platform with automatic builds, branch previews, and global CDN distribution for optimal performance
 - **Continuous Deployment** - Automated build and deployment pipeline triggered by git commits, including integrated testing and Lighthouse performance audits
 
-The infrastructure emphasizes automation and reliability with smart build optimization (only rebuilding when source files change), comprehensive test integration, and performance monitoring. The setup demonstrates modern DevOps practices with minimal maintenance overhead.
+The infrastructure emphasises automation and reliability with smart build optimisation (only rebuilding when source files change), comprehensive test integration, and performance monitoring. The setup demonstrates modern DevOps practices with minimal maintenance overhead.
+
+Netlify streamlines the deployment process by automatically triggering builds on pushes to the main branch and pull requests. Each pull request receives a preview deployment link within GitHub, enabling stakeholders to review changes before merging. The platform provides dynamically scaling hosting with global CDN distribution and optimised infrastructure, requiring minimal configuration or maintenance effort.
 
 ## Contact
 
