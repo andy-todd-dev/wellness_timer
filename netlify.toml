@@ -24,7 +24,7 @@ package = "@netlify/plugin-lighthouse"
 
 [plugins.inputs]
 fail_deploy_on_score_thresholds = "true"
-output_path = "lighthouse.html"
+output_path = "reports/lighthouse.html"
 [plugins.inputs.thresholds]
     performance = 0.5
     accessibility = 0.9

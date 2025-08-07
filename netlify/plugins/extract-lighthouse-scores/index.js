@@ -5,7 +5,6 @@ function extractLighthouseJSON(htmlContent) {
   console.log("🔍 Extracting Lighthouse JSON from dedicated script tag...");
 
   // Extract the first script tag that contains __LIGHTHOUSE_JSON__
-  // The script tag contains only: window.__LIGHTHOUSE_JSON__ = { ... };
   const scriptMatch = htmlContent.match(
     /<script[^>]*>\s*window\.__LIGHTHOUSE_JSON__\s*=\s*({[\s\S]*?});\s*<\/script>/
   );
@@ -46,7 +45,7 @@ module.exports = {
   onPostBuild: async ({ constants, inputs, utils }) => {
     try {
       // Get configuration from inputs with defaults
-      const outputPath = inputs.output_path || "lighthouse.json";
+      const outputPath = inputs.output_path || "reports/lighthouse.json";
       const allowedBranches = inputs.branch_filter
         ?.split(",")
         .map((b) => b.trim()) || ["main"];
@@ -65,7 +64,7 @@ module.exports = {
 
       const lighthouseHtmlPath = path.join(
         constants.PUBLISH_DIR,
-        "lighthouse.html"
+        "reports/lighthouse.html"
       );
       const lighthouseJsonPath = path.join(constants.PUBLISH_DIR, outputPath);
 
