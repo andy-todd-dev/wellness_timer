@@ -4,12 +4,12 @@ import useSound from "use-sound";
 import { useTimer } from "react-hook-time";
 import { Container } from "@mui/material";
 
-import timerFinishedSfx from "../sounds/bowl_1.flac";
+import timerFinishedSfx from "../../sounds/bowl_1.flac";
 
 import type { SxProps, Theme } from "@mui/material";
 import PlayPauseButton from "./PlayPauseButton";
 import { useWakeLock } from "react-screen-wake-lock";
-import Config from "../Config";
+import Config from "../../Config";
 import useLocalStorage from "use-local-storage";
 
 type WellnessTimerProps = {

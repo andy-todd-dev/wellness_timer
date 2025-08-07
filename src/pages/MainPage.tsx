@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AppBar, IconButton, Toolbar, useTheme } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import OptionsModal from "../OptionsModal";
-import WellnessTimer from "../wellnessTimer/WellnessTimer";
+import WellnessTimer from "../components/wellnessTimer/WellnessTimer";
 import {
   getParameter,
   parseBoolean,
