@@ -5,7 +5,7 @@
     <img src="src/images/lotus.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h1 align="center">Wellness Timer</h3>
+  <h1 align="center">Wellness Timer</h1>
 
   <p align="center">
     An elegant timer app to aid in meditation or other wellness practices
@@ -53,13 +53,13 @@ A live demonstration of the running application can be accessed here: https://we
 
 ### Development
 
-A local dev environment can be set up in minutes using the supplied DevContainer config and Dockerfile configuration. DevContainer plugins are available for most major IDEs (including Visual Studio Code and Intellij).
+A local development environment can be set up in minutes using the supplied DevContainer config and Dockerfile configuration. DevContainer plugins are available for most major IDEs (including Visual Studio Code and IntelliJ).
 
 #### Useful development commands
 
 - `npm start` - Start the dev server on port 3000
 - `npx cypress run` - Run the BDD test suite
-- `npm build` - Create a production build of the application
+- `npm run build` - Create a production build of the application
 
 ## Implementation notes
 
