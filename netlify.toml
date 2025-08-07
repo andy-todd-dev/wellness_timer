@@ -24,15 +24,13 @@ package = "@netlify/plugin-lighthouse"
 
 [plugins.inputs]
 fail_deploy_on_score_thresholds = "true"
+output_path = "lighthouse.html"
 [plugins.inputs.thresholds]
     performance = 0.5
     accessibility = 0.9
     "best-practices" = 0.9
     seo = 0.9
     pwa = 0.9
-
-[plugins.inputs.audits]
-    output_path = "lighthouse.html"
 
 # Extract Lighthouse scores to JSON after report generation
 [[plugins]]
