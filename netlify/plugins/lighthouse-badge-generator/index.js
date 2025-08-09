@@ -56,20 +56,28 @@ module.exports = {
       // Get configuration from inputs with defaults
       const outputDirectory = inputs.output_directory || "reports";
       const badgeFilenamePrefix = inputs.badge_filename_prefix || "lighthouse";
-      const allowedBranches = inputs.branch_filter
-        ?.split(",")
-        .map((b) => b.trim()) || ["main"];
+      const branchFilterRaw = inputs.branch_filter;
+      const allowAllBranches =
+        !branchFilterRaw || branchFilterRaw.trim() === "*";
 
-      // Only generate badges for specified branches
-      const currentBranch = process.env.BRANCH || process.env.HEAD;
+      if (!allowAllBranches) {
+        const allowedBranches = branchFilterRaw
+          .split(",")
+          .map((b) => b.trim())
+          .filter(Boolean);
 
-      if (!allowedBranches.includes(currentBranch)) {
-        console.log(
-          `🔍 Skipping Lighthouse badge generation for branch: ${currentBranch} (only runs on: ${allowedBranches.join(
-            ", "
-          )})`
-        );
-        return;
+        // Determine current branch (Netlify exposes both BRANCH & HEAD depending on context)
+        const currentBranch =
+          process.env.BRANCH || process.env.HEAD || process.env.CURRENT_BRANCH;
+
+        if (currentBranch && !allowedBranches.includes(currentBranch)) {
+          console.log(
+            `🔍 Skipping Lighthouse badge generation for branch: ${currentBranch} (allowed: ${
+              allowedBranches.join(", ") || "<none>"
+            })`
+          );
+          return;
+        }
       }
 
       // Build paths using the configured directory
@@ -87,7 +95,7 @@ module.exports = {
         return;
       }
 
-      console.log("🔍 Generating Lighthouse badges from HTML report...");
+      console.log("🔍 Generating Lighthouse badges JSON from HTML report...");
 
       // Read the HTML content
       const htmlContent = fs.readFileSync(lighthouseHtmlPath, "utf8");

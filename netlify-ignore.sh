@@ -4,8 +4,8 @@
 # Get list of changed files between HEAD and the last deployed commit
 CHANGED_FILES=$(git diff --name-only $CACHED_COMMIT_REF $COMMIT_REF)
 
-# Check if any changed file is in public/, src/, or tests/
-echo "$CHANGED_FILES" | grep -E '^(public/|src/|tests/|cypress/)' > /dev/null
+# Check if any changed file is in public/, src/, tests/ or netlify files
+echo "$CHANGED_FILES" | grep -E '^(public/|src/|tests/|cypress/|netlify)' > /dev/null
 if [ $? -eq 0 ]; then
   # There are changes in the watched directories, do not ignore build
   exit 1
