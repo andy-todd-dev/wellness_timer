@@ -1,9 +1,7 @@
 [![Deploy Status](https://api.netlify.com/api/v1/badges/12003f20-8161-4f15-957d-2bb7893625ee/deploy-status)](https://app.netlify.com/projects/wellness-timer/deploys) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Lighthouse Performance](https://img.shields.io/endpoint?url=https%3A%2F%2Fwellness-timer.netlify.app%2Freports%2Flighthouse-performance.json&style=flat&logoColor=white&logo=lighthouse)](https://wellness-timer.netlify.app/reports/lighthouse.html) [![Lighthouse Accessibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fwellness-timer.netlify.app%2Freports%2Flighthouse-accessibility.json&style=flat&logoColor=white&logo=lighthouse)](https://wellness-timer.netlify.app/reports/lighthouse.html) [![Lighthouse Best Practices](https://img.shields.io/endpoint?url=https%3A%2F%2Fwellness-timer.netlify.app%2Freports%2Flighthouse-best-practices.json&style=flat&logoColor=white&logo=lighthouse)](https://wellness-timer.netlify.app/reports/lighthouse.html) [![Lighthouse SEO](https://img.shields.io/endpoint?url=https%3A%2F%2Fwellness-timer.netlify.app%2Freports%2Flighthouse-seo.json&style=flat&logoColor=white&logo=lighthouse)](https://wellness-timer.netlify.app/reports/lighthouse.html)
 
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
     <img src="src/images/lotus.png" alt="Logo" width="80" height="80">
-  </a>
 
   <h1 align="center">Wellness Timer</h1>
 
