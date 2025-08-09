@@ -2,6 +2,10 @@ import { VitePWA } from "vite-plugin-pwa";
 
 const pwaManifest = VitePWA({
   registerType: "autoUpdate",
+  // Prevent SPA navigation fallback for generated Lighthouse report & badge JSON files.
+  workbox: {
+    navigateFallbackDenylist: [/^\/reports\//],
+  },
   manifest: {
     name: "Wellness Timer",
     short_name: "Timer",

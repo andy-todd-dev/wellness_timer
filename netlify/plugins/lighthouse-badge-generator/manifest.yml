@@ -9,6 +9,6 @@ inputs:
     required: false
     default: "lighthouse"
   - name: branch_filter
-    description: Comma-separated list of branches to run on
+    description: Comma-separated list of branches to run on (use '*' or leave blank for all branches)
     required: false
-    default: "main"
+    default: "*"
