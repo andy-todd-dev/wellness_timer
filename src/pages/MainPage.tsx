@@ -70,7 +70,6 @@ const MainPage = ({ updateCurrentThemeName }: MainPageProps) => {
             isOpen={optionsIsOpen}
             onClose={() => setOptionsIsOpen(false)}
             updateCurrentThemeName={updateCurrentThemeName || (() => {})}
-            currentThemeName={theme.name}
           >
             <IconButton
               sx={{ zIndex: "tooltip" }}
@@ -79,6 +78,7 @@ const MainPage = ({ updateCurrentThemeName }: MainPageProps) => {
                   setOptionsIsOpen(!optionsIsOpen);
                 }
               }}
+              aria-label="Open settings"
             >
               <SettingsIcon color="secondary" />
             </IconButton>
