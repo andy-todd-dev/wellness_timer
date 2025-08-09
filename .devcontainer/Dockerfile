@@ -15,6 +15,5 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     xvfb
 
 USER node
-RUN npm i -g wait-on
-RUN npm i -g netlify-cli
+RUN npm i -g netlify-cli@23.1.3
 RUN npx cypress install
