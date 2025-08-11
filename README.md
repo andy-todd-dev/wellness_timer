@@ -90,7 +90,3 @@ The infrastructure emphasises automation and reliability with smart build optimi
 Netlify streamlines the deployment process by automatically triggering builds on pushes to the main branch and pull requests. Each pull request receives a preview deployment link within GitHub, enabling stakeholders to review changes before merging. The platform provides dynamically scaling hosting with global CDN distribution and optimised infrastructure, requiring minimal configuration or maintenance effort.
 
 The Lighthouse performance badges visible at the top are automatically updated during each deployment via a custom plugin.
-
-## Contact
-
-Andrew Todd - contact@andytodd.dev
