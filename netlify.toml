@@ -5,11 +5,15 @@ functions = "netlify/functions"
 publish = "build"
 ignore = "./netlify-ignore.sh"
 
-
 [build.environment]
 CYPRESS_CACHE_FOLDER = "./node_modules/CypressBinary"
 TERM = "xterm"
 VITE_MT_EDIT_BUTTONS_ENABLED = "true"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
 
 [[plugins]]
 package = "netlify-plugin-cypress"
