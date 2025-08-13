@@ -16,11 +16,11 @@ const pwaManifest = VitePWA({
     screenshots: [
       {
         src: "screenshots/timer_screen_shot.webp",
-        sizes: "1080x2400",
+        sizes: "864x1656",
         type: "image/webp",
         form_factor: "narrow",
-        label: "Timer screen"
-      }
+        label: "Timer screen",
+      },
     ],
     icons: [
       {
