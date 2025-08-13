@@ -9,10 +9,19 @@ const pwaManifest = VitePWA({
   manifest: {
     name: "Wellness Timer",
     short_name: "Timer",
-    start_url: ".",
+    start_url: "/",
     display: "standalone",
     theme_color: "#000000",
     background_color: "#85B1FF",
+    screenshots: [
+      {
+        src: "screenshots/timer_screen_shot.webp",
+        sizes: "1080x2400",
+        type: "image/webp",
+        form_factor: "narrow",
+        label: "Timer screen"
+      }
+    ],
     icons: [
       {
         src: "lotus_x512.png",

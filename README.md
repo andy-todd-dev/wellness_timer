@@ -29,7 +29,7 @@
 ## About this project
 
 <div align="center">
-<img src="rm_images/timer_screen_shot.webp" height="500px" />
+<img src="/screenshots/timer_screen_shot.webp" height="500px" />
 </div>
 
 This codebase demonstrates good software development practices for a single page web application through a wellness timer with the following features:
