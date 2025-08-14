@@ -25,10 +25,10 @@ const auroraTheme = buildTheme({
   backgroundImage: auroraBackground,
   palette: {
     primary: {
-      main: "rgb(0, 0, 0, 0.87)",
+      main: "rgb(255, 255, 255, 0.87)",
     },
     secondary: {
-      main: "rgb(255, 255, 255, 0.87)",
+      main: "rgb(0, 0, 0, 0.87)",
     },
   },
 });

@@ -9,7 +9,7 @@ type ButtonAvatarProps = {
 } & Omit<React.ComponentProps<typeof Avatar>, "children">;
 
 const ButtonAvatar = ({ children, ...props }: ButtonAvatarProps) => (
-  <Avatar sx={{ bgcolor: (theme) => theme.palette.secondary.main }} {...props}>
+  <Avatar sx={{ bgcolor: "primary.main" }} {...props}>
     {children}
   </Avatar>
 );
@@ -30,7 +30,7 @@ const PlayPauseButton = ({
         {!isRunning && currentTime > 0 && (
           <ButtonAvatar>
             <Button onClick={onPlay} aria-label="Start timer">
-              <PlayArrowIcon fontSize="large" />
+              <PlayArrowIcon fontSize="large" color="secondary" />
             </Button>
           </ButtonAvatar>
         )}
