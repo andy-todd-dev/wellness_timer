@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { AppBar, IconButton, Toolbar, useTheme } from "@mui/material";
-import SettingsIcon from "@mui/icons-material/Settings";
-import OptionsModal from "../OptionsModal";
+import { useTheme } from "@mui/material";
 import WellnessTimer from "../components/wellnessTimer/WellnessTimer";
 import {
   getParameter,
@@ -9,6 +7,7 @@ import {
   parseDurationAsSeconds,
 } from "../requestParamsParsing";
 import { isTouchScreen } from "../detectTouchScreen";
+import TimerAppBar from "../components/TimerAppBar";
 
 const getInitialTimeParameter = (): number | undefined =>
   getParameter<number | undefined>(
@@ -35,8 +34,7 @@ interface MainPageProps {
 
 const MainPage = ({ updateCurrentThemeName }: MainPageProps) => {
   const theme = useTheme();
-  const [displayInfo, setDisplayInfo] = useState(true);
-  const [optionsIsOpen, setOptionsIsOpen] = useState(false);
+  const [showButtons, setShowButtons] = useState(true);
 
   const initialTimeFromParam = getInitialTimeParameter();
   const runningFromParam = getRunningParameter();
@@ -62,36 +60,17 @@ const MainPage = ({ updateCurrentThemeName }: MainPageProps) => {
         backgroundAttachment: "fixed",
       }}
     >
-      <AppBar color="transparent" elevation={0} sx={{ justifySelf: "start" }}>
-        <Toolbar>
-          <div style={{ flexGrow: 1 }} />
-
-          <OptionsModal
-            isOpen={optionsIsOpen}
-            onClose={() => setOptionsIsOpen(false)}
-            updateCurrentThemeName={updateCurrentThemeName || (() => {})}
-          >
-            <IconButton
-              sx={{ zIndex: "tooltip" }}
-              onClick={() => {
-                if (displayInfo) {
-                  setOptionsIsOpen(!optionsIsOpen);
-                }
-              }}
-              aria-label="Open settings"
-            >
-              <SettingsIcon color="secondary" />
-            </IconButton>
-          </OptionsModal>
-        </Toolbar>
-      </AppBar>
+      <TimerAppBar
+        updateCurrentThemeName={updateCurrentThemeName}
+        showButtons={showButtons}
+      />
 
       <WellnessTimer
         onPlay={() => {
-          setDisplayInfo(false);
+          setShowButtons(false);
         }}
         onReset={() => {
-          setDisplayInfo(true);
+          setShowButtons(true);
         }}
         initialTime={initialTimeFromParam}
         autorun={runningFromParam}

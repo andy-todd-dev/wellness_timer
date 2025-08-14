@@ -28,27 +28,6 @@ div.timerButtons {
   height: clamp(60px, max(15vh, 20vw), 120px);
 }
 
-.buttonGroup .MuiButton-root {
-  background-color: transparent !important;
-}
-
-.buttonGroup .MuiButton-root:hover {
-  background-color: transparent !important;
-}
-
-.buttonGroup .MuiSvgIcon-root {
-  opacity: 0.75;
-  transition: opacity 0.2s ease;
-}
-
-.buttonGroup .MuiAvatar-root:hover .MuiSvgIcon-root {
-  opacity: 1;
-}
-
-.buttonGroup path {
-  fill: black;
-}
-
 .devDataButton {
   padding-top: 15px;
 }
