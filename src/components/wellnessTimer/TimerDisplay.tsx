@@ -8,7 +8,7 @@ type TimerDisplayProps = {
   enableSwipeToUpdate: boolean;
   enableButtonsToUpdate: boolean;
   showToolTip: boolean;
-  onToolTipClose?: () => void;
+  onDigitClick?: () => void;
   onDurationChange?: (newDuration: number) => void;
   showResetButton?: boolean;
   onReset?: () => void;
@@ -19,7 +19,7 @@ const TimerDisplay = ({
   enableSwipeToUpdate,
   enableButtonsToUpdate,
   showToolTip,
-  onToolTipClose,
+  onDigitClick,
   onDurationChange,
   showResetButton,
   onReset,
@@ -134,8 +134,8 @@ const TimerDisplay = ({
       <Tooltip
         title="Swipe up/down to adjust time"
         open={showToolTip}
-        onClick={onToolTipClose}
-        onClose={onToolTipClose}
+        onClick={onDigitClick}
+        onClose={onDigitClick}
         arrow
         placement="top"
         componentsProps={{
@@ -185,7 +185,7 @@ const TimerDisplay = ({
               position: "relative",
               zIndex: 1,
             }}
-            onClick={showToolTip ? onToolTipClose : undefined}
+            onClick={showToolTip ? onDigitClick : undefined}
           >
             {value}
           </span>
