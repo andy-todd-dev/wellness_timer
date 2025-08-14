@@ -16,7 +16,7 @@ const pwaManifest = VitePWA({
     screenshots: [
       {
         src: "screenshots/timer_screen_shot.webp",
-        sizes: "864x1656",
+        sizes: "864x1664",
         type: "image/webp",
         form_factor: "narrow",
         label: "Timer screen",
