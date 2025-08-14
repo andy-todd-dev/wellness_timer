@@ -4,7 +4,8 @@ import Toolbar from "@mui/material/Toolbar";
 import React, { useEffect, useState } from "react";
 import OptionsModal from "../OptionsModal";
 import SettingsIcon from "@mui/icons-material/Settings";
-import GetAppIcon from "@mui/icons-material/GetApp";
+import { isTouchScreen } from "../detectTouchScreen";
+import { InstallDesktop, InstallMobile } from "@mui/icons-material";
 
 interface TimerAppBarProps {
   updateCurrentThemeName?: (themeName: string) => void;
@@ -66,14 +67,19 @@ const TimerAppBar: React.FC<TimerAppBarProps> = ({
       <Toolbar>
         <div style={{ flexGrow: 1 }} />
 
-        {showButtons && canInstall && deferredInstallPrompt && (
+        {showButtons && (
+          // {showButtons && canInstall && deferredInstallPrompt && (
           <IconButton
             sx={{ zIndex: "tooltip", mr: 1 }}
             onClick={handleInstallClick}
             aria-label="Install app"
             title="Install app"
           >
-            <GetAppIcon color="primary" />
+            {isTouchScreen ? (
+              <InstallMobile color="primary" />
+            ) : (
+              <InstallDesktop color="primary" />
+            )}
           </IconButton>
         )}
 
