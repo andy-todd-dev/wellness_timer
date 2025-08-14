@@ -37,7 +37,7 @@ const PlayPauseButton = ({
         {isRunning && (
           <ButtonAvatar>
             <Button onClick={onPause} aria-label="Pause timer">
-              <PauseIcon fontSize="large" />
+              <PauseIcon fontSize="large" color="secondary" />
             </Button>
           </ButtonAvatar>
         )}

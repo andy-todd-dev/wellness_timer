@@ -15,6 +15,7 @@ import useLocalStorage from "use-local-storage";
 type WellnessTimerProps = {
   onPlay?: () => void;
   onReset?: () => void;
+  onPause?: () => void;
   sx?: SxProps<Theme>;
   initialTime?: number;
   autorun?: boolean;
@@ -26,6 +27,7 @@ type WellnessTimerProps = {
 const WellnessTimer = ({
   onPlay,
   onReset,
+  onPause,
   sx,
   initialTime = Config.meditationTimer.defaultTimerSeconds,
   autorun = false,
@@ -98,8 +100,8 @@ const WellnessTimer = ({
     <Container className="meditation-timer" sx={sx}>
       <TimerDisplay
         duration={currentTime}
-        enableSwipeToUpdate={enableSwipeToUpdate}
-        enableButtonsToUpdate={enableButtonsToUpdate}
+        enableSwipeToUpdate={enableSwipeToUpdate && isStopped}
+        enableButtonsToUpdate={enableButtonsToUpdate && isStopped}
         onDurationChange={(newDuration: number) => {
           if (isStopped && currentTime > 0) {
             handleTimerDisplayChange(newDuration);
@@ -120,8 +122,12 @@ const WellnessTimer = ({
       <PlayPauseButton
         currentTime={currentTime}
         isRunning={isRunning}
-        onPlay={startTimer}
+        onPlay={() => {
+          onPlay && onPlay();
+          startTimer();
+        }}
         onPause={() => {
+          onPause && onPause();
           pause();
           releaseWakeLock();
         }}
