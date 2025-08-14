@@ -67,8 +67,7 @@ const TimerAppBar: React.FC<TimerAppBarProps> = ({
       <Toolbar>
         <div style={{ flexGrow: 1 }} />
 
-        {showButtons && (
-          // {showButtons && canInstall && deferredInstallPrompt && (
+        {showButtons && canInstall && deferredInstallPrompt && (
           <IconButton
             sx={{ zIndex: "tooltip", mr: 1 }}
             onClick={handleInstallClick}
