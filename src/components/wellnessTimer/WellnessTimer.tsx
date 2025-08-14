@@ -100,11 +100,14 @@ const WellnessTimer = ({
         duration={currentTime}
         enableSwipeToUpdate={enableSwipeToUpdate}
         enableButtonsToUpdate={enableButtonsToUpdate}
-        onDurationChange={
-          isStopped && currentTime > 0 ? handleTimerDisplayChange : undefined
-        }
+        onDurationChange={(newDuration: number) => {
+          if (isStopped && currentTime > 0) {
+            handleTimerDisplayChange(newDuration);
+          }
+          setToolTipAlreadySeen(true);
+        }}
         showToolTip={showToolTip}
-        onToolTipClose={() => {
+        onDigitClick={() => {
           setToolTipAlreadySeen(true);
         }}
         showResetButton={isPaused || (isStopped && currentTime === 0)}
