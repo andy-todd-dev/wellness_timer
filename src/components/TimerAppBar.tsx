@@ -46,14 +46,12 @@ const TimerAppBar: React.FC<TimerAppBarProps> = ({
     };
   }, []);
 
-  const handleInstallClick = async (installPrompt: {
-    prompt: () => void;
-    userChoice: Promise<any>;
-  }) => {
+  const handleInstallClick = async () => {
+    if (!deferredInstallPrompt) return;
     try {
-      installPrompt.prompt();
+      deferredInstallPrompt.prompt();
       // Wait for the user's choice
-      await installPrompt.userChoice;
+      await deferredInstallPrompt.userChoice;
     } catch (err) {
       // ignore errors from prompt
     } finally {
@@ -71,7 +69,7 @@ const TimerAppBar: React.FC<TimerAppBarProps> = ({
         {showButtons && canInstall && deferredInstallPrompt && (
           <IconButton
             sx={{ zIndex: "tooltip", mr: 1 }}
-            onClick={() => handleInstallClick(deferredInstallPrompt)}
+            onClick={handleInstallClick}
             aria-label="Install app"
             title="Install app"
           >
