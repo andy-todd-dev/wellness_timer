@@ -16,7 +16,7 @@ export default defineConfig({
         "file:preprocessor",
         createBundler({
           plugins: [createEsbuildPlugin(config)],
-        })
+        }),
       );
       return config;
     },
