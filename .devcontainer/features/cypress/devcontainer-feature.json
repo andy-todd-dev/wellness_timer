@@ -1,0 +1,17 @@
+{
+  "name": "Cypress",
+  "id": "cypress",
+  "version": "1.0.0",
+  "description": "Installs Cypress for end-to-end testing.",
+  "dependsOn": {
+    "ghcr.io/devcontainers/features/node:1": {}
+  },
+  "options": {
+    "version": {
+      "type": "string",
+      "proposals": ["latest"],
+      "default": "latest",
+      "description": "Select or enter a Cypress version."
+    }
+  }
+}

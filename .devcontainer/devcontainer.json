@@ -1,17 +1,21 @@
 {
   "name": "Node.js",
-  // "image": "ghcr.io/andy-todd-dev/wellness_timer:latest",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "args": { "VARIANT": "22-bullseye" }
+  "image": "mcr.microsoft.com/devcontainers/base:trixie",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "24"
+    },
+    "ghcr.io/devcontainers-extra/features/netlify-cli:1": {},
+    // "ghcr.io/schlich/devcontainer-features/cypress:1": {}
+    "./features/cypress": {}
   },
+  "forwardPorts": [3000],
 
   "customizations": {
     "vscode": {
       "extensions": [
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
-        "seunlanlege.action-buttons",
         "alexkrechik.cucumberautocomplete",
         "tamasfe.even-better-toml"
       ],
@@ -22,12 +26,7 @@
     }
   },
 
-  "remoteUser": "node",
   "remoteEnv": {
     "VITE_MT_EDIT_BUTTONS_ENABLED": "true"
-  },
-  "features": {
-    "git": "os-provided",
-    "github-cli": "latest"
   }
 }
