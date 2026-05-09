@@ -16,7 +16,7 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/material";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import Config from "./Config";
@@ -46,22 +46,24 @@ const OptionsModal = ({
         anchor="bottom"
         open={isOpen}
         onClose={onClose}
-        PaperProps={{
-          sx: {
-            height: "auto",
-            maxHeight: "clamp(420px, 75dvh, 800px)",
-            width: "100%",
-            top: "auto",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            margin: 0,
-            borderTopLeftRadius: 16,
-            borderTopRightRadius: 16,
-            backgroundColor: "#ffffff",
-            backdropFilter: "blur(20px)",
-            display: "flex",
-            flexDirection: "column",
+        slotProps={{
+          paper: {
+            sx: {
+              height: "auto",
+              maxHeight: "clamp(420px, 75dvh, 800px)",
+              width: "100%",
+              top: "auto",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              margin: 0,
+              borderTopLeftRadius: 16,
+              borderTopRightRadius: 16,
+              backgroundColor: "#ffffff",
+              backdropFilter: "blur(20px)",
+              display: "flex",
+              flexDirection: "column",
+            },
           },
         }}
       >
@@ -273,7 +275,7 @@ const OptionsModal = ({
                         }}
                       >
                         {wakeLockIsSupported ? (
-                          <CheckCircleOutlineIcon
+                          <CheckCircleOutlinedIcon
                             fontSize="small"
                             color="success"
                             role="img"
