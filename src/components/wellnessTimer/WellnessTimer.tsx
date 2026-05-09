@@ -4,13 +4,15 @@ import useSound from "use-sound";
 import { useTimer } from "react-hook-time";
 import { Container } from "@mui/material";
 
-import timerFinishedSfx from "../../sounds/bowl_1.flac";
+import timerFinishedSfx from "../../sounds/bowl.flac";
+import gongSfx from "../../sounds/gong.mp3";
 
 import type { SxProps, Theme } from "@mui/material";
 import PlayPauseButton from "./PlayPauseButton";
 import { useWakeLock } from "react-screen-wake-lock";
 import Config from "../../Config";
 import useLocalStorage from "use-local-storage";
+import { SoundKey, DEFAULT_SOUND } from "../../sounds";
 
 type WellnessTimerProps = {
   onPlay?: () => void;
@@ -22,6 +24,7 @@ type WellnessTimerProps = {
   enableSwipeToUpdate: boolean;
   enableButtonsToUpdate: boolean;
   forceNoToolTip?: boolean;
+  sound?: SoundKey;
 };
 
 const WellnessTimer = ({
@@ -34,12 +37,15 @@ const WellnessTimer = ({
   enableSwipeToUpdate,
   enableButtonsToUpdate,
   forceNoToolTip = false,
+  sound = DEFAULT_SOUND,
 }: WellnessTimerProps) => {
   const { release: releaseWakeLock, request: acquireWakeLock } = useWakeLock();
-  const [play] = useSound(timerFinishedSfx);
+  const [playBowl] = useSound(timerFinishedSfx);
+  const [playGong] = useSound(gongSfx);
+  const play = sound === "gong" ? playGong : playBowl;
   const [toolTipAlreadySeen, setToolTipAlreadySeen] = useLocalStorage(
     "toolTipAlreadySeen",
-    false
+    false,
   );
   const showToolTip =
     !forceNoToolTip && !toolTipAlreadySeen && enableSwipeToUpdate;
@@ -69,7 +75,7 @@ const WellnessTimer = ({
         setIsPaused(false);
         setIsStopped(true);
       },
-    }
+    },
   );
 
   useEffect(() => {
@@ -91,7 +97,7 @@ const WellnessTimer = ({
   const handleTimerDisplayChange = (newDuration: number) => {
     const clampedDuration = Math.min(
       Math.max(newDuration, Config.meditationTimer.minimumTimerSeconds),
-      Config.meditationTimer.maximumTimerSeconds
+      Config.meditationTimer.maximumTimerSeconds,
     );
     setCurrentInitialTime(clampedDuration);
   };

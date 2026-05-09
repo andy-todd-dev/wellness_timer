@@ -8,12 +8,13 @@ import {
 } from "../requestParamsParsing";
 import { isTouchScreen } from "../detectTouchScreen";
 import TimerAppBar from "../components/TimerAppBar";
+import { SoundKey } from "../sounds";
 
 const getInitialTimeParameter = (): number | undefined =>
   getParameter<number | undefined>(
     parseDurationAsSeconds,
     "initialTime",
-    undefined
+    undefined,
   );
 
 const getRunningParameter = (): boolean =>
@@ -30,9 +31,15 @@ const getForceNoToolTipParameter = (): boolean =>
 
 interface MainPageProps {
   updateCurrentThemeName: (themeName: string) => void;
+  updateCurrentSound: (sound: SoundKey) => void;
+  currentSound: SoundKey;
 }
 
-const MainPage = ({ updateCurrentThemeName }: MainPageProps) => {
+const MainPage = ({
+  updateCurrentThemeName,
+  updateCurrentSound,
+  currentSound,
+}: MainPageProps) => {
   const theme = useTheme();
   const [showButtons, setShowButtons] = useState(true);
 
@@ -62,6 +69,8 @@ const MainPage = ({ updateCurrentThemeName }: MainPageProps) => {
     >
       <TimerAppBar
         updateCurrentThemeName={updateCurrentThemeName}
+        updateCurrentSound={updateCurrentSound}
+        currentSound={currentSound}
         showButtons={showButtons}
       />
 
@@ -78,6 +87,7 @@ const MainPage = ({ updateCurrentThemeName }: MainPageProps) => {
         enableSwipeToUpdate={enableSwipeToUpdate}
         enableButtonsToUpdate={enableButtonsToUpdate}
         forceNoToolTip={forceNoToolTip}
+        sound={currentSound}
       />
     </div>
   );

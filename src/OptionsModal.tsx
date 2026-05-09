@@ -21,12 +21,15 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import Config from "./Config";
 import { allThemes } from "./themes";
+import { SoundKey, soundLabels } from "./sounds";
 import lotus from "./images/lotus.png";
 
 type OptionsModalProps = {
   children: ReactNode;
   isOpen: boolean;
   updateCurrentThemeName: (theme: string) => void;
+  updateCurrentSound: (sound: SoundKey) => void;
+  currentSound: SoundKey;
   onClose: () => void;
 };
 
@@ -35,6 +38,8 @@ const OptionsModal = ({
   isOpen,
   onClose,
   updateCurrentThemeName,
+  updateCurrentSound,
+  currentSound,
 }: OptionsModalProps) => {
   const { isSupported: wakeLockIsSupported } = useWakeLock();
   const currentTheme = useTheme();
@@ -171,6 +176,51 @@ const OptionsModal = ({
                             {theme.name}
                           </MenuItem>
                         ))}
+                    </Select>
+                  </FormControl>
+                </CardContent>
+              </Card>
+
+              {/* Sound Card */}
+              <Card
+                variant="outlined"
+                component="section"
+                aria-labelledby="sound-heading"
+                sx={{
+                  animation: "fadeSlide 520ms ease-out both",
+                  animationDelay: "30ms",
+                  borderRadius: 2,
+                }}
+              >
+                <CardContent sx={{ pt: 2.5, pb: 2.25 }}>
+                  <Typography
+                    id="sound-heading"
+                    variant="overline"
+                    sx={{
+                      display: "block",
+                      mb: 1,
+                      letterSpacing: 1,
+                      opacity: 0.8,
+                    }}
+                  >
+                    Sound
+                  </Typography>
+                  <FormControl fullWidth size="small">
+                    <InputLabel id="sound-select-label">Timer Sound</InputLabel>
+                    <Select
+                      labelId="sound-select-label"
+                      id="sound-select"
+                      value={currentSound}
+                      label="Timer Sound"
+                      onChange={(event) =>
+                        updateCurrentSound(event.target.value as SoundKey)
+                      }
+                    >
+                      {(Object.keys(soundLabels) as SoundKey[]).map((key) => (
+                        <MenuItem key={key} value={key}>
+                          {soundLabels[key]}
+                        </MenuItem>
+                      ))}
                     </Select>
                   </FormControl>
                 </CardContent>
