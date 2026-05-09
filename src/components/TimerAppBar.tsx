@@ -6,14 +6,19 @@ import OptionsModal from "../OptionsModal";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { isTouchScreen } from "../detectTouchScreen";
 import { InstallDesktop, InstallMobile } from "@mui/icons-material";
+import { SoundKey, DEFAULT_SOUND } from "../sounds";
 
 interface TimerAppBarProps {
   updateCurrentThemeName?: (themeName: string) => void;
+  updateCurrentSound?: (sound: SoundKey) => void;
+  currentSound?: SoundKey;
   showButtons: boolean;
 }
 
 const TimerAppBar: React.FC<TimerAppBarProps> = ({
   updateCurrentThemeName,
+  updateCurrentSound,
+  currentSound = DEFAULT_SOUND,
   showButtons,
 }) => {
   const [optionsIsOpen, setOptionsIsOpen] = useState(false);
@@ -38,11 +43,11 @@ const TimerAppBar: React.FC<TimerAppBarProps> = ({
     return () => {
       window.removeEventListener(
         "beforeinstallprompt",
-        onBeforeInstallPrompt as EventListener
+        onBeforeInstallPrompt as EventListener,
       );
       window.removeEventListener(
         "appinstalled",
-        onAppInstalled as EventListener
+        onAppInstalled as EventListener,
       );
     };
   }, []);
@@ -86,6 +91,8 @@ const TimerAppBar: React.FC<TimerAppBarProps> = ({
           isOpen={optionsIsOpen}
           onClose={() => setOptionsIsOpen(false)}
           updateCurrentThemeName={updateCurrentThemeName || (() => {})}
+          updateCurrentSound={updateCurrentSound || (() => {})}
+          currentSound={currentSound}
         >
           {showButtons && (
             <IconButton
